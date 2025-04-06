@@ -1,0 +1,3 @@
+2025-01-28T17:56:25.889Z INFO  [sylph::contain] Obtaining sketches...
+/var/spool/slurm/d/job6464655/slurm_script : ligne 2 : 158406 Processus arrêté      ~/.cargo/bin/sylph profile gtdb-r220-c200-dbv1.syldb 2025_01_24_exp_01/barcode05/fastq_files/barcode05.fastq > profiling.tsv
+slurmstepd: error: Detected 1 oom-kill event(s) in StepId=6464655.batch cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.

@@ -1,0 +1,3 @@
+ 3962  cp ../plot_nuc_freq.py ../trimm_polyA.py
+ 3977  python ../trimm_polyA.py -i ./sample_1_porechopped_ONT_TSO2.fastq -v 10
+ 3984  history |grep "../trimm_polyA.py" | tail -n 20 > temp_history_trimmtail.txt

@@ -1,0 +1,90 @@
+[M::mm_idx_gen::220.142*0.83] collected minimizers
+[M::mm_idx_gen::228.161*1.30] sorted minimizers
+[M::main::228.162*1.30] loaded/built the index for 51 target sequence(s)
+[M::mm_mapopt_update::231.193*1.29] mid_occ = 1003
+[M::mm_idx_stat] kmer size: 15; skip: 10; is_hpc: 0; #seq: 51
+[M::mm_idx_stat::233.548*1.29] distinct minimizers: 129001742 (33.00% are singletons); average occurrences: 8.171; average spacing: 5.520; total length: 5819258962
+[M::worker_pipeline::252.143*1.35] mapped 433289 sequences
+[M::main] Version: 2.28-r1209
+[M::main] CMD: minimap2 -ax map-ont -t 20 ../../Data/references/multirefv3.fa ../../Data/EXP250124_1/trimmed_fastq/barcode01_porechopped.fastq
+[M::main] Real time: 252.628 sec; CPU: 340.065 sec; Peak RSS: 20.827 GB
+[M::mm_idx_gen::103.029*1.62] collected minimizers
+[M::mm_idx_gen::109.671*2.37] sorted minimizers
+[M::main::109.672*2.37] loaded/built the index for 51 target sequence(s)
+[M::mm_mapopt_update::113.191*2.33] mid_occ = 1003
+[M::mm_idx_stat] kmer size: 15; skip: 10; is_hpc: 0; #seq: 51
+[M::mm_idx_stat::116.265*2.29] distinct minimizers: 129001742 (33.00% are singletons); average occurrences: 8.171; average spacing: 5.520; total length: 5819258962
+[M::worker_pipeline::128.298*2.29] mapped 341924 sequences
+[M::main] Version: 2.28-r1209
+[M::main] CMD: minimap2 -ax map-ont -t 20 ../../Data/references/multirefv3.fa ../../Data/EXP250124_1/trimmed_fastq/barcode02_porechopped.fastq
+[M::main] Real time: 129.025 sec; CPU: 293.946 sec; Peak RSS: 20.838 GB
+[M::mm_idx_gen::103.121*1.66] collected minimizers
+[M::mm_idx_gen::110.856*2.51] sorted minimizers
+[M::main::110.857*2.51] loaded/built the index for 51 target sequence(s)
+[M::mm_mapopt_update::114.079*2.46] mid_occ = 1003
+[M::mm_idx_stat] kmer size: 15; skip: 10; is_hpc: 0; #seq: 51
+[M::mm_idx_stat::116.251*2.44] distinct minimizers: 129001742 (33.00% are singletons); average occurrences: 8.171; average spacing: 5.520; total length: 5819258962
+[M::worker_pipeline::249.577*5.40] mapped 236870 sequences
+[M::worker_pipeline::332.701*7.24] mapped 239753 sequences
+[M::worker_pipeline::406.290*8.74] mapped 241877 sequences
+[M::worker_pipeline::430.431*9.27] mapped 142327 sequences
+[M::main] Version: 2.28-r1209
+[M::main] CMD: minimap2 -ax map-ont -t 20 ../../Data/references/multirefv3.fa ../../Data/EXP250124_1/trimmed_fastq/barcode03_porechopped.fastq
+[M::main] Real time: 430.802 sec; CPU: 3990.326 sec; Peak RSS: 21.457 GB
+[M::mm_idx_gen::103.159*1.61] collected minimizers
+[M::mm_idx_gen::109.656*2.36] sorted minimizers
+[M::main::109.662*2.36] loaded/built the index for 51 target sequence(s)
+[M::mm_mapopt_update::112.409*2.32] mid_occ = 1003
+[M::mm_idx_stat] kmer size: 15; skip: 10; is_hpc: 0; #seq: 51
+[M::mm_idx_stat::114.513*2.30] distinct minimizers: 129001742 (33.00% are singletons); average occurrences: 8.171; average spacing: 5.520; total length: 5819258962
+[M::worker_pipeline::200.548*5.39] mapped 228116 sequences
+[M::main] Version: 2.28-r1209
+[M::main] CMD: minimap2 -ax map-ont -t 20 ../../Data/references/multirefv3.fa ../../Data/EXP250124_1/trimmed_fastq/barcode04_porechopped.fastq
+[M::main] Real time: 201.153 sec; CPU: 1082.380 sec; Peak RSS: 20.829 GB
+[M::mm_idx_gen::102.537*1.62] collected minimizers
+[M::mm_idx_gen::109.290*2.40] sorted minimizers
+[M::main::109.291*2.40] loaded/built the index for 51 target sequence(s)
+[M::mm_mapopt_update::113.307*2.35] mid_occ = 1003
+[M::mm_idx_stat] kmer size: 15; skip: 10; is_hpc: 0; #seq: 51
+[M::mm_idx_stat::115.421*2.32] distinct minimizers: 129001742 (33.00% are singletons); average occurrences: 8.171; average spacing: 5.520; total length: 5819258962
+[M::worker_pipeline::120.983*2.39] mapped 208179 sequences
+[M::main] Version: 2.28-r1209
+[M::main] CMD: minimap2 -ax map-ont -t 20 ../../Data/references/multirefv3.fa ../../Data/EXP250124_1/trimmed_fastq/barcode05_porechopped.fastq
+[M::main] Real time: 121.463 sec; CPU: 289.361 sec; Peak RSS: 20.835 GB
+[M::mm_idx_gen::103.598*1.62] collected minimizers
+[M::mm_idx_gen::111.059*2.44] sorted minimizers
+[M::main::111.059*2.44] loaded/built the index for 51 target sequence(s)
+[M::mm_mapopt_update::113.979*2.40] mid_occ = 1003
+[M::mm_idx_stat] kmer size: 15; skip: 10; is_hpc: 0; #seq: 51
+[M::mm_idx_stat::116.231*2.37] distinct minimizers: 129001742 (33.00% are singletons); average occurrences: 8.171; average spacing: 5.520; total length: 5819258962
+[M::worker_pipeline::233.416*6.26] mapped 244473 sequences
+[M::worker_pipeline::284.918*8.47] mapped 245377 sequences
+[M::worker_pipeline::341.954*10.15] mapped 248386 sequences
+[M::worker_pipeline::407.362*11.12] mapped 250961 sequences
+[M::worker_pipeline::492.631*11.34] mapped 249101 sequences
+[M::worker_pipeline::554.905*12.08] mapped 246389 sequences
+[M::worker_pipeline::573.646*12.26] mapped 134276 sequences
+[M::main] Version: 2.28-r1209
+[M::main] CMD: minimap2 -ax map-ont -t 20 ../../Data/references/multirefv3.fa ../../Data/EXP250124_1/trimmed_fastq/barcode06_porechopped.fastq
+[M::main] Real time: 574.187 sec; CPU: 7035.411 sec; Peak RSS: 21.408 GB
+[M::mm_idx_gen::103.917*1.63] collected minimizers
+[M::mm_idx_gen::111.202*2.41] sorted minimizers
+[M::main::111.203*2.41] loaded/built the index for 51 target sequence(s)
+[M::mm_mapopt_update::114.176*2.37] mid_occ = 1003
+[M::mm_idx_stat] kmer size: 15; skip: 10; is_hpc: 0; #seq: 51
+[M::mm_idx_stat::116.332*2.35] distinct minimizers: 129001742 (33.00% are singletons); average occurrences: 8.171; average spacing: 5.520; total length: 5819258962
+[M::worker_pipeline::117.901*2.38] mapped 6852 sequences
+[M::main] Version: 2.28-r1209
+[M::main] CMD: minimap2 -ax map-ont -t 20 ../../Data/references/multirefv3.fa ../../Data/EXP250124_1/trimmed_fastq/barcode07_porechopped.fastq
+[M::main] Real time: 118.285 sec; CPU: 281.510 sec; Peak RSS: 20.841 GB
+[M::mm_idx_gen::103.540*1.61] collected minimizers
+[M::mm_idx_gen::110.176*2.35] sorted minimizers
+[M::main::110.177*2.35] loaded/built the index for 51 target sequence(s)
+[M::mm_mapopt_update::112.945*2.32] mid_occ = 1003
+[M::mm_idx_stat] kmer size: 15; skip: 10; is_hpc: 0; #seq: 51
+[M::mm_idx_stat::115.180*2.29] distinct minimizers: 129001742 (33.00% are singletons); average occurrences: 8.171; average spacing: 5.520; total length: 5819258962
+[M::worker_pipeline::257.424*6.38] mapped 484573 sequences
+[M::worker_pipeline::300.268*7.66] mapped 235846 sequences
+[M::main] Version: 2.28-r1209
+[M::main] CMD: minimap2 -ax map-ont -t 20 ../../Data/references/multirefv3.fa ../../Data/EXP250124_1/trimmed_fastq/unclassified_porechopped.fastq
+[M::main] Real time: 300.834 sec; CPU: 2299.405 sec; Peak RSS: 25.196 GB

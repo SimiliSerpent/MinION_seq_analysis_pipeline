@@ -1,0 +1,8 @@
+ 3943  ./Porechop_ONT/porechop-runner.py --verbosity 1 --threads 20 --min_split_read_size 200 --extra_end_trim 0 -i ../../../Data/EXP000000_0/raw_fastq/sample_1.fastq -o ./sample_1_porechopped_ONT.fastq
+ 3944  ./Porechop_TSO/porechop-runner.py --verbosity 1 --threads 20 --no_split --extra_end_trim 0 -i ./sample_1_porechopped_ONT.fastq -o ./sample_1_porechopped_ONT_TSO.fastq
+ 3947  ./Porechop_TSO/porechop-runner.py --verbosity 1 --threads 20 --no_split --extra_end_trim 9 -i ./sample_1_porechopped_ONT.fastq -o ./sample_1_porechopped_ONT_TSO.fastq
+ 3955  ./Porechop_ONT/porechop-runner.py --verbosity 1 --threads 20 --no_split --extra_end_trim 0 -i ./sample_1_porechopped_ONT_TSO..fastq -o ./sample_1_porechopped_ONT_TSO_2.fastq
+ 3956  ./Porechop_ONT/porechop-runner.py --verbosity 1 --threads 20 --no_split --extra_end_trim 0 -i ./sample_1_porechopped_ONT_TSO.fastq -o ./sample_1_porechopped_ONT_TSO_2.fastq
+ 3959  ./Porechop_ONT/porechop-runner.py --verbosity 1 --threads 20 --min_split_read_size 200 --extra_end_trim 0 --end_size 200 -i ../../../Data/EXP000000_0/raw_fastq/sample_1.fastq -o ./sample_1_porechopped_ONT2.fastq
+ 3960  ./Porechop_TSO/porechop-runner.py --verbosity 1 --threads 20 --no_split --extra_end_trim 9 -i ./sample_1_porechopped_ONT2.fastq -o ./sample_1_porechopped_ONT_TSO2.fastq
+ 3983  history |grep "./Porechop_" | tail -n 20 > temp_history.txt

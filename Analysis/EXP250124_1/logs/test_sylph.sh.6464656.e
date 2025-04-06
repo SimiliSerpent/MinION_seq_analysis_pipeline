@@ -1,0 +1,6 @@
+2025-01-28T17:58:05.028Z INFO  [sylph::contain] Obtaining sketches...
+2025-01-28T17:59:08.439Z INFO  [sylph::contain] Finished obtaining genome sketches.
+2025-01-28T17:59:17.742Z INFO  [sylph::contain] 2025_01_24_exp_01/barcode05/fastq_files/barcode05.fastq taxonomic profiling; reassigning k-mers for 0 genomes...
+2025-01-28T17:59:17.743Z INFO  [sylph::contain] 2025_01_24_exp_01/barcode05/fastq_files/barcode05.fastq has 0 genomes passing profiling threshold. 
+2025-01-28T17:59:17.743Z INFO  [sylph::contain] Finished sample 2025_01_24_exp_01/barcode05/fastq_files/barcode05.fastq.
+2025-01-28T17:59:17.743Z INFO  [sylph::contain] sylph finished.
