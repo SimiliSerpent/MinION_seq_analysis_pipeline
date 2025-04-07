@@ -7,4 +7,4 @@ module load snakemake
 
 . ./set_config.sh
 
-snakemake -np --filegraph --forceall | dot -Tsvg > dag.svg
+snakemake -np --filegraph --forceall --snakefile Snakefile.py | dot -Tsvg > dag.svg

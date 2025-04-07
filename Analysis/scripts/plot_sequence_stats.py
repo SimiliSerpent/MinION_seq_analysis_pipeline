@@ -146,10 +146,10 @@ def main():
                              + trim_state + '.pkl'
             qual_df = pd.read_pickle(stored_df_path)
 
-            if not sampled: # TODO: remove if statement
-                inds = list(qual_df.sample(1500).index)
-                sampled = True
-            qual_df = qual_df[qual_df.index.isin(inds)]
+            # if not sampled: # TODO: remove if statement
+            #     inds = list(qual_df.sample(1500).index)
+            #     sampled = True
+            # qual_df = qual_df[qual_df.index.isin(inds)]
 
             # Plot the quality versus read length
             ax_id = sample_ind * nb_trim_states + trim_state_ind

@@ -83,10 +83,10 @@ rule computing_fastqc:
     output:
         html = analysis_path + '/fastqc/{sample}_fastqc.html',
         zip = analysis_path + '/fastqc/{sample}_fastqc.zip'
-    threads: 1
+    threads: nthreads
     shell:
         'mkdir -p $(dirname {output.html}) && '
-        'fastqc -o $(dirname {output.html}) {input}'
+        'fastqc -o $(dirname {output.html}) -t {nthreads} {input}'
 
 # Filtering references using specified regions of interest
 rule filtering_reference:
