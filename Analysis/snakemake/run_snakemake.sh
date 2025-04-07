@@ -23,7 +23,8 @@ snakemake \
 --rerun-incomplete \
 --keep-going \
 --nolock \
---rerun-triggers mtime
+--rerun-triggers mtime \
+--snakefile Snakefile.py
 
 # Accounting for:
 

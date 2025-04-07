@@ -13,7 +13,6 @@ import sys
 import argparse
 import matplotlib.patches as pcs
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 
 import utils # import local utility functions
@@ -77,7 +76,6 @@ def main():
     # print(bins)
     # print(counts)
 
-    # counts = np.repeat(distrib_df['size'], distrib_df['count'])
     plt.close()
     fig, ax = plt.subplots()
     dummy_var = ax.bar(labels, counts, color=bar_colors)

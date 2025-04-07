@@ -46,13 +46,17 @@ rule porechopping_TSO:
 # Trim poly-A tails
 rule trimming_polyA:
     input: data_path + '/trimmed_fastq/{sample}_porechopped_ONT_TSO.fastq'
-    output: data_path + '/trimmed_fastq/{sample}_porechopped_ONT_TSO_tail.fastq'
+    output:
+        fastq = data_path + '/trimmed_fastq/{sample}_porechopped_ONT_TSO_tail.fastq',
+        png = analysis_path + '/tail_trimming/{sample}_tail_lengths_histo.png'
     threads: nthreads
     shell:
+        'mkdir -p $(dirname {output.png}) && '
         'python3 -u ../scripts/trimm_polyA.py '
     	'-v 1 '
     	'-i {input} '
-    	'-o {output}'
+    	'-o {output.fastq} '
+        '-p {output.png}'
 
 # Compute nucleotides frequencies
 rule computing_nuc_freq:
