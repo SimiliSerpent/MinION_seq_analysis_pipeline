@@ -225,7 +225,7 @@ def main():
         histo_out = out_path[:-6] + '_trimmed_tail_lengths.png'
     else:
         histo_out = args.histo_png_out
-    title = out_path.split('/')[-1][:-14] \
+    title = out_path.split('/')[-1][:-15] \
             + ' - ' \
             + str(len(trimmed_tail_lengths)) \
             + ' trimmed tails, ' \
