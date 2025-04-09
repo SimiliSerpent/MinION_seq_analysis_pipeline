@@ -38,10 +38,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-i', '--input_fastq', type=str, required=True,
                         help='Path to the input fastq file.')
-    parser.add_argument('-l', '--min_length', type=int,
-                        help='Minimal size of output reads (default: 500)')
-    parser.add_argument('-s', '--qual_score', type=int,
-                        help='Minimal q score of output reads (default: 500)')
+    parser.add_argument('-l', '--min_length', type=int, default=400,
+                        help='Minimal size of output reads (default: 400)')
+    parser.add_argument('-s', '--qual_score', type=int, default=10,
+                        help='Minimal q score of output reads (default: 10)')
     parser.add_argument('-q', '--output_fastq', type=str,
                         help='Path to the output fastq (if not specified, same'
                         + ' as input with the suffix selection.fastq)')
