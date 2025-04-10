@@ -231,14 +231,22 @@ rule gathering_sequence_stats:
         'mkdir -p {analysis_path}/pickles && '
         'python3 -u ../scripts/compute_sequence_stats.py -e {data_path} -r {PROJECT}/Data/references/ROI -o {analysis_path}/pickles'
 
-# Plot samples species composition
+# Plot evolution of reads quality vs size across the different trimming states.
+# Do so for every reasd, and for randomly sampled fraction of the reads.
 rule plotting_seq_size_and_qual_vs_trimming:
     input: expand(\
         analysis_path+'/pickles/{sample}_{trim_states}.pkl',\
         sample=sample_names,\
         trim_states=['untrimmed', 'ONT', 'ONT_TSO', 'ONT_TSO_tail']\
     )
-    output: analysis_path + '/' + exp_id + '_read_size_quality_with_trimming.png'
+    output:
+        all_reads = analysis_path + '/' + exp_id + '_read_size_quality_with_trimming.png',
+        sub_1 = analysis_path + '/' + exp_id + '_read_size_quality_with_trimming_3000.png',
+        sub_2 = analysis_path + '/' + exp_id + '_read_size_quality_with_trimming_1500.png',
+        sub_3 = analysis_path + '/' + exp_id + '_read_size_quality_with_trimming_5_percent.png'
     threads: 10
     shell:
-        'python3 -u ../scripts/plot_sequence_stats.py -p {analysis_path}/pickles -o {output}'
+        'python3 -u ../scripts/plot_sequence_stats.py -p {analysis_path}/pickles -o {output.all_reads} && '
+        'python3 -u ../scripts/plot_sequence_stats.py -p {analysis_path}/pickles -o {output.sub_1} -n 3000 && '
+        'python3 -u ../scripts/plot_sequence_stats.py -p {analysis_path}/pickles -o {output.sub_2} -n 1500 && '
+        'python3 -u ../scripts/plot_sequence_stats.py -p {analysis_path}/pickles -o {output.sub_3} -f 0.05'

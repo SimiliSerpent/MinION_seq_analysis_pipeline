@@ -35,6 +35,10 @@ def main():
                         help="Path to the output '.png' file (default: same "
                         + "directory as pickle files, name 'size_quality_evolu"
                         + "tion.png').")
+    parser.add_argument('-n', '--sample_flat', type=int,
+                        help="Plot using a subsample of size n of each sample.")
+    parser.add_argument('-f', '--sample_frac', type=float,
+                        help="Plot using a fraction f of each sample.")
     parser.add_argument('-v', '--verbose', type=int, default=0,
                         help='Level of verbosity (default: 0 = muted)')
 
@@ -133,8 +137,6 @@ def main():
     # scatter plots
     for sample_ind, sample in enumerate(sample_names):
 
-        sampled = False # TODO: remove line
-
         for trim_state_ind, trim_state in enumerate(all_trim_states):
 
             utils.send_text('compute_sequence_stats.py: Plotting '
@@ -146,10 +148,17 @@ def main():
                              + trim_state + '.pkl'
             qual_df = pd.read_pickle(stored_df_path)
 
-            # if not sampled: # TODO: remove if statement
-            #     inds = list(qual_df.sample(1500).index)
-            #     sampled = True
-            # qual_df = qual_df[qual_df.index.isin(inds)]
+            # Sub-sample if requested
+            if args.sample_flat is not None:
+                inds = list(qual_df.sample(args.sample_flat).index)
+                qual_df = qual_df[qual_df.index.isin(inds)]
+                if args.sample_frac is not None:
+                    print('Both flat and proportional subsampling were used.' \
+                        + ' Flat subsampling has been priorized')
+            elif args.sample_frac is not None:
+                sample_size = int(args.sample_frac * qual_df.size)
+                inds = list(qual_df.sample(sample_size).index)
+                qual_df = qual_df[qual_df.index.isin(inds)]
 
             # Plot the quality versus read length
             ax_id = sample_ind * nb_trim_states + trim_state_ind
