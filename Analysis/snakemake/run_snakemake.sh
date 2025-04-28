@@ -6,7 +6,7 @@
 #MSUB -r ${EXP_ID}_analysis			# Requested job name
 #MSUB -o ../${EXP_ID}/logs/snakemake.%I.out	# Output log file name (%I is the job ID)
 #MSUB -e ../${EXP_ID}/logs/snakemake.%I.err	# Error log file name (%I is the job ID)
-#MSUB -E'--mem=${NTHREADS}G --qos=long'
+#MSUB -E '--mem=300G --qos=long'
 
 module load fastqc
 module load gcc/12.2.0
