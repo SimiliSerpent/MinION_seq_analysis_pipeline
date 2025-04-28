@@ -58,6 +58,21 @@ rule trimming_polyA:
     	'-o {output.fastq} '
         '-p {output.png}'
 
+# Filter long GA subsequences
+rule filter_GA:
+    input: data_path + '/trimmed_fastq/{sample}_porechopped_ONT_TSO_tail.fastq'
+    output:
+        fastq = data_path + '/trimmed_fastq/{sample}_porechopped_ONT_TSO_tail_GA.fastq',
+        png = analysis_path + '/GA_filtering/{sample}_filtered_GA_reps_lengths_histo.png'
+    threads: nthreads
+    shell:
+        'mkdir -p $(dirname {output.png}) && '
+        'python3 -u ../scripts/filter_GA.py '
+    	'-v 1 '
+    	'-i {input} '
+    	'-o {output.fastq} '
+        '-p {output.png}'
+
 # Compute nucleotides frequencies
 rule computing_nuc_freq:
     input: data_path + '/{path_to_sample}.fastq'
@@ -69,7 +84,7 @@ rule computing_nuc_freq:
 
 # Plot nucleotides frequencies
 rule plotting_nuc_freq:
-    input: expand(analysis_path+'/nuc_freq/trimmed_fastq/{sample}_porechopped_ONT_TSO_tail_freq.txt', sample=sample_names)
+    input: expand(analysis_path+'/nuc_freq/trimmed_fastq/{sample}_porechopped_ONT_TSO_tail_GA_freq.txt', sample=sample_names)
     output: analysis_path + '/nuc_freq/' + exp_id + '_nuc_freq.png'
     threads: 1
     shell:
@@ -134,7 +149,7 @@ rule getting_regions_sizes:
 # Align reads
 rule mapping:
     input:
-        fq = data_path + '/trimmed_fastq/{sample}_porechopped_ONT_TSO_tail.fastq',
+        fq = data_path + '/trimmed_fastq/{sample}_porechopped_ONT_TSO_tail_GA.fastq',
         ref = PROJECT + '/Data/references/snakeref/' + reference
     output: data_path + '/alignments/{sample}_map2_snakeref.sam'
     threads: nthreads
@@ -215,7 +230,7 @@ rule gathering_sequence_stats:
         trimmed = expand(
             data_path+'/trimmed_fastq/{sample}_porechopped_{trim_states}.fastq',
             sample=sample_names,
-            trim_states=['ONT', 'ONT_TSO', 'ONT_TSO_tail']
+            trim_states=['ONT', 'ONT_TSO', 'ONT_TSO_tail', 'ONT_TSO_tail_GA']
         ),
         sam = expand(
             data_path+'/alignments/{sample}_map2_snakeref.sam',
@@ -224,7 +239,7 @@ rule gathering_sequence_stats:
     output: expand(\
         analysis_path+'/pickles/{sample}_{trim_states}.pkl',\
         sample=sample_names,\
-        trim_states=['untrimmed', 'ONT', 'ONT_TSO', 'ONT_TSO_tail']\
+        trim_states=['untrimmed', 'ONT', 'ONT_TSO', 'ONT_TSO_tail', 'ONT_TSO_tail_GA']\
     )
     threads: 10
     shell:
@@ -237,7 +252,7 @@ rule plotting_seq_size_and_qual_vs_trimming:
     input: expand(\
         analysis_path+'/pickles/{sample}_{trim_states}.pkl',\
         sample=sample_names,\
-        trim_states=['untrimmed', 'ONT', 'ONT_TSO', 'ONT_TSO_tail']\
+        trim_states=['untrimmed', 'ONT', 'ONT_TSO', 'ONT_TSO_tail', 'ONT_TSO_tail_GA']\
     )
     output:
         all_reads = analysis_path + '/' + exp_id + '_read_size_quality_with_trimming.png',

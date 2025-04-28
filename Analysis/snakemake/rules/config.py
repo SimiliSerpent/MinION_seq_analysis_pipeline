@@ -46,7 +46,7 @@ sample_names = [fastq.rstrip('.fastq') for fastq in raw_fastqs]
 sample_names.sort()
 
 # List expected output files
-out_files = [analysis_path + '/fastqc/' + name + '_porechopped_ONT_TSO_tail_fastqc.html' for name in sample_names] # fastqc
+out_files = [analysis_path + '/fastqc/' + name + '_porechopped_ONT_TSO_tail_GA_fastqc.html' for name in sample_names] # fastqc
 out_files += [analysis_path + '/read_lengths/' + name + '_read_lengths_histo.png' for name in sample_names] # read lengths histogram
 out_files += [analysis_path + '/nuc_freq/' + exp_id + '_nuc_freq.png'] # frequency of nucleotides
 out_files += [analysis_path + '/' + exp_id + '_samples_composition.png'] # samples composition in targets
