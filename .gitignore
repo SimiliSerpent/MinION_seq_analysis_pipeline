@@ -1,8 +1,9 @@
 # Ignore experiments data directories
 Data/EXP*/
 
-# Ignore the kraken database directory
+# Ignore the kraken and blast database directory
 Data/kraken2_db/
+Data/blast_db/
 
 # Ignore the temporary directory
 temp/

@@ -56,7 +56,7 @@ def trim_tails(input, output, verbosity=0):
                     seq_name = line
                     seq_line = True
                 
-                # Trimm and detect coming seqcuencing score
+                # Trimm and detect coming sequencing score
                 elif seq_line:
                     seq = line.strip()
                     seq_size = len(seq)
@@ -110,13 +110,11 @@ def trim_tails(input, output, verbosity=0):
                     if seq != '':
                         fastq_out.write(seq_name)
                         fastq_out.write(seq + '\n+\n')
-                        seq_line = False
                         score_line = True
                         # Skip '+' line
                         line = fastq_in.readline()
                     
-                    else:
-                        seq_line = False
+                    seq_line = False
                 
                 # Trim sequencing score accordingly
                 elif score_line:
