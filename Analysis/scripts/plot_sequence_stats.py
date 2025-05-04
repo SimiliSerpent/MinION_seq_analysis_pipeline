@@ -150,7 +150,9 @@ def main():
 
             # Sub-sample if requested
             if args.sample_flat is not None:
-                inds = list(qual_df.sample(args.sample_flat).index)
+                tot_reads = len(qual_df.index)
+                sample_size = min(tot_reads, args.sample_flat)
+                inds = list(qual_df.sample(sample_size).index)
                 qual_df = qual_df[qual_df.index.isin(inds)]
                 if args.sample_frac is not None:
                     print('Both flat and proportional subsampling were used.' \
