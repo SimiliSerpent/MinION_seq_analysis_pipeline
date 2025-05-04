@@ -1,35 +1,35 @@
-raw total sequences:	26	# excluding supplementary and secondary reads
+raw total sequences:	0	# excluding supplementary and secondary reads
 filtered sequences:	0
-sequences:	26
+sequences:	0
 is sorted:	1
-1st fragments:	26
+1st fragments:	0
 last fragments:	0
-reads mapped:	26
+reads mapped:	0
 reads mapped and paired:	0	# paired-end technology bit set + both mates mapped
 reads unmapped:	0
 reads properly paired:	0	# proper-pair bit set
 reads paired:	0	# paired-end technology bit set
 reads duplicated:	0	# PCR or optical duplicate bit set
-reads MQ0:	4	# mapped and MQ=0
+reads MQ0:	0	# mapped and MQ=0
 reads QC failed:	0
-non-primary alignments:	99
-supplementary alignments:	41
-total length:	95827	# ignores clipping
-total first fragment length:	95827	# ignores clipping
+non-primary alignments:	0
+supplementary alignments:	0
+total length:	0	# ignores clipping
+total first fragment length:	0	# ignores clipping
 total last fragment length:	0	# ignores clipping
-bases mapped:	95827	# ignores clipping
-bases mapped (cigar):	20405	# more accurate
+bases mapped:	0	# ignores clipping
+bases mapped (cigar):	0	# more accurate
 bases trimmed:	0
 bases duplicated:	0
-mismatches:	4819	# from NM fields
-error rate:	2.361676e-01	# mismatches / bases mapped (cigar)
-average length:	3686
-average first fragment length:	3686
+mismatches:	0	# from NM fields
+error rate:	0.000000e+00	# mismatches / bases mapped (cigar)
+average length:	0
+average first fragment length:	0
 average last fragment length:	0
-maximum length:	22802
-maximum first fragment length:	22802
+maximum length:	0
+maximum first fragment length:	0
 maximum last fragment length:	0
-average quality:	3.8
+average quality:	0.0
 insert size average:	0.0
 insert size standard deviation:	0.0
 inward oriented pairs:	0
@@ -37,5 +37,5 @@ outward oriented pairs:	0
 pairs with other orientation:	0
 pairs on different chromosomes:	0
 percentage of properly paired reads (%):	0.0
-bases inside the target:	2723431143
+bases inside the target:	29903
 percentage of target genome with coverage > 0 (%):	0.00
