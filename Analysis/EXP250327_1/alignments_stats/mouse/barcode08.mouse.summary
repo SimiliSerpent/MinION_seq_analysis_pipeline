@@ -14,20 +14,20 @@ reads MQ0:	42	# mapped and MQ=0
 reads QC failed:	0
 non-primary alignments:	1028
 supplementary alignments:	17
-total length:	35986	# ignores clipping
-total first fragment length:	35986	# ignores clipping
+total length:	35972	# ignores clipping
+total first fragment length:	35972	# ignores clipping
 total last fragment length:	0	# ignores clipping
-bases mapped:	35986	# ignores clipping
+bases mapped:	35972	# ignores clipping
 bases mapped (cigar):	37393	# more accurate
 bases trimmed:	0
 bases duplicated:	0
 mismatches:	7176	# from NM fields
 error rate:	1.919076e-01	# mismatches / bases mapped (cigar)
-average length:	522
-average first fragment length:	522
+average length:	521
+average first fragment length:	521
 average last fragment length:	0
-maximum length:	4439
-maximum first fragment length:	4439
+maximum length:	4425
+maximum first fragment length:	4425
 maximum last fragment length:	0
 average quality:	26.3
 insert size average:	0.0

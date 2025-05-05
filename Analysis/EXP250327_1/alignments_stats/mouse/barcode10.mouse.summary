@@ -1,10 +1,10 @@
-raw total sequences:	26	# excluding supplementary and secondary reads
+raw total sequences:	25	# excluding supplementary and secondary reads
 filtered sequences:	0
-sequences:	26
+sequences:	25
 is sorted:	1
-1st fragments:	26
+1st fragments:	25
 last fragments:	0
-reads mapped:	26
+reads mapped:	25
 reads mapped and paired:	0	# paired-end technology bit set + both mates mapped
 reads unmapped:	0
 reads properly paired:	0	# proper-pair bit set
@@ -12,24 +12,24 @@ reads paired:	0	# paired-end technology bit set
 reads duplicated:	0	# PCR or optical duplicate bit set
 reads MQ0:	4	# mapped and MQ=0
 reads QC failed:	0
-non-primary alignments:	48
-supplementary alignments:	42
-total length:	47485	# ignores clipping
-total first fragment length:	47485	# ignores clipping
+non-primary alignments:	42
+supplementary alignments:	36
+total length:	45524	# ignores clipping
+total first fragment length:	45524	# ignores clipping
 total last fragment length:	0	# ignores clipping
-bases mapped:	47485	# ignores clipping
-bases mapped (cigar):	37332	# more accurate
+bases mapped:	45524	# ignores clipping
+bases mapped (cigar):	34023	# more accurate
 bases trimmed:	0
 bases duplicated:	0
-mismatches:	20447	# from NM fields
-error rate:	5.477071e-01	# mismatches / bases mapped (cigar)
-average length:	1826
-average first fragment length:	1826
+mismatches:	19586	# from NM fields
+error rate:	5.756694e-01	# mismatches / bases mapped (cigar)
+average length:	1821
+average first fragment length:	1821
 average last fragment length:	0
-maximum length:	9726
-maximum first fragment length:	9726
+maximum length:	9230
+maximum first fragment length:	9230
 maximum last fragment length:	0
-average quality:	17.0
+average quality:	16.7
 insert size average:	0.0
 insert size standard deviation:	0.0
 inward oriented pairs:	0
