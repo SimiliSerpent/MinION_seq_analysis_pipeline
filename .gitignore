@@ -8,6 +8,9 @@ Data/blast_db/
 # Ignore the temporary directory
 temp/
 
+# Ignore the micromambas environment
+Analysis/micromamba_envs/UMI-tools
+
 # Ignore Cogent by Takara (broken) (and memory consuming)
 Analysis/scripts/CogentAP-3.0.19/
 
