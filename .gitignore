@@ -8,6 +8,9 @@ Data/blast_db/
 # Ignore the temporary directory
 temp/
 
+# Ignore Cogent by Takara (broken) (and memory consuming)
+Analysis/scripts/CogentAP-3.0.19/
+
 # Ignore taxonomy file (huge file)
 Data/taxonomy.tab
 
