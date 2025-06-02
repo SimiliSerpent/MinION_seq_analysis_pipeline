@@ -6,6 +6,7 @@ expected files in order to feed the 'all' rule of the Snakefile.
 """
 
 
+import datetime
 import importlib.util
 import os
 import sys
@@ -40,7 +41,7 @@ nthreads = int(os.environ['NTHREADS'])
 # Get files name for output
 exp_id = os.environ['EXP_ID']
 data_path = PROJECT + '/Data/' + exp_id
-analysis_path = PROJECT + '/Analysis/' + exp_id
+analysis_path = PROJECT + '/Analysis/results/' + exp_id
 raw_fastqs = utils.find_file(data_path + '/raw_fastq', '.fastq')
 sample_names = [fastq.rstrip('.fastq') for fastq in raw_fastqs]
 sample_names.sort()
@@ -52,3 +53,20 @@ out_files += [analysis_path + '/nuc_freq/' + exp_id + '_nuc_freq.png'] # frequen
 out_files += [analysis_path + '/' + exp_id + '_samples_composition.png'] # samples composition in targets
 out_files += [analysis_path + '/' + exp_id + '_normalized_samples_composition.png'] # samples composition (targets normalized)
 out_files += [analysis_path + '/' + exp_id + '_read_size_quality_with_trimming.png'] # evolution of read size vs. quality at each trimming step
+
+# Get date
+
+Y = str(datetime.date.today().year)[2:]
+M = str(datetime.date.today().month)
+if len(M) == 1:
+    M = "0" + M
+D = str(datetime.date.today().day)
+if len(D) == 1:
+    D = "0" + D
+
+# Add config details to the analysis results directory
+with open(analysis_path + '/config.txt', 'w') as confile:
+    confile.write('Analysis_id\t' + exp_id + '\n')
+    confile.write('Nb_threads\t' + str(nthreads) + '\n')
+    confile.write('Analysis_date\t' + '/'.join([D, M, Y]) + '\n')
+    confile.write('Species\t' + str(species_list) + '\n')

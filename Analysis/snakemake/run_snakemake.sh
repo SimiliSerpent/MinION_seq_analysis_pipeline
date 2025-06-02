@@ -4,8 +4,8 @@
 #MSUB -n ${NTHREADS}				# Number of requested threads
 #MSUB -T 86400					# Requested max time (seconds)
 #MSUB -r ${EXP_ID}_analysis			# Requested job name
-#MSUB -o ../${EXP_ID}/logs/snakemake.%I.out	# Output log file name (%I is the job ID)
-#MSUB -e ../${EXP_ID}/logs/snakemake.%I.err	# Error log file name (%I is the job ID)
+#MSUB -o ../results/${EXP_ID}/logs/snakemake.%I.out	# Output log file name (%I is the job ID)
+#MSUB -e ../results/${EXP_ID}/logs/snakemake.%I.err	# Error log file name (%I is the job ID)
 #MSUB -E '--mem=300G --qos=long'
 
 module load fastqc

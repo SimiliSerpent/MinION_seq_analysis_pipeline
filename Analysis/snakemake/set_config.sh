@@ -1,7 +1,7 @@
 #!/bin/bash
 
-export EXP_ID="EXP250327_1"
+export EXP_ID="25012401_DSUP1_1"
 export NTHREADS=32
-export SPECIES="human,mouse"
+export SPECIES="mouse,SARSCoV2"
 
-mkdir -p ../${EXP_ID}/logs
+mkdir -p ../results/${EXP_ID}/logs
