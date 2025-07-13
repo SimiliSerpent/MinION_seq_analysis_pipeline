@@ -1,0 +1,4 @@
+Analysis_id	25012401_DHAC1_1
+Nb_threads	32
+Analysis_date	13/07/25
+Species	['SARSCoV2', 'mouse']

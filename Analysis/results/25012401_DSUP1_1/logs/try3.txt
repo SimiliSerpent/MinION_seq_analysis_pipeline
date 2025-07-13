@@ -1,0 +1,1231 @@
+Loading java/openjdk/21.0.3 <aL>
+
+Loading fastqc/0.12.1
+  Loading requirement: java/openjdk/21.0.3
+Loading binutils/2.37 <aL>
+Loading c/gnu/12.2.0 <aL>
+Loading c++/gnu/12.2.0 <aL>
+Loading fortran/gnu/12.2.0 <aL>
+
+Loading gnu/12.2.0
+  Loading requirement: binutils/2.37 c/gnu/12.2.0 c++/gnu/12.2.0
+    fortran/gnu/12.2.0
+Loading minimap2/2.28
+Loading python/3.11.5
+Loading samtools/1.21
+Loading snakemake/8.5.3
+
+Loading reads
+/env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/raw_fastq/barcode06.fastq
+1,633,591 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Ligation_adapter                          96.4        0.0
+  Barcode_01_and_flanking_seq               76.7       90.2
+  Barcode_02_and_flanking_seq               71.4       84.6
+  Barcode_03_and_flanking_seq               76.9       88.1
+  Barcode_04_and_flanking_seq               83.7       82.5
+  Barcode_05_and_flanking_seq              100.0       97.4
+  Barcode_06_and_flanking_seq              100.0      100.0
+  Barcode_07_and_flanking_seq               70.7       72.7
+  Barcode_08_and_flanking_seq               73.8       72.5
+  Barcode_09_and_flanking_seq               75.6       75.6
+  Barcode_10_and_flanking_seq               71.1       71.1
+  Barcode_11_and_flanking_seq               71.8       70.0
+  Barcode_12_and_flanking_seq               72.5       73.2
+  Primer_tail_1                            100.0      100.0
+  Primer_tail_2                            100.0      100.0
+  ONT_unknown_1                            100.0      100.0
+  ONT_unknown_2_forward                      0.0      100.0
+  ONT_unknown_2_reverse                    100.0        0.0
+
+
+Trimming adapters from read ends
+       LA_Top_strand: CCTGTACTTCGTTCAGTTACGTATTGCT
+         B01_forward: GGTGCTGAAGAAAGTTGTCGGTGTCTTTGTGTTAACCT
+         B01_reverse: AGGTTAACACAAAGACACCGACAACTTTCTTCAGCACC
+         B05_forward: GGTGCTGCTTGTCCAGGGTTTGTGTAACCTTTTAACCT
+         B05_reverse: AGGTTAAAAGGTTACACAAACCCTGGACAAGCAGCACC
+         B06_forward: GGTGCTGTTCTCGCAAAGGCAGAAAGTAGTCTTAACCT
+         B06_reverse: AGGTTAAGACTACTTTCTGCCTTTGCGAGAACAGCACC
+       Tail1_forward: TTCTGTTGGTGCTGATATTGC
+       Tail1_reverse: GCAATATCAGCACCAACAGAA
+       Tail2_forward: ACTTGCCTGTCGCTCTATCTTC
+       Tail2_reverse: GAAGATAGAGCGACAGGCAAGT
+        UNK1_forward: CGGCGTCTGCTTGGGTGTTTAACCT
+        UNK1_reverse: AGGTTAAACACCCAAGCAGACGCCG
+    UNK2_forward_end: TCGTATGCTGCTGATGCTCGTA
+  UNK2_reverse_start: TACGAGCATCAGCAGCATACGA
+
+
+
+1,490,651 / 1,633,591 reads had adapters trimmed from their start (51,340,709 bp removed)
+1,449,636 / 1,633,591 reads had adapters trimmed from their end (52,707,138 bp removed)
+
+
+Splitting reads containing middle adapters
+
+
+24,848 / 1,633,591 reads were split based on middle adapters
+
+
+Saving trimmed reads to file
+
+Saved result to /env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode06_porechopped_ONT.fastq
+
+
+Loading reads
+/env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode06_porechopped_ONT.fastq
+1,628,362 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Hypothetical_TSO_forward                 100.0        0.0
+  Hypothetical_TSO_reverse                   0.0      100.0
+
+
+Trimming adapters from read ends
+  H_TSO_forward: ACACTCTTTCCCTACACGACGCTCTTCCGATCTATTGCGCAATG
+  H_TSO_reverse: CATTGCGCAATAGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
+
+
+
+  789,451 / 1,628,362 reads had adapters trimmed from their start (42,144,294 bp removed)
+  756,053 / 1,628,362 reads had adapters trimmed from their end (39,945,739 bp removed)
+
+
+Saving trimmed reads to file
+
+Saved result to /env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode06_porechopped_ONT_TSO.fastq
+
+Trimmed 677925 polyA ending tail.
+Trimmed 668242 polyT ending tail.
+Total trimmed bases: 38462571
+Filtered 82446 GA repeats.
+Total filtered bases: 2291384
+null
+Analysis complete for barcode06_porechopped_ONT_TSO_tail_GA.fastq
+
+Loading reads
+/env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/raw_fastq/barcode03.fastq
+878,397 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Ligation_adapter                          93.1        0.0
+  Barcode_01_and_flanking_seq               74.4       88.1
+  Barcode_02_and_flanking_seq               71.4       73.7
+  Barcode_03_and_flanking_seq              100.0      100.0
+  Barcode_04_and_flanking_seq               97.4       71.8
+  Barcode_05_and_flanking_seq              100.0       79.5
+  Barcode_06_and_flanking_seq               89.7       87.8
+  Barcode_07_and_flanking_seq               70.5       70.7
+  Barcode_08_and_flanking_seq               70.7       70.2
+  Barcode_09_and_flanking_seq               72.1       71.1
+  Barcode_10_and_flanking_seq               72.5       72.5
+  Barcode_11_and_flanking_seq               70.0       70.5
+  Barcode_12_and_flanking_seq               71.8       73.7
+  Primer_tail_1                            100.0      100.0
+  Primer_tail_2                            100.0      100.0
+  ONT_unknown_1                            100.0      100.0
+  ONT_unknown_2_forward                      0.0      100.0
+  ONT_unknown_2_reverse                    100.0        0.0
+
+
+Trimming adapters from read ends
+       LA_Top_strand: CCTGTACTTCGTTCAGTTACGTATTGCT
+         B03_forward: GGTGCTGGAGTCTTGTGTCCCAGTTACCAGGTTAACCT
+         B03_reverse: AGGTTAACCTGGTAACTGGGACACAAGACTCCAGCACC
+         B04_forward: GGTGCTGTTCGGATTCTATCGTGTTTCCCTATTAACCT
+         B04_reverse: AGGTTAATAGGGAAACACGATAGAATCCGAACAGCACC
+         B05_forward: GGTGCTGCTTGTCCAGGGTTTGTGTAACCTTTTAACCT
+         B05_reverse: AGGTTAAAAGGTTACACAAACCCTGGACAAGCAGCACC
+       Tail1_forward: TTCTGTTGGTGCTGATATTGC
+       Tail1_reverse: GCAATATCAGCACCAACAGAA
+       Tail2_forward: ACTTGCCTGTCGCTCTATCTTC
+       Tail2_reverse: GAAGATAGAGCGACAGGCAAGT
+        UNK1_forward: CGGCGTCTGCTTGGGTGTTTAACCT
+        UNK1_reverse: AGGTTAAACACCCAAGCAGACGCCG
+    UNK2_forward_end: TCGTATGCTGCTGATGCTCGTA
+  UNK2_reverse_start: TACGAGCATCAGCAGCATACGA
+
+
+
+797,053 / 878,397 reads had adapters trimmed from their start (28,199,467 bp removed)
+778,310 / 878,397 reads had adapters trimmed from their end (29,329,538 bp removed)
+
+
+Splitting reads containing middle adapters
+
+
+16,107 / 878,397 reads were split based on middle adapters
+
+
+Saving trimmed reads to file
+
+Saved result to /env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode03_porechopped_ONT.fastq
+
+
+Loading reads
+/env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode03_porechopped_ONT.fastq
+868,949 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Hypothetical_TSO_forward                 100.0        0.0
+  Hypothetical_TSO_reverse                   0.0      100.0
+
+
+Trimming adapters from read ends
+  H_TSO_forward: ACACTCTTTCCCTACACGACGCTCTTCCGATCTATTGCGCAATG
+  H_TSO_reverse: CATTGCGCAATAGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
+
+
+
+408,298 / 868,949 reads had adapters trimmed from their start (21,755,056 bp removed)
+393,844 / 868,949 reads had adapters trimmed from their end (20,848,849 bp removed)
+
+
+Saving trimmed reads to file
+
+Saved result to /env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode03_porechopped_ONT_TSO.fastq
+
+Trimmed 368894 polyA ending tail.
+Trimmed 365098 polyT ending tail.
+Total trimmed bases: 21112921
+Filtered 44441 GA repeats.
+Total filtered bases: 1187118
+null
+Analysis complete for barcode03_porechopped_ONT_TSO_tail_GA.fastq
+
+Loading reads
+/env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/raw_fastq/unclassified.fastq
+993,004 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Ligation_adapter                          96.4        0.0
+  Barcode_01_and_flanking_seq              100.0      100.0
+  Barcode_02_and_flanking_seq              100.0      100.0
+  Barcode_03_and_flanking_seq              100.0      100.0
+  Barcode_04_and_flanking_seq              100.0      100.0
+  Barcode_05_and_flanking_seq              100.0      100.0
+  Barcode_06_and_flanking_seq              100.0      100.0
+  Barcode_07_and_flanking_seq              100.0      100.0
+  Barcode_08_and_flanking_seq               76.7       75.0
+  Barcode_09_and_flanking_seq               82.1       71.8
+  Barcode_10_and_flanking_seq               73.2       75.0
+  Barcode_11_and_flanking_seq               74.4       73.2
+  Barcode_12_and_flanking_seq               75.6       73.3
+  Primer_tail_1                            100.0      100.0
+  Primer_tail_2                            100.0      100.0
+  ONT_unknown_1                            100.0      100.0
+  ONT_unknown_2_forward                      0.0      100.0
+  ONT_unknown_2_reverse                    100.0        0.0
+
+
+Trimming adapters from read ends
+       LA_Top_strand: CCTGTACTTCGTTCAGTTACGTATTGCT
+         B01_forward: GGTGCTGAAGAAAGTTGTCGGTGTCTTTGTGTTAACCT
+         B01_reverse: AGGTTAACACAAAGACACCGACAACTTTCTTCAGCACC
+         B02_forward: GGTGCTGTCGATTCCGTTTGTAGTCGTCTGTTTAACCT
+         B02_reverse: AGGTTAAACAGACGACTACAAACGGAATCGACAGCACC
+         B03_forward: GGTGCTGGAGTCTTGTGTCCCAGTTACCAGGTTAACCT
+         B03_reverse: AGGTTAACCTGGTAACTGGGACACAAGACTCCAGCACC
+         B04_forward: GGTGCTGTTCGGATTCTATCGTGTTTCCCTATTAACCT
+         B04_reverse: AGGTTAATAGGGAAACACGATAGAATCCGAACAGCACC
+         B05_forward: GGTGCTGCTTGTCCAGGGTTTGTGTAACCTTTTAACCT
+         B05_reverse: AGGTTAAAAGGTTACACAAACCCTGGACAAGCAGCACC
+         B06_forward: GGTGCTGTTCTCGCAAAGGCAGAAAGTAGTCTTAACCT
+         B06_reverse: AGGTTAAGACTACTTTCTGCCTTTGCGAGAACAGCACC
+         B07_forward: GGTGCTGGTGTTACCGTGGGAATGAATCCTTTTAACCT
+         B07_reverse: AGGTTAAAAGGATTCATTCCCACGGTAACACCAGCACC
+       Tail1_forward: TTCTGTTGGTGCTGATATTGC
+       Tail1_reverse: GCAATATCAGCACCAACAGAA
+       Tail2_forward: ACTTGCCTGTCGCTCTATCTTC
+       Tail2_reverse: GAAGATAGAGCGACAGGCAAGT
+        UNK1_forward: CGGCGTCTGCTTGGGTGTTTAACCT
+        UNK1_reverse: AGGTTAAACACCCAAGCAGACGCCG
+    UNK2_forward_end: TCGTATGCTGCTGATGCTCGTA
+  UNK2_reverse_start: TACGAGCATCAGCAGCATACGA
+
+
+
+606,564 / 993,004 reads had adapters trimmed from their start (50,360,916 bp removed)
+551,332 / 993,004 reads had adapters trimmed from their end (49,217,327 bp removed)
+
+
+Splitting reads containing middle adapters
+
+
+298,623 / 993,004 reads were split based on middle adapters
+
+
+Saving trimmed reads to file
+
+Saved result to /env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/unclassified_porechopped_ONT.fastq
+
+
+Loading reads
+/env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/unclassified_porechopped_ONT.fastq
+758,398 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Hypothetical_TSO_forward                 100.0        0.0
+  Hypothetical_TSO_reverse                   0.0      100.0
+
+
+Trimming adapters from read ends
+  H_TSO_forward: ACACTCTTTCCCTACACGACGCTCTTCCGATCTATTGCGCAATG
+  H_TSO_reverse: CATTGCGCAATAGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
+
+
+
+155,997 / 758,398 reads had adapters trimmed from their start (8,580,107 bp removed)
+122,725 / 758,398 reads had adapters trimmed from their end (7,630,923 bp removed)
+
+
+Saving trimmed reads to file
+
+Saved result to /env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/unclassified_porechopped_ONT_TSO.fastq
+
+Trimmed 200440 polyA ending tail.
+Trimmed 199134 polyT ending tail.
+Total trimmed bases: 8924118
+Filtered 806749 GA repeats.
+Total filtered bases: 31919350
+null
+Analysis complete for unclassified_porechopped_ONT_TSO_tail_GA.fastq
+
+Loading reads
+/env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/raw_fastq/barcode04.fastq
+390,959 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Ligation_adapter                         100.0        0.0
+  Barcode_01_and_flanking_seq              100.0       84.6
+  Barcode_02_and_flanking_seq              100.0      100.0
+  Barcode_03_and_flanking_seq               75.6       72.5
+  Barcode_04_and_flanking_seq              100.0      100.0
+  Barcode_05_and_flanking_seq               94.9      100.0
+  Barcode_06_and_flanking_seq               92.3       94.7
+  Barcode_07_and_flanking_seq               72.5       79.5
+  Barcode_08_and_flanking_seq               76.7       75.0
+  Barcode_09_and_flanking_seq               74.4       71.8
+  Barcode_10_and_flanking_seq               74.4       75.0
+  Barcode_11_and_flanking_seq               70.7       78.9
+  Barcode_12_and_flanking_seq               70.0       71.8
+  Primer_tail_1                            100.0      100.0
+  Primer_tail_2                            100.0      100.0
+  ONT_unknown_1                            100.0      100.0
+  ONT_unknown_2_forward                      0.0      100.0
+  ONT_unknown_2_reverse                    100.0        0.0
+
+
+Trimming adapters from read ends
+       LA_Top_strand: CCTGTACTTCGTTCAGTTACGTATTGCT
+         B01_forward: GGTGCTGAAGAAAGTTGTCGGTGTCTTTGTGTTAACCT
+         B01_reverse: AGGTTAACACAAAGACACCGACAACTTTCTTCAGCACC
+         B02_forward: GGTGCTGTCGATTCCGTTTGTAGTCGTCTGTTTAACCT
+         B02_reverse: AGGTTAAACAGACGACTACAAACGGAATCGACAGCACC
+         B04_forward: GGTGCTGTTCGGATTCTATCGTGTTTCCCTATTAACCT
+         B04_reverse: AGGTTAATAGGGAAACACGATAGAATCCGAACAGCACC
+         B05_forward: GGTGCTGCTTGTCCAGGGTTTGTGTAACCTTTTAACCT
+         B05_reverse: AGGTTAAAAGGTTACACAAACCCTGGACAAGCAGCACC
+         B06_forward: GGTGCTGTTCTCGCAAAGGCAGAAAGTAGTCTTAACCT
+         B06_reverse: AGGTTAAGACTACTTTCTGCCTTTGCGAGAACAGCACC
+       Tail1_forward: TTCTGTTGGTGCTGATATTGC
+       Tail1_reverse: GCAATATCAGCACCAACAGAA
+       Tail2_forward: ACTTGCCTGTCGCTCTATCTTC
+       Tail2_reverse: GAAGATAGAGCGACAGGCAAGT
+        UNK1_forward: CGGCGTCTGCTTGGGTGTTTAACCT
+        UNK1_reverse: AGGTTAAACACCCAAGCAGACGCCG
+    UNK2_forward_end: TCGTATGCTGCTGATGCTCGTA
+  UNK2_reverse_start: TACGAGCATCAGCAGCATACGA
+
+
+
+329,346 / 390,959 reads had adapters trimmed from their start (19,421,059 bp removed)
+304,089 / 390,959 reads had adapters trimmed from their end (24,057,655 bp removed)
+
+
+Splitting reads containing middle adapters
+
+
+82,030 / 390,959 reads were split based on middle adapters
+
+
+Saving trimmed reads to file
+
+Saved result to /env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode04_porechopped_ONT.fastq
+
+
+Loading reads
+/env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode04_porechopped_ONT.fastq
+252,450 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Hypothetical_TSO_forward                 100.0        0.0
+  Hypothetical_TSO_reverse                   0.0      100.0
+
+
+Trimming adapters from read ends
+  H_TSO_forward: ACACTCTTTCCCTACACGACGCTCTTCCGATCTATTGCGCAATG
+  H_TSO_reverse: CATTGCGCAATAGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
+
+
+
+ 98,372 / 252,450 reads had adapters trimmed from their start (5,109,873 bp removed)
+ 89,055 / 252,450 reads had adapters trimmed from their end (4,770,304 bp removed)
+
+
+Saving trimmed reads to file
+
+Saved result to /env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode04_porechopped_ONT_TSO.fastq
+
+Trimmed 91926 polyA ending tail.
+Trimmed 89249 polyT ending tail.
+Total trimmed bases: 4938742
+Filtered 10695 GA repeats.
+Total filtered bases: 351398
+null
+Analysis complete for barcode04_porechopped_ONT_TSO_tail_GA.fastq
+
+Loading reads
+/env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/raw_fastq/barcode01.fastq
+589,005 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Ligation_adapter                         100.0        0.0
+  Barcode_01_and_flanking_seq              100.0      100.0
+  Barcode_02_and_flanking_seq              100.0       89.5
+  Barcode_03_and_flanking_seq              100.0       92.7
+  Barcode_04_and_flanking_seq               97.4       81.6
+  Barcode_05_and_flanking_seq               81.6       79.5
+  Barcode_06_and_flanking_seq               95.0       92.1
+  Barcode_07_and_flanking_seq               71.8       70.7
+  Barcode_08_and_flanking_seq               70.0       69.0
+  Barcode_09_and_flanking_seq               76.9       75.0
+  Barcode_10_and_flanking_seq               72.5       73.8
+  Barcode_11_and_flanking_seq               72.5       68.4
+  Barcode_12_and_flanking_seq               73.7       73.2
+  Primer_tail_1                            100.0      100.0
+  Primer_tail_2                            100.0      100.0
+  ONT_unknown_1                            100.0      100.0
+  ONT_unknown_2_forward                      0.0      100.0
+  ONT_unknown_2_reverse                    100.0        0.0
+
+
+Trimming adapters from read ends
+       LA_Top_strand: CCTGTACTTCGTTCAGTTACGTATTGCT
+         B01_forward: GGTGCTGAAGAAAGTTGTCGGTGTCTTTGTGTTAACCT
+         B01_reverse: AGGTTAACACAAAGACACCGACAACTTTCTTCAGCACC
+         B02_forward: GGTGCTGTCGATTCCGTTTGTAGTCGTCTGTTTAACCT
+         B02_reverse: AGGTTAAACAGACGACTACAAACGGAATCGACAGCACC
+         B03_forward: GGTGCTGGAGTCTTGTGTCCCAGTTACCAGGTTAACCT
+         B03_reverse: AGGTTAACCTGGTAACTGGGACACAAGACTCCAGCACC
+         B04_forward: GGTGCTGTTCGGATTCTATCGTGTTTCCCTATTAACCT
+         B04_reverse: AGGTTAATAGGGAAACACGATAGAATCCGAACAGCACC
+         B06_forward: GGTGCTGTTCTCGCAAAGGCAGAAAGTAGTCTTAACCT
+         B06_reverse: AGGTTAAGACTACTTTCTGCCTTTGCGAGAACAGCACC
+       Tail1_forward: TTCTGTTGGTGCTGATATTGC
+       Tail1_reverse: GCAATATCAGCACCAACAGAA
+       Tail2_forward: ACTTGCCTGTCGCTCTATCTTC
+       Tail2_reverse: GAAGATAGAGCGACAGGCAAGT
+        UNK1_forward: CGGCGTCTGCTTGGGTGTTTAACCT
+        UNK1_reverse: AGGTTAAACACCCAAGCAGACGCCG
+    UNK2_forward_end: TCGTATGCTGCTGATGCTCGTA
+  UNK2_reverse_start: TACGAGCATCAGCAGCATACGA
+
+
+
+524,414 / 589,005 reads had adapters trimmed from their start (20,342,100 bp removed)
+452,392 / 589,005 reads had adapters trimmed from their end (45,702,785 bp removed)
+
+
+Splitting reads containing middle adapters
+
+
+24,517 / 589,005 reads were split based on middle adapters
+
+
+Saving trimmed reads to file
+
+Saved result to /env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode01_porechopped_ONT.fastq
+
+
+Loading reads
+/env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/raw_fastq/barcode02.fastq
+419,354 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Ligation_adapter                         100.0        0.0
+  Barcode_01_and_flanking_seq              100.0       84.6
+  Barcode_02_and_flanking_seq              100.0      100.0
+  Barcode_03_and_flanking_seq               82.9       92.7
+  Barcode_04_and_flanking_seq               97.4       89.5
+  Barcode_05_and_flanking_seq              100.0       95.0
+  Barcode_06_and_flanking_seq               81.6       89.5
+  Barcode_07_and_flanking_seq               72.7       70.7
+  Barcode_08_and_flanking_seq               70.5       72.5
+  Barcode_09_and_flanking_seq               72.1       72.5
+  Barcode_10_and_flanking_seq               73.2       70.0
+  Barcode_11_and_flanking_seq               70.7       68.3
+  Barcode_12_and_flanking_seq               69.0       74.4
+  Primer_tail_1                            100.0      100.0
+  Primer_tail_2                            100.0      100.0
+  ONT_unknown_1                            100.0      100.0
+  ONT_unknown_2_forward                      0.0      100.0
+  ONT_unknown_2_reverse                    100.0        0.0
+
+
+Trimming adapters from read ends
+       LA_Top_strand: CCTGTACTTCGTTCAGTTACGTATTGCT
+         B01_forward: GGTGCTGAAGAAAGTTGTCGGTGTCTTTGTGTTAACCT
+         B01_reverse: AGGTTAACACAAAGACACCGACAACTTTCTTCAGCACC
+         B02_forward: GGTGCTGTCGATTCCGTTTGTAGTCGTCTGTTTAACCT
+         B02_reverse: AGGTTAAACAGACGACTACAAACGGAATCGACAGCACC
+         B03_forward: GGTGCTGGAGTCTTGTGTCCCAGTTACCAGGTTAACCT
+         B03_reverse: AGGTTAACCTGGTAACTGGGACACAAGACTCCAGCACC
+         B04_forward: GGTGCTGTTCGGATTCTATCGTGTTTCCCTATTAACCT
+         B04_reverse: AGGTTAATAGGGAAACACGATAGAATCCGAACAGCACC
+         B05_forward: GGTGCTGCTTGTCCAGGGTTTGTGTAACCTTTTAACCT
+         B05_reverse: AGGTTAAAAGGTTACACAAACCCTGGACAAGCAGCACC
+       Tail1_forward: TTCTGTTGGTGCTGATATTGC
+       Tail1_reverse: GCAATATCAGCACCAACAGAA
+       Tail2_forward: ACTTGCCTGTCGCTCTATCTTC
+       Tail2_reverse: GAAGATAGAGCGACAGGCAAGT
+        UNK1_forward: CGGCGTCTGCTTGGGTGTTTAACCT
+        UNK1_reverse: AGGTTAAACACCCAAGCAGACGCCG
+    UNK2_forward_end: TCGTATGCTGCTGATGCTCGTA
+  UNK2_reverse_start: TACGAGCATCAGCAGCATACGA
+
+
+
+385,519 / 419,354 reads had adapters trimmed from their start (13,544,101 bp removed)
+334,657 / 419,354 reads had adapters trimmed from their end (32,017,992 bp removed)
+
+
+Splitting reads containing middle adapters
+
+
+8,147 / 419,354 reads were split based on middle adapters
+
+
+Saving trimmed reads to file
+
+Saved result to /env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode02_porechopped_ONT.fastq
+
+
+Loading reads
+/env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode01_porechopped_ONT.fastq
+392,354 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Hypothetical_TSO_forward                 100.0        0.0
+  Hypothetical_TSO_reverse                   0.0      100.0
+
+
+Trimming adapters from read ends
+  H_TSO_forward: ACACTCTTTCCCTACACGACGCTCTTCCGATCTATTGCGCAATG
+  H_TSO_reverse: CATTGCGCAATAGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
+
+
+
+223,504 / 392,354 reads had adapters trimmed from their start (9,251,776 bp removed)
+ 65,956 / 392,354 reads had adapters trimmed from their end (7,810,202 bp removed)
+
+
+Saving trimmed reads to file
+
+Saved result to /env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode01_porechopped_ONT_TSO.fastq
+
+
+Loading reads
+/env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/raw_fastq/barcode05.fastq
+263,390 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Ligation_adapter                         100.0        0.0
+  Barcode_01_and_flanking_seq               97.4       92.5
+  Barcode_02_and_flanking_seq               89.5       85.7
+  Barcode_03_and_flanking_seq              100.0       87.5
+  Barcode_04_and_flanking_seq               95.0       82.9
+  Barcode_05_and_flanking_seq              100.0      100.0
+  Barcode_06_and_flanking_seq               80.0       76.3
+  Barcode_07_and_flanking_seq               75.6       75.0
+  Barcode_08_and_flanking_seq               69.8       71.1
+  Barcode_09_and_flanking_seq               76.3       71.4
+  Barcode_10_and_flanking_seq               70.7       72.5
+  Barcode_11_and_flanking_seq               69.0       70.0
+  Barcode_12_and_flanking_seq               73.8       73.7
+  Primer_tail_1                            100.0      100.0
+  Primer_tail_2                            100.0      100.0
+  ONT_unknown_1                            100.0      100.0
+  ONT_unknown_2_forward                      0.0      100.0
+  ONT_unknown_2_reverse                    100.0        0.0
+
+
+Trimming adapters from read ends
+       LA_Top_strand: CCTGTACTTCGTTCAGTTACGTATTGCT
+         B01_forward: GGTGCTGAAGAAAGTTGTCGGTGTCTTTGTGTTAACCT
+         B01_reverse: AGGTTAACACAAAGACACCGACAACTTTCTTCAGCACC
+         B03_forward: GGTGCTGGAGTCTTGTGTCCCAGTTACCAGGTTAACCT
+         B03_reverse: AGGTTAACCTGGTAACTGGGACACAAGACTCCAGCACC
+         B04_forward: GGTGCTGTTCGGATTCTATCGTGTTTCCCTATTAACCT
+         B04_reverse: AGGTTAATAGGGAAACACGATAGAATCCGAACAGCACC
+         B05_forward: GGTGCTGCTTGTCCAGGGTTTGTGTAACCTTTTAACCT
+         B05_reverse: AGGTTAAAAGGTTACACAAACCCTGGACAAGCAGCACC
+       Tail1_forward: TTCTGTTGGTGCTGATATTGC
+       Tail1_reverse: GCAATATCAGCACCAACAGAA
+       Tail2_forward: ACTTGCCTGTCGCTCTATCTTC
+       Tail2_reverse: GAAGATAGAGCGACAGGCAAGT
+        UNK1_forward: CGGCGTCTGCTTGGGTGTTTAACCT
+        UNK1_reverse: AGGTTAAACACCCAAGCAGACGCCG
+    UNK2_forward_end: TCGTATGCTGCTGATGCTCGTA
+  UNK2_reverse_start: TACGAGCATCAGCAGCATACGA
+
+
+
+237,462 / 263,390 reads had adapters trimmed from their start (8,420,829 bp removed)
+200,966 / 263,390 reads had adapters trimmed from their end (19,045,584 bp removed)
+
+
+Splitting reads containing middle adapters
+
+
+4,998 / 263,390 reads were split based on middle adapters
+
+
+Saving trimmed reads to file
+
+Saved result to /env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode05_porechopped_ONT.fastq
+
+
+Loading reads
+/env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode02_porechopped_ONT.fastq
+313,088 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Hypothetical_TSO_forward                 100.0        0.0
+  Hypothetical_TSO_reverse                   0.0      100.0
+
+
+Trimming adapters from read ends
+  H_TSO_forward: ACACTCTTTCCCTACACGACGCTCTTCCGATCTATTGCGCAATG
+  H_TSO_reverse: CATTGCGCAATAGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
+
+
+
+189,714 / 313,088 reads had adapters trimmed from their start (7,922,998 bp removed)
+ 56,318 / 313,088 reads had adapters trimmed from their end (6,618,462 bp removed)
+
+
+Saving trimmed reads to file
+
+Saved result to /env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode02_porechopped_ONT_TSO.fastq
+
+Trimmed 62389 polyA ending tail.
+Trimmed 72584 polyT ending tail.
+Total trimmed bases: 2516489
+Filtered 10576 GA repeats.
+Total filtered bases: 1450220
+
+Loading reads
+/env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode05_porechopped_ONT.fastq
+202,724 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Hypothetical_TSO_forward                 100.0        0.0
+  Hypothetical_TSO_reverse                   0.0      100.0
+
+
+Trimming adapters from read ends
+  H_TSO_forward: ACACTCTTTCCCTACACGACGCTCTTCCGATCTATTGCGCAATG
+  H_TSO_reverse: CATTGCGCAATAGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
+
+
+
+119,876 / 202,724 reads had adapters trimmed from their start (5,113,178 bp removed)
+ 33,201 / 202,724 reads had adapters trimmed from their end (3,900,515 bp removed)
+
+
+Saving trimmed reads to file
+
+Saved result to /env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode05_porechopped_ONT_TSO.fastq
+
+null
+Analysis complete for barcode01_porechopped_ONT_TSO_tail_GA.fastq
+Trimmed 53339 polyA ending tail.
+Trimmed 59777 polyT ending tail.
+Total trimmed bases: 2192073
+Filtered 7863 GA repeats.
+Total filtered bases: 1248062
+null
+Analysis complete for barcode02_porechopped_ONT_TSO_tail_GA.fastq
+Trimmed 36680 polyA ending tail.
+Trimmed 41120 polyT ending tail.
+Total trimmed bases: 1516690
+Filtered 6958 GA repeats.
+Total filtered bases: 1009544
+null
+Analysis complete for barcode05_porechopped_ONT_TSO_tail_GA.fastq
+
+Loading reads
+/env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/raw_fastq/barcode07.fastq
+48,993 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Ligation_adapter                         100.0        0.0
+  Barcode_01_and_flanking_seq              100.0       95.0
+  Barcode_02_and_flanking_seq              100.0       94.7
+  Barcode_03_and_flanking_seq               94.7       90.2
+  Barcode_04_and_flanking_seq              100.0       94.7
+  Barcode_05_and_flanking_seq              100.0       80.0
+  Barcode_06_and_flanking_seq              100.0       97.4
+  Barcode_07_and_flanking_seq              100.0      100.0
+  Barcode_08_and_flanking_seq               72.5       71.4
+  Barcode_09_and_flanking_seq               74.4       72.5
+  Barcode_10_and_flanking_seq               72.5       71.1
+  Barcode_11_and_flanking_seq               77.5       75.6
+  Barcode_12_and_flanking_seq               72.5       70.0
+  Primer_tail_1                            100.0      100.0
+  Primer_tail_2                            100.0      100.0
+  ONT_unknown_1                            100.0      100.0
+  ONT_unknown_2_forward                      0.0      100.0
+  ONT_unknown_2_reverse                    100.0        0.0
+
+
+Trimming adapters from read ends
+       LA_Top_strand: CCTGTACTTCGTTCAGTTACGTATTGCT
+         B01_forward: GGTGCTGAAGAAAGTTGTCGGTGTCTTTGTGTTAACCT
+         B01_reverse: AGGTTAACACAAAGACACCGACAACTTTCTTCAGCACC
+         B02_forward: GGTGCTGTCGATTCCGTTTGTAGTCGTCTGTTTAACCT
+         B02_reverse: AGGTTAAACAGACGACTACAAACGGAATCGACAGCACC
+         B03_forward: GGTGCTGGAGTCTTGTGTCCCAGTTACCAGGTTAACCT
+         B03_reverse: AGGTTAACCTGGTAACTGGGACACAAGACTCCAGCACC
+         B04_forward: GGTGCTGTTCGGATTCTATCGTGTTTCCCTATTAACCT
+         B04_reverse: AGGTTAATAGGGAAACACGATAGAATCCGAACAGCACC
+         B05_forward: GGTGCTGCTTGTCCAGGGTTTGTGTAACCTTTTAACCT
+         B05_reverse: AGGTTAAAAGGTTACACAAACCCTGGACAAGCAGCACC
+         B06_forward: GGTGCTGTTCTCGCAAAGGCAGAAAGTAGTCTTAACCT
+         B06_reverse: AGGTTAAGACTACTTTCTGCCTTTGCGAGAACAGCACC
+         B07_forward: GGTGCTGGTGTTACCGTGGGAATGAATCCTTTTAACCT
+         B07_reverse: AGGTTAAAAGGATTCATTCCCACGGTAACACCAGCACC
+       Tail1_forward: TTCTGTTGGTGCTGATATTGC
+       Tail1_reverse: GCAATATCAGCACCAACAGAA
+       Tail2_forward: ACTTGCCTGTCGCTCTATCTTC
+       Tail2_reverse: GAAGATAGAGCGACAGGCAAGT
+        UNK1_forward: CGGCGTCTGCTTGGGTGTTTAACCT
+        UNK1_reverse: AGGTTAAACACCCAAGCAGACGCCG
+    UNK2_forward_end: TCGTATGCTGCTGATGCTCGTA
+  UNK2_reverse_start: TACGAGCATCAGCAGCATACGA
+
+
+
+22,383 / 48,993 reads had adapters trimmed from their start (1,341,604 bp removed)
+17,077 / 48,993 reads had adapters trimmed from their end (2,408,780 bp removed)
+
+
+Splitting reads containing middle adapters
+
+
+4,031 / 48,993 reads were split based on middle adapters
+
+
+Saving trimmed reads to file
+
+Saved result to /env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode07_porechopped_ONT.fastq
+
+
+Loading reads
+/env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode07_porechopped_ONT.fastq
+29,941 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Hypothetical_TSO_forward                 100.0        0.0
+  Hypothetical_TSO_reverse                   0.0      100.0
+
+
+Trimming adapters from read ends
+  H_TSO_forward: ACACTCTTTCCCTACACGACGCTCTTCCGATCTATTGCGCAATG
+  H_TSO_reverse: CATTGCGCAATAGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
+
+
+
+ 1,791 / 29,941 reads had adapters trimmed from their start (78,190 bp removed)
+   976 / 29,941 reads had adapters trimmed from their end (67,391 bp removed)
+
+
+Saving trimmed reads to file
+
+Saved result to /env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode07_porechopped_ONT_TSO.fastq
+
+Trimmed 1460 polyA ending tail.
+Trimmed 1316 polyT ending tail.
+Total trimmed bases: 60887
+Filtered 260 GA repeats.
+Total filtered bases: 14876
+null
+Analysis complete for barcode07_porechopped_ONT_TSO_tail_GA.fastq
+
+Loading reads
+/env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/raw_fastq/barcode09.fastq
+6 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Ligation_adapter                          28.6        0.0
+  Barcode_01_and_flanking_seq               60.5       60.4
+  Barcode_02_and_flanking_seq               57.8       61.7
+  Barcode_03_and_flanking_seq               59.1       67.5
+  Barcode_04_and_flanking_seq               60.5       62.5
+  Barcode_05_and_flanking_seq               61.4       63.4
+  Barcode_06_and_flanking_seq               62.7       57.9
+  Barcode_07_and_flanking_seq               56.2       63.2
+  Barcode_08_and_flanking_seq               61.0       65.9
+  Barcode_09_and_flanking_seq               64.3       68.9
+  Barcode_10_and_flanking_seq               62.5       62.2
+  Barcode_11_and_flanking_seq               63.6       65.8
+  Barcode_12_and_flanking_seq               65.1       54.9
+  Primer_tail_1                             71.4       71.4
+  Primer_tail_2                             66.7       75.0
+  ONT_unknown_1                             64.5       69.2
+  ONT_unknown_2_forward                      0.0       63.6
+  ONT_unknown_2_reverse                     69.6        0.0
+
+
+No adapters found - output reads are unchanged from input reads
+
+Saving trimmed reads to file
+
+Saved result to /env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode09_porechopped_ONT.fastq
+
+
+Loading reads
+/env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode09_porechopped_ONT.fastq
+6 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Hypothetical_TSO_forward                  68.9        0.0
+  Hypothetical_TSO_reverse                   0.0       17.0
+
+
+No adapters found - output reads are unchanged from input reads
+
+Saving trimmed reads to file
+
+Saved result to /env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode09_porechopped_ONT_TSO.fastq
+
+Trimmed 1 polyA ending tail.
+Trimmed 2 polyT ending tail.
+Total trimmed bases: 11
+Filtered 0 GA repeats.
+Total filtered bases: 0
+null
+Analysis complete for barcode09_porechopped_ONT_TSO_tail_GA.fastq
+
+Loading reads
+/env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/raw_fastq/barcode10.fastq
+7 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Ligation_adapter                          73.3        0.0
+  Barcode_01_and_flanking_seq               60.4       51.1
+  Barcode_02_and_flanking_seq               63.0       63.4
+  Barcode_03_and_flanking_seq               61.4       60.0
+  Barcode_04_and_flanking_seq               55.0       61.9
+  Barcode_05_and_flanking_seq               52.4       65.0
+  Barcode_06_and_flanking_seq               59.6       38.1
+  Barcode_07_and_flanking_seq               57.5       58.1
+  Barcode_08_and_flanking_seq               61.9       36.2
+  Barcode_09_and_flanking_seq               59.5       60.0
+  Barcode_10_and_flanking_seq               59.6       69.0
+  Barcode_11_and_flanking_seq               59.2       56.1
+  Barcode_12_and_flanking_seq               55.8       59.5
+  Primer_tail_1                             72.7       69.2
+  Primer_tail_2                             72.7       65.5
+  ONT_unknown_1                             70.4       96.2
+  ONT_unknown_2_forward                      0.0       86.4
+  ONT_unknown_2_reverse                     69.6        0.0
+
+
+Trimming adapters from read ends
+  UNK1_forward: CGGCGTCTGCTTGGGTGTTTAACCT
+  UNK1_reverse: AGGTTAAACACCCAAGCAGACGCCG
+
+
+
+0 / 7 reads had adapters trimmed from their start (0 bp removed)
+1 / 7 reads had adapters trimmed from their end (34 bp removed)
+
+
+Splitting reads containing middle adapters
+
+
+1 / 7 reads were split based on middle adapters
+
+
+Saving trimmed reads to file
+
+Saved result to /env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode10_porechopped_ONT.fastq
+
+
+Loading reads
+/env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode10_porechopped_ONT.fastq
+7 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Hypothetical_TSO_forward                  61.7        0.0
+  Hypothetical_TSO_reverse                   0.0       20.0
+
+
+No adapters found - output reads are unchanged from input reads
+
+Saving trimmed reads to file
+
+Saved result to /env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode10_porechopped_ONT_TSO.fastq
+
+Trimmed 1 polyA ending tail.
+Trimmed 1 polyT ending tail.
+Total trimmed bases: 7
+Filtered 0 GA repeats.
+Total filtered bases: 0
+null
+Analysis complete for barcode10_porechopped_ONT_TSO_tail_GA.fastq
+
+Loading reads
+/env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/raw_fastq/barcode12.fastq
+6 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Ligation_adapter                          64.5        0.0
+  Barcode_01_and_flanking_seq               45.0       35.9
+  Barcode_02_and_flanking_seq               53.8       25.6
+  Barcode_03_and_flanking_seq               58.0       60.5
+  Barcode_04_and_flanking_seq               58.1       45.0
+  Barcode_05_and_flanking_seq               60.0       52.6
+  Barcode_06_and_flanking_seq               62.2       60.0
+  Barcode_07_and_flanking_seq               59.2       61.4
+  Barcode_08_and_flanking_seq               42.2       57.9
+  Barcode_09_and_flanking_seq               60.5       57.5
+  Barcode_10_and_flanking_seq               50.0       33.3
+  Barcode_11_and_flanking_seq               45.5       57.8
+  Barcode_12_and_flanking_seq               69.2       68.4
+  Primer_tail_1                             57.7       59.1
+  Primer_tail_2                             66.7       69.6
+  ONT_unknown_1                             63.0       64.0
+  ONT_unknown_2_forward                      0.0       72.7
+  ONT_unknown_2_reverse                     69.6        0.0
+
+
+No adapters found - output reads are unchanged from input reads
+
+Saving trimmed reads to file
+
+Saved result to /env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode12_porechopped_ONT.fastq
+
+
+Loading reads
+/env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode12_porechopped_ONT.fastq
+6 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Hypothetical_TSO_forward                  63.8        0.0
+  Hypothetical_TSO_reverse                   0.0       47.9
+
+
+No adapters found - output reads are unchanged from input reads
+
+Saving trimmed reads to file
+
+Saved result to /env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode12_porechopped_ONT_TSO.fastq
+
+Trimmed 3 polyA ending tail.
+Trimmed 2 polyT ending tail.
+Total trimmed bases: 497
+
+Loading reads
+/env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/raw_fastq/barcode11.fastq
+3 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Ligation_adapter                          60.0        0.0
+  Barcode_01_and_flanking_seq               42.9       63.8
+  Barcode_02_and_flanking_seq               35.6       70.7
+  Barcode_03_and_flanking_seq               42.9       66.7
+  Barcode_04_and_flanking_seq               59.2       78.0
+  Barcode_05_and_flanking_seq               27.1       69.0
+  Barcode_06_and_flanking_seq               35.6       62.8
+  Barcode_07_and_flanking_seq               29.8       61.0
+  Barcode_08_and_flanking_seq               30.4       65.0
+  Barcode_09_and_flanking_seq               45.2       57.1
+  Barcode_10_and_flanking_seq               43.9       59.3
+  Barcode_11_and_flanking_seq               45.0       73.2
+  Barcode_12_and_flanking_seq               31.1       59.1
+  Primer_tail_1                             61.5       87.0
+  Primer_tail_2                             65.4       64.5
+  ONT_unknown_1                             80.8       69.2
+  ONT_unknown_2_forward                      0.0       60.9
+  ONT_unknown_2_reverse                     87.0        0.0
+
+
+No adapters found - output reads are unchanged from input reads
+
+Saving trimmed reads to file
+
+Saved result to /env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode11_porechopped_ONT.fastq
+
+
+Loading reads
+/env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode11_porechopped_ONT.fastq
+3 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Hypothetical_TSO_forward                  50.0        0.0
+  Hypothetical_TSO_reverse                   0.0       80.0
+
+
+No adapters found - output reads are unchanged from input reads
+
+Saving trimmed reads to file
+
+Saved result to /env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode11_porechopped_ONT_TSO.fastq
+
+Trimmed 1 polyA ending tail.
+Trimmed 2 polyT ending tail.
+Total trimmed bases: 8
+Filtered 0 GA repeats.
+Total filtered bases: 0
+null
+Analysis complete for barcode11_porechopped_ONT_TSO_tail_GA.fastq
+Filtered 1 GA repeats.
+Total filtered bases: 144
+null
+Analysis complete for barcode12_porechopped_ONT_TSO_tail_GA.fastq
+
+Loading reads
+/env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/raw_fastq/barcode08.fastq
+4 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Ligation_adapter                          66.7        0.0
+  Barcode_01_and_flanking_seq               62.5       44.0
+  Barcode_02_and_flanking_seq               67.5       60.9
+  Barcode_03_and_flanking_seq               63.0       65.1
+  Barcode_04_and_flanking_seq              100.0       87.2
+  Barcode_05_and_flanking_seq               64.4       53.2
+  Barcode_06_and_flanking_seq               59.6       55.6
+  Barcode_07_and_flanking_seq               62.2       53.3
+  Barcode_08_and_flanking_seq               65.1       64.1
+  Barcode_09_and_flanking_seq               63.4       31.6
+  Barcode_10_and_flanking_seq               62.2       57.5
+  Barcode_11_and_flanking_seq               59.6       52.1
+  Barcode_12_and_flanking_seq               57.7       63.6
+  Primer_tail_1                            100.0       64.0
+  Primer_tail_2                             90.9      100.0
+  ONT_unknown_1                             96.0       61.1
+  ONT_unknown_2_forward                      0.0       66.7
+  ONT_unknown_2_reverse                     66.7        0.0
+
+
+Trimming adapters from read ends
+    B04_forward: GGTGCTGTTCGGATTCTATCGTGTTTCCCTATTAACCT
+    B04_reverse: AGGTTAATAGGGAAACACGATAGAATCCGAACAGCACC
+  Tail1_forward: TTCTGTTGGTGCTGATATTGC
+  Tail1_reverse: GCAATATCAGCACCAACAGAA
+  Tail2_forward: ACTTGCCTGTCGCTCTATCTTC
+  Tail2_reverse: GAAGATAGAGCGACAGGCAAGT
+   UNK1_forward: CGGCGTCTGCTTGGGTGTTTAACCT
+   UNK1_reverse: AGGTTAAACACCCAAGCAGACGCCG
+
+
+
+3 / 4 reads had adapters trimmed from their start (153 bp removed)
+2 / 4 reads had adapters trimmed from their end (276 bp removed)
+
+
+Splitting reads containing middle adapters
+
+
+1 / 4 reads were split based on middle adapters
+
+
+Saving trimmed reads to file
+
+Saved result to /env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode08_porechopped_ONT.fastq
+
+
+Loading reads
+/env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode08_porechopped_ONT.fastq
+1 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Hypothetical_TSO_forward                   2.3        0.0
+  Hypothetical_TSO_reverse                   0.0        6.7
+
+
+No adapters found - output reads are unchanged from input reads
+
+Saving trimmed reads to file
+
+Saved result to /env/cng/scratchE/q_projet_CAPASVIR_880/Data/25012401_DSUP1_1/trimmed_fastq/barcode08_porechopped_ONT_TSO.fastq
+
+Trimmed 1 polyA ending tail.
+Trimmed 1 polyT ending tail.
+Total trimmed bases: 8
+Filtered 0 GA repeats.
+Total filtered bases: 0
+null
+Analysis complete for barcode08_porechopped_ONT_TSO_tail_GA.fastq

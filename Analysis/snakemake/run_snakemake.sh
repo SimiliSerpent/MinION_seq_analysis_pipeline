@@ -6,7 +6,7 @@
 #MSUB -r ${EXP_ID}_analysis			# Requested job name
 #MSUB -o ../results/${EXP_ID}/logs/snakemake.%I.out	# Output log file name (%I is the job ID)
 #MSUB -e ../results/${EXP_ID}/logs/snakemake.%I.err	# Error log file name (%I is the job ID)
-#MSUB -E '--mem=300G --qos=long'
+#MSUB -E '--mem=300G --qos=default'
 
 module load fastqc
 module load gcc/12.2.0
@@ -35,3 +35,7 @@ snakemake \
 # Go on with independent jobs if a job fails
 # Do not lock the working directory
 # Define what triggers the rerunning of a job (here: file modification dates)
+
+# Do not hesitate to use filter_escape_seq.py on outlog like this:
+# module load python && python ../scripts/filter_escape_seq.py -f ../results/${EXP_ID}/logs/<outlog_name>
+# This allows better visualization of the outlog using the less/more cmds

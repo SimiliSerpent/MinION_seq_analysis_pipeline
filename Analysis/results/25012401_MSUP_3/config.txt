@@ -1,0 +1,4 @@
+Analysis_id	25012401_MSUP_3
+Nb_threads	32
+Analysis_date	04/06/25
+Species	['SARSCoV2', 'mouse']

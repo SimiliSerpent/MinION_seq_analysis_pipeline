@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Place yourself where you want the files to be imported
-export MINION_PC_EXP_NAME="25_01_24_01_250505_1"
-export INTI_EXP_NAME="25012401_DSUP1_1"
+export MINION_PC_EXP_NAME="25_01_24_01_250510_1"
+export INTI_EXP_NAME="25012401_DFAS1_1"
 
 mkdir -p ./$INTI_EXP_NAME
 

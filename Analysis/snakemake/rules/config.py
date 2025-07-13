@@ -40,7 +40,7 @@ nthreads = int(os.environ['NTHREADS'])
 
 # Get files name for output
 exp_id = os.environ['EXP_ID']
-data_path = PROJECT + '/Data/' + exp_id
+data_path = PROJECT + '/Data/seq_data/' + exp_id
 analysis_path = PROJECT + '/Analysis/results/' + exp_id
 raw_fastqs = utils.find_file(data_path + '/raw_fastq', '.fastq')
 sample_names = [fastq.rstrip('.fastq') for fastq in raw_fastqs]
