@@ -42,6 +42,25 @@ def get_samples_composition(samstats_summary_dir):
     # Initialize dictionnary with samples
     samples_dict = {}
 
+    # Loop through files and parse the names to find cross-species alignemnt stats
+    for file_path in utils.find_file(samstats_summary_dir, '_snakeref.samstats'):
+        if file_path.endswith('_snakeref.samstats'):
+
+            # Parse the name to retrieve sample
+            sample = file_path.split('/')[-1].split('_map2_')[0]
+
+            # Open file and retrieve the number of total reads
+            with open(samstats_summary_dir.rstrip('/')+'/'+file_path, 'r') as file:
+                line = file.readline()
+                while line:
+                    if line.startswith('SN\traw total sequences:'):
+                        total_reads = int(line.strip().split('\t')[2])
+                        break
+                    line = file.readline()
+
+            # Update the samples dictionnary accordingly
+            samples_dict[sample] = {'all': total_reads}
+
     # Loop through files and parse the names to find samples and targets
     for file_path in utils.find_file(samstats_summary_dir, '.summary'):
         if file_path.endswith('.summary'):
@@ -113,8 +132,8 @@ def get_species_repartition(samples, species, samples_dict):
 
 
 def plot_composition(samples, species, composition, bar_width, bar_colors,
-    legend_elements, title, output_file, log_scale=False, y_label='Read count',
-    verbosity=0):
+    legend_elements, title, output_file, total=False, log_scale=False,
+    y_label='Read count', verbosity=0):
     """Returns a dict containing the number of reads per sample for each target.
 
     Positionnal arguments:
@@ -128,6 +147,7 @@ def plot_composition(samples, species, composition, bar_width, bar_colors,
         specie
     title             (str) - plot title
     output_file       (str) - path to output file
+    total            (bool) - plot total reads as well
     log_scale        (bool) - use True for logarithmic scale on y axis
     y_label           (str) - y axis name
     verbosity         (int) - level of verbosity
@@ -136,6 +156,15 @@ def plot_composition(samples, species, composition, bar_width, bar_colors,
     plt.close() # ensure no figure is already open
     fig, ax = plt.subplots() # initialize figure
     dummy_var = fig.set_size_inches(10, 5) # (width, height) set figure size
+
+    if total:
+        # plot total number of reads per sample
+        dummy_var = ax.bar(
+            np.arange(len(samples)) * ((len(species) + 2.5) * bar_width) + (len(species[:-1]) * bar_width / 2),
+            composition['all'],
+            bar_width * (len(species) + 1),
+            color='gainsboro'
+        )
 
     # plot number of reads per species
     multiplier = 0
@@ -162,7 +191,7 @@ def plot_composition(samples, species, composition, bar_width, bar_colors,
         fontdict={'fontsize': 7}
     ) # position labels along x axis
     ax.set_title(title)
-    ax.legend(handles=legend_elements, framealpha=1)
+    ax.legend(handles=legend_elements, framealpha=0.6)
     ax.set_axisbelow(True) # prevent grid from being printed ahead of figure
     ax.yaxis.grid(color='lightgray') # plot the horizontal grey lines
 
@@ -206,6 +235,9 @@ def main():
             norm_comp[sp] = [float(count)/sum(composition[sp]) for count in composition[sp]]
         else:
             norm_comp[sp] = composition[sp]
+    
+    # Remove the 'all' artificial species
+    species.remove('all')
 
     # Compute correlation matrix
     # species_count = np.array([composition[specie][:-1] for specie in species])
@@ -260,6 +292,42 @@ def main():
         legend_elements,
         title,
         output_file = output_path + '_normalized_samples_composition.png',
+        y_label='Proportion of species reads',
+        verbosity = v
+    )
+
+    legend_elements = [
+        pcs.Patch(facecolor='gainsboro', label='Total')
+    ] + legend_elements # add the total reads to the figure legend
+
+    # Plot samples composition in terms of targets (with total reads)
+    title = 'Outcome of mapping against ' + str(len(species)) + ' species'
+    dummy_var = plot_composition(
+        samples,
+        species,
+        composition,
+        bar_width,
+        bar_colors,
+        legend_elements,
+        title,
+        output_file=output_path + '_samples_composition_with_total.png',
+        total=True,
+        log_scale=True,
+        verbosity=v
+    )
+
+    # Plot normalized samples composition in terms of targets (with total reads)
+    title = 'Outcome of mapping against ' + str(len(species)) + ' species - $\\it{normalized}$'
+    dummy_var = plot_composition(
+        samples,
+        species,
+        norm_comp,
+        bar_width,
+        bar_colors,
+        legend_elements,
+        title,
+        output_file = output_path + '_normalized_samples_composition_with_total.png',
+        total=True,
         y_label='Proportion of species reads',
         verbosity = v
     )
