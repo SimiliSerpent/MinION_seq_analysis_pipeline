@@ -1,4 +1,6 @@
 Analysis_id	25012401_DFAS1_1
 Nb_threads	32
-Analysis_date	13/07/25
+Analysis_date	16/07/25
 Species	['SARSCoV2', 'mouse']
+Barcodes	ONT-EXP-PBC001
+Samples	{'1': 'SARS-CoV-2 250pg', '2': 'SARS-CoV-2 250pg', '3': 'Mouse 100pg', '4': 'Mouse 10pg', '5': 'H2O', '6': 'Mouse 100pg', '7': 'H20'}

@@ -1,0 +1,6 @@
+Analysis_id	25041703_MSUP_1
+Nb_threads	32
+Analysis_date	16/07/25
+Species	['SARSCoV2', 'mouse']
+Barcodes	ONT-EXP-PBC001
+Samples	{'1': "SARS-CoV-2 100pg 30'", '2': "SARS-CoV-2 100pg 15'", '3': "SARS-CoV-2 100pg 7'", '4': "SARS-CoV-2 100pg 3'", '5': "SARS-CoV-2 100pg 1'", '6': 'H20', '8': 'H2O'}

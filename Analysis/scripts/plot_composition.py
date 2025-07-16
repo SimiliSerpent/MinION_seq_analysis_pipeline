@@ -215,6 +215,11 @@ def main():
     parser.add_argument('-o', '--output', type=str,
                         help='Path to the output directory (and prefix) '
                         '(default: same directory)')
+    parser.add_argument('-s', '--samples', type=str,
+                        help='Coma-separated list of barcode/samples used at '
+                        + 'barcoding step, each in the form: '
+                        + '<barcode_nb>=<sample_name> where <barcode_nb> '
+                        + 'should be an integer')
     parser.add_argument('-v', '--verbose', type=int, default=0,
                         help='Level of verbosity (default: 0 = muted)')
 
@@ -227,12 +232,31 @@ def main():
     # Retrieve sorted list of all samples and all species
     samples, species = get_list_of_samples_and_species(samples_dict)
 
+    # Use only the specified samples
+    if args.samples is not None and len(args.samples) > 0:
+        samples_names = {}
+        try:
+            for bc_samp_str in args.samples.split(','):
+                bc_samp = bc_samp_str.split('=')
+                samples_names[
+                    'barcode' + ('0' + bc_samp[0])[-2:]
+                ] = bc_samp[1]
+        except ValueError:
+            print('String, coma-separated list of barcode/sample couples, '
+                    + 'each in the form: <barcode_nb>=<sample_name> where '
+                    + '<barcode_nb> should be an integer')
+        samples = [
+            sample for sample in samples if sample in samples_names.keys()
+        ]
+
     # Prepare data for plotting
     composition = get_species_repartition(samples, species, samples_dict)
     norm_comp = {}
     for sp in composition.keys():
         if max(composition[sp]) > 0:
-            norm_comp[sp] = [float(count)/sum(composition[sp]) for count in composition[sp]]
+            norm_comp[sp] = [
+                float(count)/sum(composition[sp]) for count in composition[sp]
+            ]
         else:
             norm_comp[sp] = composition[sp]
     
@@ -266,6 +290,14 @@ def main():
         pcs.Patch(facecolor=bar_colors[sp], label=sp) for sp in species
     ] # set patch of colors to be used in the figure legend
 
+    if args.samples is not None and len(args.samples) > 0:
+        # Use samples names as labels for x axis
+        samples = [samples_names[sample] for sample in samples]
+        # Change plot file name accordingly
+        output_path += '_samples'
+    else:
+        output_path += '_barcodes'
+
     # Plot samples composition in terms of targets
     title = 'Outcome of mapping against ' + str(len(species)) + ' species'
     dummy_var = plot_composition(
@@ -276,7 +308,7 @@ def main():
         bar_colors,
         legend_elements,
         title,
-        output_file=output_path + '_samples_composition.png',
+        output_file=output_path + '_composition.png',
         log_scale=True,
         verbosity=v
     )
@@ -291,7 +323,7 @@ def main():
         bar_colors,
         legend_elements,
         title,
-        output_file = output_path + '_normalized_samples_composition.png',
+        output_file = output_path + '_normalized_composition.png',
         y_label='Proportion of species reads',
         verbosity = v
     )
@@ -310,7 +342,7 @@ def main():
         bar_colors,
         legend_elements,
         title,
-        output_file=output_path + '_samples_composition_with_total.png',
+        output_file=output_path + '_composition_with_total.png',
         total=True,
         log_scale=True,
         verbosity=v
@@ -326,7 +358,7 @@ def main():
         bar_colors,
         legend_elements,
         title,
-        output_file = output_path + '_normalized_samples_composition_with_total.png',
+        output_file = output_path + '_normalized_composition_with_total.png',
         total=True,
         y_label='Proportion of species reads',
         verbosity = v

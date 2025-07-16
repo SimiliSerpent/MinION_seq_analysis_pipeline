@@ -84,7 +84,7 @@ rule computing_nuc_freq:
 
 # Plot nucleotides frequencies
 rule plotting_nuc_freq:
-    input: expand(analysis_path+'/nuc_freq/trimmed_fastq/{sample}_porechopped_ONT_TSO_tail_GA_freq.txt', sample=sample_names)
+    input: expand(analysis_path+'/nuc_freq/trimmed_fastq/{sample}_porechopped_ONT_TSO_tail_GA_freq.txt', sample=barcode_names)
     output: analysis_path + '/nuc_freq/' + exp_id + '_nuc_freq.png'
     threads: 1
     shell:
@@ -210,35 +210,52 @@ rule plotting_read_lengths:
     shell:
         'python3 -u ../scripts/plot_read_length_histo.py -d {input} -o {output}'
 
-# Plot samples species composition
-rule plotting_samples_composition:
-    input: expand(analysis_path+'/alignments_stats/{species}/{sample}.{species}.summary', species=species_list, sample=sample_names)
+# Plot barcodes species composition
+rule plotting_barcodes_composition:
+    input: expand(analysis_path+'/alignments_stats/{species}/{sample}.{species}.summary', species=species_list, sample=barcode_names)
     output:
-        analysis_path + '/' + exp_id + '_samples_composition.png',
-        analysis_path + '/' + exp_id + '_normalized_samples_composition.png'
+        analysis_path + '/' + exp_id + '_barcodes_composition.png',
+        analysis_path + '/' + exp_id + '_barcodes_normalized_composition.png'
     threads: 1
     shell:
-        'python3 -u ../scripts/plot_composition.py -i {analysis_path}/alignments_stats -o {analysis_path}/{exp_id}'
+        'python3 '
+        '-u ../scripts/plot_composition.py '
+        '-i {analysis_path}/alignments_stats '
+        '-o {analysis_path}/{exp_id}'
+
+# Plot samples species composition
+rule plotting_samples_composition:
+    input: expand(analysis_path+'/alignments_stats/{species}/{sample}.{species}.summary', species=species_list, sample=barcode_names)
+    output:
+        analysis_path + '/' + exp_id + '_samples_composition.png',
+        analysis_path + '/' + exp_id + '_samples_normalized_composition.png'
+    threads: 1
+    shell:
+        'python3 '
+        '-u ../scripts/plot_composition.py '
+        '-i {analysis_path}/alignments_stats '
+        '-o {analysis_path}/{exp_id} '
+        '-s {samples_str}'
 
 # Compute sequences statistics and store in pickle files
 rule gathering_sequence_stats:
     input:
         raw = expand(
             data_path+'/raw_fastq/{sample}.fastq',
-            sample=sample_names
+            sample=barcode_names
         ),
         trimmed = expand(
             data_path+'/trimmed_fastq/{sample}_porechopped_{trim_states}.fastq',
-            sample=sample_names,
+            sample=barcode_names,
             trim_states=['ONT', 'ONT_TSO', 'ONT_TSO_tail', 'ONT_TSO_tail_GA']
         ),
         sam = expand(
             data_path+'/alignments/{sample}_map2_snakeref.sam',
-            sample=sample_names
+            sample=barcode_names
         )
     output: expand(\
         analysis_path+'/pickles/{sample}_{trim_states}.pkl',\
-        sample=sample_names,\
+        sample=barcode_names,\
         trim_states=['untrimmed', 'ONT', 'ONT_TSO', 'ONT_TSO_tail', 'ONT_TSO_tail_GA']\
     )
     threads: 10
@@ -251,7 +268,7 @@ rule gathering_sequence_stats:
 rule plotting_seq_size_and_qual_vs_trimming:
     input: expand(\
         analysis_path+'/pickles/{sample}_{trim_states}.pkl',\
-        sample=sample_names,\
+        sample=barcode_names,\
         trim_states=['untrimmed', 'ONT', 'ONT_TSO', 'ONT_TSO_tail', 'ONT_TSO_tail_GA']\
     )
     output:
