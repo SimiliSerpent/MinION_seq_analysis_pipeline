@@ -1,0 +1,38 @@
+
+Loading reads
+/env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_2_twist_outer.fastq
+30 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Twist_primers (forward)                  100.0      100.0
+  Twist_primers (reverse)                  100.0      100.0
+
+
+Trimming adapters from read ends
+  P5_primer_forward: ACACTCTTTCCCTACACGACGCTCTTCCGATCT
+  P7_primer_forward: TCGTATGCTGCTGATGCTCGTAGATCGGAAGAGCACACGTCTGAACTCCAGTCAC
+  P7_primer_reverse: GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCTACGAGCATCAGCAGCATACGA
+  P5_primer_reverse: AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
+
+
+
+18 / 30 reads had adapters trimmed from their start (1,206 bp removed)
+15 / 30 reads had adapters trimmed from their end (948 bp removed)
+
+
+Splitting reads containing middle adapters
+
+
+5 / 30 reads were split based on middle adapters
+
+
+Saving trimmed reads to file
+
+Saved result to /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_3_twist_primers.fastq
+

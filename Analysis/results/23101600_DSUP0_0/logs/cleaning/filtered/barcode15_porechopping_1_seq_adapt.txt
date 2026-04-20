@@ -1,0 +1,21 @@
+
+Loading reads
+/env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/demultiplexed/barcode15.fastq
+30 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Ligation_adapter                          70.0       76.9
+
+
+No adapters found - output reads are unchanged from input reads
+
+Saving trimmed reads to file
+
+Saved result to /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_1_seq_adapt.fastq
+

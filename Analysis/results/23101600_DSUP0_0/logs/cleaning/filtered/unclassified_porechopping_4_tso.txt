@@ -1,0 +1,22 @@
+
+Loading reads
+/env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_3_twist_primers.fastq
+27 reads loaded
+
+
+Looking for known adapter sets
+
+                                        Best               
+                                        read       Best    
+                                        start      read end
+  Set                                   %ID        %ID     
+  Hypothetical_TSO_forward                  78.3        0.0
+  Hypothetical_TSO_reverse                   0.0       76.6
+
+
+No adapters found - output reads are unchanged from input reads
+
+Saving trimmed reads to file
+
+Saved result to /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_4_tso.fastq
+

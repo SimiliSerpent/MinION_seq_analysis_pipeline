@@ -1,0 +1,38 @@
+Loading java/openjdk/21.0.5 <aL>
+
+Loading fastqc/0.12.1
+  Loading requirement: java/openjdk/21.0.5
+Loading c/gnu/11.5.0 <aL>
+Loading c++/gnu/11.5.0 <aL>
+Loading fortran/gnu/11.5.0 <aL>
+
+Loading gnu/11.5.0
+  Loading requirement: c/gnu/11.5.0 c++/gnu/11.5.0 fortran/gnu/11.5.0
+Loading minimap2/2.28
+Loading python/3.11.5
+Loading samtools/1.23.1
+Loading snakemake/9.9.0
+Trimmed 19 polyA ending tail -> 347 bases.
+Trimmed 8 polyT ending tail -> 174 bases.
+22h40'10s - Saving tail trimming stats to /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/polyA_trimming/barcode11_polyA_trimming_stats.json
+Filtered 0 GA repeats.
+Total filtered bases: 0
+22h40'13s - Saving GA filtering stats to /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/GA_filtering/barcode11_GA_filtering_stats.json
+null
+Analysis complete for barcode11_porechopped_6_GA.fastq
+Trimmed 9 polyA ending tail -> 117 bases.
+Trimmed 7 polyT ending tail -> 65 bases.
+22h40'19s - Saving tail trimming stats to /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/polyA_trimming/unclassified_polyA_trimming_stats.json
+Filtered 3 GA repeats.
+Total filtered bases: 380
+22h40'21s - Saving GA filtering stats to /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/GA_filtering/unclassified_GA_filtering_stats.json
+null
+Analysis complete for unclassified_porechopped_6_GA.fastq
+Trimmed 18 polyA ending tail -> 137 bases.
+Trimmed 3 polyT ending tail -> 12 bases.
+22h40'30s - Saving tail trimming stats to /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/polyA_trimming/barcode15_polyA_trimming_stats.json
+Filtered 0 GA repeats.
+Total filtered bases: 0
+22h40'33s - Saving GA filtering stats to /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/GA_filtering/barcode15_GA_filtering_stats.json
+null
+Analysis complete for barcode15_porechopped_6_GA.fastq

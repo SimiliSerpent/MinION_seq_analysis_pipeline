@@ -1,0 +1,38 @@
+
+[1m[4mLoading reads[0m
+/env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_2_twist_outer.fastq
+30 reads loaded
+
+
+[1m[4mLooking for known adapter sets[0m
+0 / 30 (0.0%)10 / 30 (33.3%)20 / 30 (66.7%)30 / 30 (100.0%)30 / 30 (100.0%)
+                                        Best               [0m
+                                        read       Best    [0m
+                                        start      read end[0m
+  [4mSet                                   %ID        %ID     [0m
+  [32mTwist_primers (forward)                  100.0      100.0[0m
+  [32mTwist_primers (reverse)                  100.0      100.0[0m
+
+
+[1m[4mTrimming adapters from read ends[0m
+  P5_primer_forward: [31mACACTCTTTCCCTACACGACGCTCTTCCGATCT[0m
+  P7_primer_forward: [31mTCGTATGCTGCTGATGCTCGTAGATCGGAAGAGCACACGTCTGAACTCCAGTCAC[0m
+  P7_primer_reverse: [31mGTGACTGGAGTTCAGACGTGTGCTCTTCCGATCTACGAGCATCAGCAGCATACGA[0m
+  P5_primer_reverse: [31mAGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT[0m
+
+0 / 30 (0.0%)10 / 30 (33.3%)20 / 30 (66.7%)30 / 30 (100.0%)30 / 30 (100.0%)
+
+30 / 30 reads had adapters trimmed from their start (1,865 bp removed)
+30 / 30 reads had adapters trimmed from their end (2,140 bp removed)
+
+
+[1m[4mSplitting reads containing middle adapters[0m
+0 / 30 (0.0%)10 / 30 (33.3%)20 / 30 (66.7%)30 / 30 (100.0%)30 / 30 (100.0%)
+
+11 / 30 reads were split based on middle adapters
+
+
+[1m[4mSaving trimmed reads to file[0m
+
+Saved result to /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_3_twist_primers.fastq
+

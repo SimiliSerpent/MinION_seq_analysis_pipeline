@@ -1,0 +1,1012 @@
+Assuming unrestricted shared filesystem usage.
+host: inti021.hpc.ibfj-evry.fr
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 32
+Rules claiming more threads will be scaled down.
+Provided resources: mem_mb=32000
+Job stats:
+job                                           count
+------------------------------------------  -------
+all                                               1
+computing_fastqc                                  3
+computing_general_alignment_stats                 3
+computing_nuc_freq                                3
+computing_species_specific_alignment_stats        3
+extract_porechop_stats                            1
+filter_GA                                         3
+filter_single_porechop_log                       12
+gathering_sequence_stats                          1
+mapping                                           3
+plot_barcodes_cleaning_stats                      1
+plot_samples_cleaning_stats                       1
+plotting_barcode_size_vs_quality                  1
+plotting_barcodes_composition                     1
+plotting_heatmaps                                 1
+plotting_nuc_freq                                 1
+plotting_read_lengths                             3
+plotting_sample_size_vs_quality                   1
+plotting_samples_composition                      1
+porechopping_TSO                                  3
+porechopping_Twist_outer_seq                      3
+porechopping_Twist_primers                        3
+porechopping_sequencing_adapter                   3
+retrieving_read_lengths                           3
+retrieving_species_stats_summary                  3
+sorting                                           3
+trimming_polyA                                    3
+total                                            68
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:08 2026]
+localrule porechopping_sequencing_adapter:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/demultiplexed/barcode11.fastq
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_1_seq_adapt.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode11_porechopping_1_seq_adapt.txt
+    jobid: 7
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode11_porechopping_1_seq_adapt.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_1_seq_adapt.fastq
+    wildcards: barcode=barcode11
+    threads: 32
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:09 2026]
+Finished jobid: 7 (Rule: porechopping_sequencing_adapter)
+1 of 68 steps (1%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:09 2026]
+localrule porechopping_Twist_outer_seq:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_1_seq_adapt.fastq
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_2_twist_outer.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode11_porechopping_2_twist_outer.txt
+    jobid: 6
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_2_twist_outer.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode11_porechopping_2_twist_outer.txt; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_1_seq_adapt.fastq
+    wildcards: barcode=barcode11
+    threads: 32
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:09 2026]
+Finished jobid: 6 (Rule: porechopping_Twist_outer_seq)
+2 of 68 steps (3%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:09 2026]
+localrule porechopping_Twist_primers:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_2_twist_outer.fastq
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_3_twist_primers.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode11_porechopping_3_twist_primers.txt
+    jobid: 5
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode11_porechopping_3_twist_primers.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_3_twist_primers.fastq; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_2_twist_outer.fastq
+    wildcards: barcode=barcode11
+    threads: 32
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:09 2026]
+Finished jobid: 5 (Rule: porechopping_Twist_primers)
+3 of 68 steps (4%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:09 2026]
+localrule porechopping_TSO:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_3_twist_primers.fastq
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_4_tso.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode11_porechopping_4_tso.txt
+    jobid: 4
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_4_tso.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode11_porechopping_4_tso.txt; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_3_twist_primers.fastq
+    wildcards: barcode=barcode11
+    threads: 32
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:09 2026]
+Finished jobid: 4 (Rule: porechopping_TSO)
+4 of 68 steps (6%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:09 2026]
+localrule trimming_polyA:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_4_tso.fastq
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_5_polyA.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/polyA_trimming/barcode11_polyA_lengths_histo.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/polyA_trimming/barcode11_polyA_trimming_stats.json
+    jobid: 3
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_5_polyA.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/polyA_trimming/barcode11_polyA_trimming_stats.json; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_4_tso.fastq
+    wildcards: barcode=barcode11
+    threads: 32
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:40:12 2026]
+Finished jobid: 3 (Rule: trimming_polyA)
+5 of 68 steps (7%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:12 2026]
+localrule filter_GA:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_5_polyA.fastq
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_6_GA.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/GA_filtering/barcode11_filtered_GA_reps_lengths_histo.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/GA_filtering/barcode11_GA_filtering_stats.json
+    jobid: 2
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_6_GA.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/GA_filtering/barcode11_GA_filtering_stats.json; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_5_polyA.fastq
+    wildcards: barcode=barcode11
+    threads: 32
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:40:14 2026]
+Finished jobid: 2 (Rule: filter_GA)
+6 of 68 steps (9%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:14 2026]
+localrule mapping:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_6_GA.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/references/snakeref/SARSCoV2.fa
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/barcode11_map2_snakeref.sam
+    jobid: 41
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/barcode11_map2_snakeref.sam; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_6_GA.fastq
+    wildcards: barcode=barcode11
+    threads: 32
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[M::mm_idx_gen::0.022*0.20] collected minimizers
+[M::mm_idx_gen::0.024*1.81] sorted minimizers
+[M::main::0.024*1.81] loaded/built the index for 1 target sequence(s)
+[M::mm_mapopt_update::0.025*1.79] mid_occ = 10
+[M::mm_idx_stat] kmer size: 15; skip: 10; is_hpc: 0; #seq: 1
+[M::mm_idx_stat::0.025*1.78] distinct minimizers: 5587 (99.93% are singletons); average occurrences: 1.004; average spacing: 5.332; total length: 29903
+[M::worker_pipeline::0.031*2.74] mapped 28 sequences
+[M::main] Version: 2.28-r1209
+[M::main] CMD: minimap2 -ax map-ont -t 32 /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/references/snakeref/SARSCoV2.fa /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_6_GA.fastq
+[M::main] Real time: 0.033 sec; CPU: 0.086 sec; Peak RSS: 0.016 GB
+[Mon Apr 20 22:40:14 2026]
+Finished jobid: 41 (Rule: mapping)
+7 of 68 steps (10%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:14 2026]
+localrule sorting:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/barcode11_map2_snakeref.sam
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/barcode11_map2_snakeref_sorted.bam
+    jobid: 40
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/barcode11_map2_snakeref_sorted.bam; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/barcode11_map2_snakeref.sam
+    wildcards: alignment=barcode11_map2_snakeref
+    threads: 32
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:40:14 2026]
+Finished jobid: 40 (Rule: sorting)
+8 of 68 steps (12%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:14 2026]
+localrule computing_fastqc:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_6_GA.fastq
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/fastqc/barcode11_porechopped_6_GA_fastqc.html, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/fastqc/barcode11_porechopped_6_GA_fastqc.zip
+    jobid: 1
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/fastqc/barcode11_porechopped_6_GA_fastqc.html; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_6_GA.fastq
+    wildcards: barcode=barcode11_porechopped_6_GA
+    threads: 32
+    resources: tmpdir=/tmp
+Select jobs to execute...
+Started analysis of barcode11_porechopped_6_GA.fastq
+[Mon Apr 20 22:40:17 2026]
+Finished jobid: 1 (Rule: computing_fastqc)
+9 of 68 steps (13%) done
+Execute 5 jobs...
+
+[Mon Apr 20 22:40:17 2026]
+localrule filter_single_porechop_log:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode11_porechopping_2_twist_outer.txt
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode11_porechopping_2_twist_outer.txt
+    jobid: 26
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode11_porechopping_2_twist_outer.txt; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode11_porechopping_2_twist_outer.txt
+    wildcards: barcode=barcode11, trim_state=2_twist_outer
+    threads: 3
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:17 2026]
+localrule filter_single_porechop_log:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode11_porechopping_4_tso.txt
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode11_porechopping_4_tso.txt
+    jobid: 25
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode11_porechopping_4_tso.txt; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode11_porechopping_4_tso.txt
+    wildcards: barcode=barcode11, trim_state=4_tso
+    threads: 3
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:17 2026]
+localrule filter_single_porechop_log:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode11_porechopping_3_twist_primers.txt
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode11_porechopping_3_twist_primers.txt
+    jobid: 27
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode11_porechopping_3_twist_primers.txt; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode11_porechopping_3_twist_primers.txt
+    wildcards: barcode=barcode11, trim_state=3_twist_primers
+    threads: 3
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:17 2026]
+localrule filter_single_porechop_log:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode11_porechopping_1_seq_adapt.txt
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode11_porechopping_1_seq_adapt.txt
+    jobid: 24
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode11_porechopping_1_seq_adapt.txt; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode11_porechopping_1_seq_adapt.txt
+    wildcards: barcode=barcode11, trim_state=1_seq_adapt
+    threads: 3
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:17 2026]
+localrule computing_nuc_freq:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_6_GA.fastq
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/nuc_freq/trimmed_fastq/barcode11_porechopped_6_GA_freq.txt
+    jobid: 54
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/nuc_freq/trimmed_fastq/barcode11_porechopped_6_GA_freq.txt; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_6_GA.fastq
+    wildcards: path_to_barcode=trimmed_fastq/barcode11_porechopped_6_GA
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:17 2026]
+Finished jobid: 25 (Rule: filter_single_porechop_log)
+10 of 68 steps (15%) done
+Select jobs to execute...
+[Mon Apr 20 22:40:17 2026]
+Finished jobid: 26 (Rule: filter_single_porechop_log)
+11 of 68 steps (16%) done
+[Mon Apr 20 22:40:17 2026]
+Finished jobid: 27 (Rule: filter_single_porechop_log)
+12 of 68 steps (18%) done
+[Mon Apr 20 22:40:17 2026]
+Finished jobid: 24 (Rule: filter_single_porechop_log)
+13 of 68 steps (19%) done
+[Mon Apr 20 22:40:17 2026]
+Finished jobid: 54 (Rule: computing_nuc_freq)
+14 of 68 steps (21%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:17 2026]
+localrule porechopping_sequencing_adapter:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/demultiplexed/unclassified.fastq
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_1_seq_adapt.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/unclassified_porechopping_1_seq_adapt.txt
+    jobid: 21
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_1_seq_adapt.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/unclassified_porechopping_1_seq_adapt.txt
+    wildcards: barcode=unclassified
+    threads: 32
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:17 2026]
+Finished jobid: 21 (Rule: porechopping_sequencing_adapter)
+15 of 68 steps (22%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:17 2026]
+localrule porechopping_Twist_outer_seq:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_1_seq_adapt.fastq
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_2_twist_outer.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/unclassified_porechopping_2_twist_outer.txt
+    jobid: 20
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/unclassified_porechopping_2_twist_outer.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_2_twist_outer.fastq; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_1_seq_adapt.fastq
+    wildcards: barcode=unclassified
+    threads: 32
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:40:17 2026]
+Finished jobid: 20 (Rule: porechopping_Twist_outer_seq)
+16 of 68 steps (24%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:17 2026]
+localrule porechopping_Twist_primers:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_2_twist_outer.fastq
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_3_twist_primers.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/unclassified_porechopping_3_twist_primers.txt
+    jobid: 19
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/unclassified_porechopping_3_twist_primers.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_3_twist_primers.fastq; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_2_twist_outer.fastq
+    wildcards: barcode=unclassified
+    threads: 32
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:40:17 2026]
+Finished jobid: 19 (Rule: porechopping_Twist_primers)
+17 of 68 steps (25%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:17 2026]
+localrule computing_species_specific_alignment_stats:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/barcode11_map2_snakeref_sorted.bam, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/references/sizes/SARSCoV2_sizes.txt
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/barcode11.SARSCoV2.samstats
+    jobid: 59
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/barcode11.SARSCoV2.samstats; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/barcode11_map2_snakeref_sorted.bam
+    wildcards: species=SARSCoV2, barcode=barcode11
+    threads: 32
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:17 2026]
+Finished jobid: 59 (Rule: computing_species_specific_alignment_stats)
+18 of 68 steps (26%) done
+Select jobs to execute...
+Execute 4 jobs...
+
+[Mon Apr 20 22:40:17 2026]
+localrule filter_single_porechop_log:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/unclassified_porechopping_3_twist_primers.txt
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/unclassified_porechopping_3_twist_primers.txt
+    jobid: 35
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/unclassified_porechopping_3_twist_primers.txt; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/unclassified_porechopping_3_twist_primers.txt
+    wildcards: barcode=unclassified, trim_state=3_twist_primers
+    threads: 3
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:18 2026]
+localrule filter_single_porechop_log:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/unclassified_porechopping_2_twist_outer.txt
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/unclassified_porechopping_2_twist_outer.txt
+    jobid: 34
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/unclassified_porechopping_2_twist_outer.txt; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/unclassified_porechopping_2_twist_outer.txt
+    wildcards: barcode=unclassified, trim_state=2_twist_outer
+    threads: 3
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:18 2026]
+localrule filter_single_porechop_log:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/unclassified_porechopping_1_seq_adapt.txt
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/unclassified_porechopping_1_seq_adapt.txt
+    jobid: 32
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/unclassified_porechopping_1_seq_adapt.txt; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/unclassified_porechopping_1_seq_adapt.txt
+    wildcards: barcode=unclassified, trim_state=1_seq_adapt
+    threads: 3
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:18 2026]
+localrule retrieving_species_stats_summary:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/barcode11.SARSCoV2.samstats
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/barcode11.SARSCoV2.summary
+    jobid: 58
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/barcode11.SARSCoV2.summary; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/barcode11.SARSCoV2.samstats
+    wildcards: species=SARSCoV2, barcode=barcode11
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:18 2026]
+Finished jobid: 58 (Rule: retrieving_species_stats_summary)
+19 of 68 steps (28%) done
+Select jobs to execute...
+[Mon Apr 20 22:40:18 2026]
+Finished jobid: 35 (Rule: filter_single_porechop_log)
+20 of 68 steps (29%) done
+[Mon Apr 20 22:40:18 2026]
+Finished jobid: 34 (Rule: filter_single_porechop_log)
+21 of 68 steps (31%) done
+[Mon Apr 20 22:40:18 2026]
+Finished jobid: 32 (Rule: filter_single_porechop_log)
+22 of 68 steps (32%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:18 2026]
+localrule computing_general_alignment_stats:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/barcode11_map2_snakeref_sorted.bam
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/barcode11_map2_snakeref.samstats
+    jobid: 39
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/barcode11_map2_snakeref.samstats; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/barcode11_map2_snakeref_sorted.bam
+    wildcards: alignment=barcode11_map2_snakeref
+    threads: 32
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:40:18 2026]
+Finished jobid: 39 (Rule: computing_general_alignment_stats)
+23 of 68 steps (34%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:18 2026]
+localrule retrieving_read_lengths:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/barcode11_map2_snakeref.samstats
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_lengths/barcode11.read_lengths
+    jobid: 38
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_lengths/barcode11.read_lengths; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/barcode11_map2_snakeref.samstats
+    wildcards: barcode=barcode11
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:40:18 2026]
+Finished jobid: 38 (Rule: retrieving_read_lengths)
+24 of 68 steps (35%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:18 2026]
+localrule porechopping_TSO:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_3_twist_primers.fastq
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_4_tso.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/unclassified_porechopping_4_tso.txt
+    jobid: 18
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_4_tso.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/unclassified_porechopping_4_tso.txt; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_3_twist_primers.fastq
+    wildcards: barcode=unclassified
+    threads: 32
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:40:18 2026]
+Finished jobid: 18 (Rule: porechopping_TSO)
+25 of 68 steps (37%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:18 2026]
+localrule trimming_polyA:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_4_tso.fastq
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_5_polyA.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/polyA_trimming/unclassified_polyA_lengths_histo.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/polyA_trimming/unclassified_polyA_trimming_stats.json
+    jobid: 17
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/polyA_trimming/unclassified_polyA_trimming_stats.json, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_5_polyA.fastq; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_4_tso.fastq
+    wildcards: barcode=unclassified
+    threads: 32
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:40:20 2026]
+Finished jobid: 17 (Rule: trimming_polyA)
+26 of 68 steps (38%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:20 2026]
+localrule filter_GA:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_5_polyA.fastq
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_6_GA.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/GA_filtering/unclassified_filtered_GA_reps_lengths_histo.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/GA_filtering/unclassified_GA_filtering_stats.json
+    jobid: 16
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_6_GA.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/GA_filtering/unclassified_GA_filtering_stats.json; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_5_polyA.fastq
+    wildcards: barcode=unclassified
+    threads: 32
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:40:23 2026]
+Finished jobid: 16 (Rule: filter_GA)
+27 of 68 steps (40%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:23 2026]
+localrule mapping:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_6_GA.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/references/snakeref/SARSCoV2.fa
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/unclassified_map2_snakeref.sam
+    jobid: 52
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/unclassified_map2_snakeref.sam; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_6_GA.fastq
+    wildcards: barcode=unclassified
+    threads: 32
+    resources: tmpdir=/tmp
+[M::mm_idx_gen::0.003*1.36] collected minimizers
+[M::mm_idx_gen::0.005*8.60] sorted minimizers
+[M::main::0.005*8.57] loaded/built the index for 1 target sequence(s)
+[M::mm_mapopt_update::0.006*8.02] mid_occ = 10
+[M::mm_idx_stat] kmer size: 15; skip: 10; is_hpc: 0; #seq: 1
+[M::mm_idx_stat::0.006*7.72] distinct minimizers: 5587 (99.93% are singletons); average occurrences: 1.004; average spacing: 5.332; total length: 29903
+[M::worker_pipeline::0.016*4.41] mapped 25 sequences
+[M::main] Version: 2.28-r1209
+[M::main] CMD: minimap2 -ax map-ont -t 32 /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/references/snakeref/SARSCoV2.fa /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_6_GA.fastq
+[M::main] Real time: 0.018 sec; CPU: 0.073 sec; Peak RSS: 0.012 GB
+Select jobs to execute...
+[Mon Apr 20 22:40:23 2026]
+Finished jobid: 52 (Rule: mapping)
+28 of 68 steps (41%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:23 2026]
+localrule sorting:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/unclassified_map2_snakeref.sam
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/unclassified_map2_snakeref_sorted.bam
+    jobid: 51
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/unclassified_map2_snakeref_sorted.bam; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/unclassified_map2_snakeref.sam
+    wildcards: alignment=unclassified_map2_snakeref
+    threads: 32
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:40:23 2026]
+Finished jobid: 51 (Rule: sorting)
+29 of 68 steps (43%) done
+Execute 3 jobs...
+
+[Mon Apr 20 22:40:23 2026]
+localrule plotting_read_lengths:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_lengths/barcode11.read_lengths
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_lengths/barcode11_read_lengths_histo.png
+    jobid: 37
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_lengths/barcode11_read_lengths_histo.png; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_lengths/barcode11.read_lengths
+    wildcards: barcode=barcode11
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:23 2026]
+localrule computing_nuc_freq:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_6_GA.fastq
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/nuc_freq/trimmed_fastq/unclassified_porechopped_6_GA_freq.txt
+    jobid: 56
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/nuc_freq/trimmed_fastq/unclassified_porechopped_6_GA_freq.txt; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_6_GA.fastq
+    wildcards: path_to_barcode=trimmed_fastq/unclassified_porechopped_6_GA
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:23 2026]
+localrule filter_single_porechop_log:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/unclassified_porechopping_4_tso.txt
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/unclassified_porechopping_4_tso.txt
+    jobid: 33
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/unclassified_porechopping_4_tso.txt; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/unclassified_porechopping_4_tso.txt
+    wildcards: barcode=unclassified, trim_state=4_tso
+    threads: 3
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:40:23 2026]
+Finished jobid: 33 (Rule: filter_single_porechop_log)
+30 of 68 steps (44%) done
+[Mon Apr 20 22:40:23 2026]
+Finished jobid: 56 (Rule: computing_nuc_freq)
+31 of 68 steps (46%) done
+[Mon Apr 20 22:40:26 2026]
+Finished jobid: 37 (Rule: plotting_read_lengths)
+32 of 68 steps (47%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:26 2026]
+localrule computing_fastqc:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_6_GA.fastq
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/fastqc/unclassified_porechopped_6_GA_fastqc.html, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/fastqc/unclassified_porechopped_6_GA_fastqc.zip
+    jobid: 15
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/fastqc/unclassified_porechopped_6_GA_fastqc.html; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_6_GA.fastq
+    wildcards: barcode=unclassified_porechopped_6_GA
+    threads: 32
+    resources: tmpdir=/tmp
+Select jobs to execute...
+Started analysis of unclassified_porechopped_6_GA.fastq
+[Mon Apr 20 22:40:28 2026]
+Finished jobid: 15 (Rule: computing_fastqc)
+33 of 68 steps (49%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:28 2026]
+localrule computing_species_specific_alignment_stats:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/unclassified_map2_snakeref_sorted.bam, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/references/sizes/SARSCoV2_sizes.txt
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/unclassified.SARSCoV2.samstats
+    jobid: 64
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/unclassified.SARSCoV2.samstats; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/unclassified_map2_snakeref_sorted.bam
+    wildcards: species=SARSCoV2, barcode=unclassified
+    threads: 32
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:40:28 2026]
+Finished jobid: 64 (Rule: computing_species_specific_alignment_stats)
+34 of 68 steps (50%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:28 2026]
+localrule retrieving_species_stats_summary:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/unclassified.SARSCoV2.samstats
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/unclassified.SARSCoV2.summary
+    jobid: 63
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/unclassified.SARSCoV2.summary; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/unclassified.SARSCoV2.samstats
+    wildcards: species=SARSCoV2, barcode=unclassified
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:28 2026]
+Finished jobid: 63 (Rule: retrieving_species_stats_summary)
+35 of 68 steps (51%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:28 2026]
+localrule computing_general_alignment_stats:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/unclassified_map2_snakeref_sorted.bam
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/unclassified_map2_snakeref.samstats
+    jobid: 50
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/unclassified_map2_snakeref.samstats; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/unclassified_map2_snakeref_sorted.bam
+    wildcards: alignment=unclassified_map2_snakeref
+    threads: 32
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:40:28 2026]
+Finished jobid: 50 (Rule: computing_general_alignment_stats)
+36 of 68 steps (53%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:28 2026]
+localrule retrieving_read_lengths:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/unclassified_map2_snakeref.samstats
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_lengths/unclassified.read_lengths
+    jobid: 49
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_lengths/unclassified.read_lengths; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/unclassified_map2_snakeref.samstats
+    wildcards: barcode=unclassified
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:29 2026]
+Finished jobid: 49 (Rule: retrieving_read_lengths)
+37 of 68 steps (54%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:29 2026]
+localrule porechopping_sequencing_adapter:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/demultiplexed/barcode15.fastq
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_1_seq_adapt.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode15_porechopping_1_seq_adapt.txt
+    jobid: 14
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_1_seq_adapt.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode15_porechopping_1_seq_adapt.txt
+    wildcards: barcode=barcode15
+    threads: 32
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:40:29 2026]
+Finished jobid: 14 (Rule: porechopping_sequencing_adapter)
+38 of 68 steps (56%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:29 2026]
+localrule porechopping_Twist_outer_seq:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_1_seq_adapt.fastq
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_2_twist_outer.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode15_porechopping_2_twist_outer.txt
+    jobid: 13
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode15_porechopping_2_twist_outer.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_2_twist_outer.fastq; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_1_seq_adapt.fastq
+    wildcards: barcode=barcode15
+    threads: 32
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:40:29 2026]
+Finished jobid: 13 (Rule: porechopping_Twist_outer_seq)
+39 of 68 steps (57%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:29 2026]
+localrule porechopping_Twist_primers:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_2_twist_outer.fastq
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_3_twist_primers.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode15_porechopping_3_twist_primers.txt
+    jobid: 12
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode15_porechopping_3_twist_primers.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_3_twist_primers.fastq; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_2_twist_outer.fastq
+    wildcards: barcode=barcode15
+    threads: 32
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:40:29 2026]
+Finished jobid: 12 (Rule: porechopping_Twist_primers)
+40 of 68 steps (59%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:29 2026]
+localrule porechopping_TSO:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_3_twist_primers.fastq
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_4_tso.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode15_porechopping_4_tso.txt
+    jobid: 11
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_4_tso.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode15_porechopping_4_tso.txt; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_3_twist_primers.fastq
+    wildcards: barcode=barcode15
+    threads: 32
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:40:29 2026]
+Finished jobid: 11 (Rule: porechopping_TSO)
+41 of 68 steps (60%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:29 2026]
+localrule trimming_polyA:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_4_tso.fastq
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_5_polyA.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/polyA_trimming/barcode15_polyA_lengths_histo.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/polyA_trimming/barcode15_polyA_trimming_stats.json
+    jobid: 10
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_5_polyA.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/polyA_trimming/barcode15_polyA_trimming_stats.json; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_4_tso.fastq
+    wildcards: barcode=barcode15
+    threads: 32
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:40:32 2026]
+Finished jobid: 10 (Rule: trimming_polyA)
+42 of 68 steps (62%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:32 2026]
+localrule filter_GA:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_5_polyA.fastq
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_6_GA.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/GA_filtering/barcode15_filtered_GA_reps_lengths_histo.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/GA_filtering/barcode15_GA_filtering_stats.json
+    jobid: 9
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_6_GA.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/GA_filtering/barcode15_GA_filtering_stats.json; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_5_polyA.fastq
+    wildcards: barcode=barcode15
+    threads: 32
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:40:34 2026]
+Finished jobid: 9 (Rule: filter_GA)
+43 of 68 steps (63%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:34 2026]
+localrule mapping:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_6_GA.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/references/snakeref/SARSCoV2.fa
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/barcode15_map2_snakeref.sam
+    jobid: 47
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/barcode15_map2_snakeref.sam; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_6_GA.fastq
+    wildcards: barcode=barcode15
+    threads: 32
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[M::mm_idx_gen::0.003*1.44] collected minimizers
+[M::mm_idx_gen::0.005*9.31] sorted minimizers
+[M::main::0.005*9.26] loaded/built the index for 1 target sequence(s)
+[M::mm_mapopt_update::0.005*8.63] mid_occ = 10
+[M::mm_idx_stat] kmer size: 15; skip: 10; is_hpc: 0; #seq: 1
+[M::mm_idx_stat::0.006*8.26] distinct minimizers: 5587 (99.93% are singletons); average occurrences: 1.004; average spacing: 5.332; total length: 29903
+[M::worker_pipeline::0.007*6.71] mapped 24 sequences
+[M::main] Version: 2.28-r1209
+[M::main] CMD: minimap2 -ax map-ont -t 32 /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/references/snakeref/SARSCoV2.fa /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_6_GA.fastq
+[M::main] Real time: 0.009 sec; CPU: 0.050 sec; Peak RSS: 0.003 GB
+[Mon Apr 20 22:40:34 2026]
+Finished jobid: 47 (Rule: mapping)
+44 of 68 steps (65%) done
+Execute 7 jobs...
+
+[Mon Apr 20 22:40:34 2026]
+localrule filter_single_porechop_log:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode15_porechopping_3_twist_primers.txt
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode15_porechopping_3_twist_primers.txt
+    jobid: 31
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode15_porechopping_3_twist_primers.txt; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode15_porechopping_3_twist_primers.txt
+    wildcards: barcode=barcode15, trim_state=3_twist_primers
+    threads: 3
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:34 2026]
+localrule gathering_sequence_stats:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/demultiplexed/barcode11.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/demultiplexed/barcode15.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/demultiplexed/unclassified.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_1_seq_adapt.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_4_tso.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_5_polyA.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_6_GA.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_2_twist_outer.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_3_twist_primers.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_1_seq_adapt.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_4_tso.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_5_polyA.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_6_GA.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_2_twist_outer.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_3_twist_primers.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_1_seq_adapt.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_4_tso.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_5_polyA.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_6_GA.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_2_twist_outer.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_3_twist_primers.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/barcode11_map2_snakeref.sam, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/barcode15_map2_snakeref.sam, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/unclassified_map2_snakeref.sam
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_untrimmed.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_1_seq_adapt.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_4_tso.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_5_polyA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_6_GA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_2_twist_outer.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_3_twist_primers.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_untrimmed.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_1_seq_adapt.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_4_tso.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_5_polyA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_6_GA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_2_twist_outer.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_3_twist_primers.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_untrimmed.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_1_seq_adapt.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_4_tso.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_5_polyA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_6_GA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_2_twist_outer.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_3_twist_primers.pkl
+    jobid: 67
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_4_tso.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_1_seq_adapt.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_untrimmed.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_2_twist_outer.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_6_GA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_6_GA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_untrimmed.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_6_GA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_1_seq_adapt.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_3_twist_primers.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_untrimmed.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_3_twist_primers.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_5_polyA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_5_polyA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_4_tso.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_3_twist_primers.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_4_tso.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_5_polyA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_1_seq_adapt.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_2_twist_outer.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_2_twist_outer.pkl; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_6_GA.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_1_seq_adapt.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_1_seq_adapt.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_4_tso.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_6_GA.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_6_GA.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_5_polyA.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_3_twist_primers.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_5_polyA.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_2_twist_outer.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/barcode11_map2_snakeref.sam, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_3_twist_primers.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_5_polyA.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_3_twist_primers.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_4_tso.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_2_twist_outer.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/unclassified_map2_snakeref.sam, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_1_seq_adapt.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_2_twist_outer.fastq, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/barcode15_map2_snakeref.sam, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/unclassified_porechopped_4_tso.fastq
+    threads: 10
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:34 2026]
+localrule filter_single_porechop_log:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode15_porechopping_1_seq_adapt.txt
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode15_porechopping_1_seq_adapt.txt
+    jobid: 28
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode15_porechopping_1_seq_adapt.txt; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode15_porechopping_1_seq_adapt.txt
+    wildcards: barcode=barcode15, trim_state=1_seq_adapt
+    threads: 3
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:34 2026]
+localrule computing_nuc_freq:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_6_GA.fastq
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/nuc_freq/trimmed_fastq/barcode15_porechopped_6_GA_freq.txt
+    jobid: 55
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/nuc_freq/trimmed_fastq/barcode15_porechopped_6_GA_freq.txt; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_6_GA.fastq
+    wildcards: path_to_barcode=trimmed_fastq/barcode15_porechopped_6_GA
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:34 2026]
+localrule filter_single_porechop_log:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode15_porechopping_2_twist_outer.txt
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode15_porechopping_2_twist_outer.txt
+    jobid: 30
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode15_porechopping_2_twist_outer.txt; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode15_porechopping_2_twist_outer.txt
+    wildcards: barcode=barcode15, trim_state=2_twist_outer
+    threads: 3
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:34 2026]
+localrule plotting_read_lengths:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_lengths/unclassified.read_lengths
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_lengths/unclassified_read_lengths_histo.png
+    jobid: 48
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_lengths/unclassified_read_lengths_histo.png; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_lengths/unclassified.read_lengths
+    wildcards: barcode=unclassified
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:34 2026]
+localrule filter_single_porechop_log:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode15_porechopping_4_tso.txt
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode15_porechopping_4_tso.txt
+    jobid: 29
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode15_porechopping_4_tso.txt; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/barcode15_porechopping_4_tso.txt
+    wildcards: barcode=barcode15, trim_state=4_tso
+    threads: 3
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:40:34 2026]
+Finished jobid: 31 (Rule: filter_single_porechop_log)
+45 of 68 steps (66%) done
+[Mon Apr 20 22:40:34 2026]
+Finished jobid: 28 (Rule: filter_single_porechop_log)
+46 of 68 steps (68%) done
+[Mon Apr 20 22:40:34 2026]
+Finished jobid: 30 (Rule: filter_single_porechop_log)
+47 of 68 steps (69%) done
+[Mon Apr 20 22:40:34 2026]
+Finished jobid: 55 (Rule: computing_nuc_freq)
+48 of 68 steps (71%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:34 2026]
+localrule plotting_nuc_freq:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/nuc_freq/trimmed_fastq/barcode11_porechopped_6_GA_freq.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/nuc_freq/trimmed_fastq/barcode15_porechopped_6_GA_freq.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/nuc_freq/trimmed_fastq/unclassified_porechopped_6_GA_freq.txt
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/nuc_freq/23101600_DSUP0_0_nuc_freq.png
+    jobid: 53
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/nuc_freq/23101600_DSUP0_0_nuc_freq.png; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/nuc_freq/trimmed_fastq/barcode11_porechopped_6_GA_freq.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/nuc_freq/trimmed_fastq/barcode15_porechopped_6_GA_freq.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/nuc_freq/trimmed_fastq/unclassified_porechopped_6_GA_freq.txt
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:34 2026]
+Finished jobid: 29 (Rule: filter_single_porechop_log)
+49 of 68 steps (72%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:34 2026]
+localrule extract_porechop_stats:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode11_porechopping_1_seq_adapt.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode11_porechopping_4_tso.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode11_porechopping_2_twist_outer.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode11_porechopping_3_twist_primers.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode15_porechopping_1_seq_adapt.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode15_porechopping_4_tso.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode15_porechopping_2_twist_outer.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode15_porechopping_3_twist_primers.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/unclassified_porechopping_1_seq_adapt.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/unclassified_porechopping_4_tso.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/unclassified_porechopping_2_twist_outer.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/unclassified_porechopping_3_twist_primers.txt
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/porechopping_stats.json
+    jobid: 23
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/porechopping_stats.json; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode11_porechopping_4_tso.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/unclassified_porechopping_1_seq_adapt.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/unclassified_porechopping_3_twist_primers.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode11_porechopping_3_twist_primers.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode15_porechopping_1_seq_adapt.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode11_porechopping_2_twist_outer.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/unclassified_porechopping_2_twist_outer.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/unclassified_porechopping_4_tso.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode15_porechopping_3_twist_primers.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode15_porechopping_2_twist_outer.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode15_porechopping_4_tso.txt, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/logs/cleaning/filtered/barcode11_porechopping_1_seq_adapt.txt
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:40:36 2026]
+Finished jobid: 67 (Rule: gathering_sequence_stats)
+50 of 68 steps (74%) done
+Execute 2 jobs...
+
+[Mon Apr 20 22:40:36 2026]
+localrule plotting_barcode_size_vs_quality:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_untrimmed.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_1_seq_adapt.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_4_tso.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_5_polyA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_6_GA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_2_twist_outer.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_3_twist_primers.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_untrimmed.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_1_seq_adapt.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_4_tso.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_5_polyA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_6_GA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_2_twist_outer.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_3_twist_primers.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_untrimmed.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_1_seq_adapt.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_4_tso.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_5_polyA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_6_GA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_2_twist_outer.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_3_twist_primers.pkl
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/size_vs_quality/23101600_DSUP0_0_barcode_size_vs_quality.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/size_vs_quality/23101600_DSUP0_0_barcode_size_vs_quality_3000.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/size_vs_quality/23101600_DSUP0_0_barcode_size_vs_quality_1500.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/size_vs_quality/23101600_DSUP0_0_barcode_size_vs_quality_5_percent.png
+    jobid: 66
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/size_vs_quality/23101600_DSUP0_0_barcode_size_vs_quality.png; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_4_tso.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_3_twist_primers.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_5_polyA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_1_seq_adapt.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_5_polyA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_untrimmed.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_4_tso.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_2_twist_outer.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_6_GA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_3_twist_primers.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_3_twist_primers.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_6_GA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_4_tso.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_5_polyA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_1_seq_adapt.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_2_twist_outer.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_untrimmed.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_6_GA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_1_seq_adapt.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_2_twist_outer.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_untrimmed.pkl
+    threads: 10
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:36 2026]
+localrule plotting_heatmaps:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_untrimmed.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_1_seq_adapt.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_4_tso.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_5_polyA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_6_GA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_2_twist_outer.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_3_twist_primers.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_untrimmed.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_1_seq_adapt.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_4_tso.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_5_polyA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_6_GA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_2_twist_outer.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_3_twist_primers.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_untrimmed.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_1_seq_adapt.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_4_tso.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_5_polyA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_6_GA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_2_twist_outer.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_3_twist_primers.pkl
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/size_vs_quality/23101600_DSUP0_0_barcode_heatmap.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/size_vs_quality/23101600_DSUP0_0_sample_heatmap.png
+    jobid: 69
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/size_vs_quality/23101600_DSUP0_0_barcode_heatmap.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/size_vs_quality/23101600_DSUP0_0_sample_heatmap.png; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_4_tso.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_3_twist_primers.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_5_polyA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_1_seq_adapt.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_5_polyA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_untrimmed.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_4_tso.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_2_twist_outer.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_6_GA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_3_twist_primers.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_3_twist_primers.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_6_GA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_4_tso.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_5_polyA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_1_seq_adapt.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_2_twist_outer.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_untrimmed.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_6_GA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_1_seq_adapt.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_2_twist_outer.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_untrimmed.pkl
+    threads: 10
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:36 2026]
+Finished jobid: 23 (Rule: extract_porechop_stats)
+51 of 68 steps (75%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Apr 20 22:40:36 2026]
+localrule plotting_sample_size_vs_quality:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_untrimmed.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_1_seq_adapt.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_4_tso.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_5_polyA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_6_GA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_2_twist_outer.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_3_twist_primers.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_untrimmed.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_1_seq_adapt.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_4_tso.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_5_polyA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_6_GA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_2_twist_outer.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_3_twist_primers.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_untrimmed.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_1_seq_adapt.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_4_tso.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_5_polyA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_6_GA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_2_twist_outer.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_3_twist_primers.pkl
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/size_vs_quality/23101600_DSUP0_0_sample_size_vs_quality.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/size_vs_quality/23101600_DSUP0_0_sample_size_vs_quality_5_percent.png
+    jobid: 68
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/size_vs_quality/23101600_DSUP0_0_sample_size_vs_quality.png; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_4_tso.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_3_twist_primers.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_5_polyA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_1_seq_adapt.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_5_polyA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_untrimmed.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_4_tso.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_2_twist_outer.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_6_GA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_3_twist_primers.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_3_twist_primers.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_6_GA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_4_tso.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_5_polyA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_1_seq_adapt.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_2_twist_outer.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_untrimmed.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_6_GA.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode11_1_seq_adapt.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/unclassified_2_twist_outer.pkl, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/pickles/barcode15_untrimmed.pkl
+    threads: 10
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:40:36 2026]
+Finished jobid: 53 (Rule: plotting_nuc_freq)
+52 of 68 steps (76%) done
+[Mon Apr 20 22:40:37 2026]
+Finished jobid: 48 (Rule: plotting_read_lengths)
+53 of 68 steps (78%) done
+[Mon Apr 20 22:40:55 2026]
+Finished jobid: 69 (Rule: plotting_heatmaps)
+54 of 68 steps (79%) done
+Execute 2 jobs...
+
+[Mon Apr 20 22:40:55 2026]
+localrule plot_samples_cleaning_stats:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/porechopping_stats.json, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/polyA_trimming/barcode11_polyA_trimming_stats.json, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/polyA_trimming/barcode15_polyA_trimming_stats.json, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/polyA_trimming/unclassified_polyA_trimming_stats.json, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/GA_filtering/barcode11_GA_filtering_stats.json, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/GA_filtering/barcode15_GA_filtering_stats.json, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/GA_filtering/unclassified_GA_filtering_stats.json
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/samples_cleaning_stats.png
+    jobid: 36
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/samples_cleaning_stats.png; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/polyA_trimming/barcode11_polyA_trimming_stats.json, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/polyA_trimming/unclassified_polyA_trimming_stats.json, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/GA_filtering/unclassified_GA_filtering_stats.json, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/porechopping_stats.json, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/polyA_trimming/barcode15_polyA_trimming_stats.json, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/GA_filtering/barcode15_GA_filtering_stats.json, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/GA_filtering/barcode11_GA_filtering_stats.json
+    threads: 3
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:40:55 2026]
+localrule plot_barcodes_cleaning_stats:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/porechopping_stats.json, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/polyA_trimming/barcode11_polyA_trimming_stats.json, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/polyA_trimming/barcode15_polyA_trimming_stats.json, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/polyA_trimming/unclassified_polyA_trimming_stats.json, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/GA_filtering/barcode11_GA_filtering_stats.json, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/GA_filtering/barcode15_GA_filtering_stats.json, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/GA_filtering/unclassified_GA_filtering_stats.json
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/barcodes_cleaning_stats.png
+    jobid: 22
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/barcodes_cleaning_stats.png; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/polyA_trimming/barcode11_polyA_trimming_stats.json, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/polyA_trimming/unclassified_polyA_trimming_stats.json, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/GA_filtering/unclassified_GA_filtering_stats.json, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/porechopping_stats.json, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/trimming_stats/polyA_trimming/barcode15_polyA_trimming_stats.json, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/GA_filtering/barcode15_GA_filtering_stats.json, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/GA_filtering/barcode11_GA_filtering_stats.json
+    threads: 3
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:40:59 2026]
+Finished jobid: 36 (Rule: plot_samples_cleaning_stats)
+55 of 68 steps (81%) done
+[Mon Apr 20 22:41:00 2026]
+Finished jobid: 22 (Rule: plot_barcodes_cleaning_stats)
+56 of 68 steps (82%) done
+[Mon Apr 20 22:41:04 2026]
+Finished jobid: 68 (Rule: plotting_sample_size_vs_quality)
+57 of 68 steps (84%) done
+[Mon Apr 20 22:41:52 2026]
+Finished jobid: 66 (Rule: plotting_barcode_size_vs_quality)
+58 of 68 steps (85%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:41:52 2026]
+localrule sorting:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/barcode15_map2_snakeref.sam
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/barcode15_map2_snakeref_sorted.bam
+    jobid: 46
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/barcode15_map2_snakeref_sorted.bam; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/barcode15_map2_snakeref.sam
+    wildcards: alignment=barcode15_map2_snakeref
+    threads: 32
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:41:52 2026]
+Finished jobid: 46 (Rule: sorting)
+59 of 68 steps (87%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:41:52 2026]
+localrule computing_fastqc:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_6_GA.fastq
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/fastqc/barcode15_porechopped_6_GA_fastqc.html, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/fastqc/barcode15_porechopped_6_GA_fastqc.zip
+    jobid: 8
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/fastqc/barcode15_porechopped_6_GA_fastqc.html; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode15_porechopped_6_GA.fastq
+    wildcards: barcode=barcode15_porechopped_6_GA
+    threads: 32
+    resources: tmpdir=/tmp
+Select jobs to execute...
+Started analysis of barcode15_porechopped_6_GA.fastq
+[Mon Apr 20 22:41:54 2026]
+Finished jobid: 8 (Rule: computing_fastqc)
+60 of 68 steps (88%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:41:54 2026]
+localrule computing_species_specific_alignment_stats:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/barcode15_map2_snakeref_sorted.bam, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/references/sizes/SARSCoV2_sizes.txt
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/barcode15.SARSCoV2.samstats
+    jobid: 62
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/barcode15.SARSCoV2.samstats; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/barcode15_map2_snakeref_sorted.bam
+    wildcards: species=SARSCoV2, barcode=barcode15
+    threads: 32
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:41:54 2026]
+Finished jobid: 62 (Rule: computing_species_specific_alignment_stats)
+61 of 68 steps (90%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:41:54 2026]
+localrule retrieving_species_stats_summary:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/barcode15.SARSCoV2.samstats
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/barcode15.SARSCoV2.summary
+    jobid: 61
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/barcode15.SARSCoV2.summary; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/barcode15.SARSCoV2.samstats
+    wildcards: species=SARSCoV2, barcode=barcode15
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:41:54 2026]
+Finished jobid: 61 (Rule: retrieving_species_stats_summary)
+62 of 68 steps (91%) done
+Select jobs to execute...
+Execute 2 jobs...
+
+[Mon Apr 20 22:41:54 2026]
+localrule plotting_barcodes_composition:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/barcode11.SARSCoV2.summary, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/barcode15.SARSCoV2.summary, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/unclassified.SARSCoV2.summary
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/composition/23101600_DSUP0_0_barcodes_composition.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/composition/23101600_DSUP0_0_barcodes_composition_with_total.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/composition/23101600_DSUP0_0_barcodes_normalized_composition.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/composition/23101600_DSUP0_0_barcodes_normalized_composition_with_total.png
+    jobid: 57
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/composition/23101600_DSUP0_0_barcodes_normalized_composition.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/composition/23101600_DSUP0_0_barcodes_composition.png; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/barcode11.SARSCoV2.summary, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/barcode15.SARSCoV2.summary, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/unclassified.SARSCoV2.summary
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:41:54 2026]
+localrule plotting_samples_composition:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/barcode11.SARSCoV2.summary, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/barcode15.SARSCoV2.summary, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/unclassified.SARSCoV2.summary
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/composition/23101600_DSUP0_0_samples_composition.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/composition/23101600_DSUP0_0_samples_composition_with_total.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/composition/23101600_DSUP0_0_samples_normalized_composition.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/composition/23101600_DSUP0_0_samples_normalized_composition_with_total.png
+    jobid: 65
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/composition/23101600_DSUP0_0_samples_normalized_composition.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/composition/23101600_DSUP0_0_samples_composition.png; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/barcode11.SARSCoV2.summary, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/barcode15.SARSCoV2.summary, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/SARSCoV2/unclassified.SARSCoV2.summary
+    resources: tmpdir=/tmp
+Select jobs to execute...
+[Mon Apr 20 22:41:57 2026]
+Finished jobid: 65 (Rule: plotting_samples_composition)
+63 of 68 steps (93%) done
+[Mon Apr 20 22:41:58 2026]
+Finished jobid: 57 (Rule: plotting_barcodes_composition)
+64 of 68 steps (94%) done
+Execute 1 jobs...
+
+[Mon Apr 20 22:41:58 2026]
+localrule computing_general_alignment_stats:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/barcode15_map2_snakeref_sorted.bam
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/barcode15_map2_snakeref.samstats
+    jobid: 45
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/barcode15_map2_snakeref.samstats; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/alignments/barcode15_map2_snakeref_sorted.bam
+    wildcards: alignment=barcode15_map2_snakeref
+    threads: 32
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:41:58 2026]
+Finished jobid: 45 (Rule: computing_general_alignment_stats)
+65 of 68 steps (96%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Apr 20 22:41:58 2026]
+localrule retrieving_read_lengths:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/barcode15_map2_snakeref.samstats
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_lengths/barcode15.read_lengths
+    jobid: 44
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_lengths/barcode15.read_lengths; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/alignments_stats/barcode15_map2_snakeref.samstats
+    wildcards: barcode=barcode15
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:41:58 2026]
+Finished jobid: 44 (Rule: retrieving_read_lengths)
+66 of 68 steps (97%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Apr 20 22:41:58 2026]
+localrule plotting_read_lengths:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_lengths/barcode15.read_lengths
+    output: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_lengths/barcode15_read_lengths_histo.png
+    jobid: 43
+    reason: Missing output files: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_lengths/barcode15_read_lengths_histo.png; Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_lengths/barcode15.read_lengths
+    wildcards: barcode=barcode15
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:42:01 2026]
+Finished jobid: 43 (Rule: plotting_read_lengths)
+67 of 68 steps (99%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Mon Apr 20 22:42:01 2026]
+localrule all:
+    input: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/fastqc/barcode11_porechopped_6_GA_fastqc.html, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/fastqc/barcode15_porechopped_6_GA_fastqc.html, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/fastqc/unclassified_porechopped_6_GA_fastqc.html, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/barcodes_cleaning_stats.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/samples_cleaning_stats.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_lengths/barcode11_read_lengths_histo.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_lengths/barcode15_read_lengths_histo.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_lengths/unclassified_read_lengths_histo.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/nuc_freq/23101600_DSUP0_0_nuc_freq.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/composition/23101600_DSUP0_0_barcodes_composition.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/composition/23101600_DSUP0_0_barcodes_normalized_composition.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/composition/23101600_DSUP0_0_samples_composition.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/composition/23101600_DSUP0_0_samples_normalized_composition.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/size_vs_quality/23101600_DSUP0_0_barcode_size_vs_quality.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/size_vs_quality/23101600_DSUP0_0_sample_size_vs_quality.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/size_vs_quality/23101600_DSUP0_0_barcode_heatmap.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/size_vs_quality/23101600_DSUP0_0_sample_heatmap.png
+    jobid: 0
+    reason: Input files updated by another job: /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/composition/23101600_DSUP0_0_samples_normalized_composition.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/barcodes_cleaning_stats.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_lengths/barcode15_read_lengths_histo.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_lengths/unclassified_read_lengths_histo.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/composition/23101600_DSUP0_0_samples_composition.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/size_vs_quality/23101600_DSUP0_0_sample_size_vs_quality.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_lengths/barcode11_read_lengths_histo.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/read_cleaning/samples_cleaning_stats.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/composition/23101600_DSUP0_0_barcodes_normalized_composition.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/nuc_freq/23101600_DSUP0_0_nuc_freq.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/composition/23101600_DSUP0_0_barcodes_composition.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/fastqc/unclassified_porechopped_6_GA_fastqc.html, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/size_vs_quality/23101600_DSUP0_0_barcode_size_vs_quality.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/fastqc/barcode11_porechopped_6_GA_fastqc.html, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/size_vs_quality/23101600_DSUP0_0_barcode_heatmap.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/size_vs_quality/23101600_DSUP0_0_sample_heatmap.png, /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/results/23101600_DSUP0_0/fastqc/barcode15_porechopped_6_GA_fastqc.html
+    resources: tmpdir=/tmp
+[Mon Apr 20 22:42:01 2026]
+Finished jobid: 0 (Rule: all)
+68 of 68 steps (100%) done
+Complete log(s): /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Analysis/snakemake/.snakemake/log/2026-04-20T224007.058800.snakemake.log
+/env/products/python/3.11.5/lib/python3.11/tempfile.py:895: ResourceWarning: Implicitly cleaning up <TemporaryDirectory '/env/cnrgh/home/bvacus/.cache/snakemake/snakemake/source-cache/runtime-cache/tmpim90ml07'>
+  _warnings.warn(warn_message, ResourceWarning)

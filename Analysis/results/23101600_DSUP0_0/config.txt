@@ -1,0 +1,5 @@
+Analysis_id	23101600_DSUP0_0
+Nb_threads	32
+Analysis_date	20/04/26
+Species	['SARSCoV2']
+Barcodes	TWIST-LRLP-SHv2E

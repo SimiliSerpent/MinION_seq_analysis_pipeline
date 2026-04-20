@@ -1,0 +1,21 @@
+
+[1m[4mLoading reads[0m
+/env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/demultiplexed/barcode11.fastq
+30 reads loaded
+
+
+[1m[4mLooking for known adapter sets[0m
+0 / 30 (0.0%)10 / 30 (33.3%)20 / 30 (66.7%)30 / 30 (100.0%)30 / 30 (100.0%)
+                                        Best               [0m
+                                        read       Best    [0m
+                                        start      read end[0m
+  [4mSet                                   %ID        %ID     [0m
+  Ligation_adapter                          64.5       76.9
+
+
+No adapters found - output reads are unchanged from input reads
+
+[1m[4mSaving trimmed reads to file[0m
+
+Saved result to /env/export/cng_n01_scratch/v_scratchE/q_projet_CAPASVIR_880/Data/seq_data/23101600_DSUP0_0/trimmed_fastq/barcode11_porechopped_1_seq_adapt.fastq
+

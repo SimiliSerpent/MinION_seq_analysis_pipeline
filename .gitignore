@@ -1,0 +1,87 @@
+# ===================== System / editor =======================================
+.nfs*
+__pycache__/
+*.pyc
+
+# ===================== Snakemake internals ===================================
+.snakemake/
+
+# ===================== Input data ============================================
+Data/EXP*/
+Data/kraken2_db/
+Data/blast_db/
+# One example (23101600_DSUP0_0) is committed for reference.
+Data/seq_data/*/
+!Data/seq_data/23101600_DSUP0_0/
+!Data/seq_data/README.md
+# One reference is committed for minimal reproduction.
+Data/references/others
+Data/references/public/*
+!Data/references/public/SARSCoV2.fa
+Data/references/ROI/*
+!Data/references/ROI/SARSCoV2_regions.txt
+Data/references/sizes
+Data/references/snakeref
+Data/references/temp
+
+# ===================== Ignore taxonomy file (huge file) ======================
+taxonomy.tab
+
+# ===================== Analysis results ======================================
+# Reproducible outputs — re-run the pipeline to regenerate.
+# One example (23101600_DSUP0_0) is committed for reference.
+Analysis/results/*/
+!Analysis/results/23101600_DSUP0_0/
+!Analysis/results/README.md
+
+# ===================== Conda / micromamba ====================================
+Analysis/micromamba_envs/
+
+# ===================== Handmade / exploratory ================================
+Analysis/handmade_results/
+
+# ===================== Temp / transfer =======================================
+temp/
+MinION_2_NGL/
+
+# ===================== Vendored tools / 3rd party stuff ======================
+Analysis/scripts/CogentAP-*/
+Analysis/scripts/Agent/
+Analysis/scripts/KronaTools-*/
+
+
+# # Ignore fastqc archives
+# *_fastqc.zip
+
+# # Ignore heavy logs
+# *.out
+# *.err
+
+# # Ignore images
+# *.png
+
+# # Ignore heavy statistics files
+# stats_all_reads_*
+# size_of_all_read_*
+# *_fastqc.html
+
+# # Ignore huge data files
+# *.fastq
+# *.fastq.gz
+# *.sam
+# *.bam
+# *.bai
+# *.pod5
+# *.fa
+# *.fna
+# *.fasta
+# *.fai
+# *.gb
+# *.gbff
+# *.gff
+# *.gff3
+# *.samstats
+# *.syldb
+# *.pkl
+# *.tsv
+# porechop_logs.txt
