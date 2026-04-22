@@ -1,5 +1,5 @@
 module load fastqc
-module load gcc/12.2.0
+module load gcc
 module load minimap2
 module load python
 module load samtools

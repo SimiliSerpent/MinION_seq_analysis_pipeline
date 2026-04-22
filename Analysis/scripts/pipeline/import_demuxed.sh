@@ -1,18 +1,54 @@
 #!/bin/bash
 
-# Place yourself in the sequencing data directory
-MINION_PC_EXP_LOCATION="26_04_02_08_FBF64370_2/FBF64370/20260402_1508_MN19813_FBF64370_617e1205"
-INTI_EXP_NAME="26040208_DSUP2_1"
-KIT="TWIST-ALL"
+## Import fastq.gz files from distant sequencing device and organize them in a
+# way they can be used immediately with the analysis pipeline.
+# The sequencing experiment has to comprise barcodes.
 
-mkdir -p ./$INTI_EXP_NAME/demultiplexed
+# Define the following variables to target the right sequencing data
+PROT_GROUP_ID="26_04_02_08_FBF64370_2" # name given to the exp. in MinKNOW
+SAMPLE_ID="FBF64370" # name given to the sample in MinKNOW
+START_TIME="20260402_1508" # sequencing starting time
+MINION_ID="MN19813" # MinION ID
+FLOWCELL_ID="FBF64370" # flowcell ID
+SHORT_PROT_GROUP_ID="617e1205" # first 8 characters of the protocol_run_id
+EXP_NAME="test" # name given to this analysis
+
+# Check for the required environment variables.
+# These can be defined in your shell profile.
+
+: "${CAPASVIR_ANALYSIS:?Error: Environment variable 'CAPASVIR_ANALYSIS' must \
+be defined and point towards the MinION analysis repository.}"
+echo "CAPASVIR_ANALYSIS is set to: $CAPASVIR_ANALYSIS"
+
+: "${SEQ_USER:?Error: Environment variable 'SEQ_USER' must \
+be defined and contain the username to access sequencing data.}"
+echo "         SEQ_USER is set to: $SEQ_USER"
+
+: "${SEQ_DEVICE:?Error: Environment variable 'SEQ_DEVICE' must \
+be defined and contain the ip adress of the sequencing device.}"
+echo "       SEQ_DEVICE is set to: $SEQ_DEVICE"
+
+: "${SEQ_LOCATION:?Error: Environment variable 'SEQ_LOCATION' must \
+be defined and contain the path to sequencing data on the sequencing device.}"
+echo "     SEQ_LOCATION is set to: $SEQ_LOCATION"
+
+# Build a variable containing the full path to experiments data on seq device
+DISTANT_LOC="$SEQ_LOCATION/$PROT_GROUP_ID/$SAMPLE_ID/${START_TIME}_${MINION_ID}"
+DISTANT_LOC="${DISTANT_LOC}_${FLOWCELL_ID}_${SHORT_PROT_GROUP_ID}"
+
+# Create the experiment data directory on the cluster
+mkdir -p $CAPASVIR_ANALYSIS/Data/seq_data/$EXP_NAME/demultiplexed
+cd $CAPASVIR_ANALYSIS/Data/seq_data/$EXP_NAME/demultiplexed
 
 # Import the basecalled reads
-scp -r capasvir@I0017871.illumina.cng.fr:/data/$MINION_PC_EXP_LOCATION/fastq_pass/* \
-    ./$INTI_EXP_NAME/demultiplexed/.
+scp -r $SEQ_USER@$SEQ_DEVICE:$DISTANT_LOC/fastq_pass/* .
 
-# Move read files from their directories to demultiplexed directory
-cd ./$INTI_EXP_NAME/demultiplexed
+# Move fastq files from their directories to the "demultiplexed" directory
+# ...in the case of unbarcoded experiment:
+if $(test -f ./$(ls | grep fastq.gz | head -n 1)); then
+    mv ./*.fastq.gz ./barcode01.fastq.gz
+fi
+# ...for barcoded experiment:
 for i in $(seq -w 1 96); do
     if $(test -d barcode$i); then
         mv barcode$i/*.fastq.gz barcode$i.fastq.gz
@@ -35,5 +71,5 @@ fi
 # Unzip fastq files
 gunzip *
 
-# Generate raw sequence text file
+# To generate raw sequence text file:
 # python3 -u ../../../Analysis/scripts/get_raw_sequence_text.py
