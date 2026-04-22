@@ -1,5 +1,5 @@
 # Analysis Pipeline for MinION Sequencing Data
-This repository contains most of what was developped at CEA/CNRHG to analyze
+This repository contains most of what was developped at CEA/CNRGH to analyze
 the data produced in BV PhD context. The documentation below helps use the
 analysis pipeline. **/!\\ It was partially generated using Claude Opus 4.6
 using an old version of the repository zip archive. /!\\**

@@ -49,6 +49,13 @@ Analysis/scripts/CogentAP-*/
 Analysis/scripts/Agent/
 Analysis/scripts/KronaTools-*/
 
+# ===================== Old scripts ===========================================
+Analysis/scripts/archives/
+
+# =============================================================================
+# Older gitignored files kept commented out for the sake of hypothetical future
+# use
+# =============================================================================
 
 # # Ignore fastqc archives
 # *_fastqc.zip
