@@ -9,6 +9,8 @@ using consensus calling.
 
 import argparse
 import contextlib
+import functools
+import glob
 import itertools
 import multiprocessing
 import os
@@ -24,6 +26,7 @@ import networkx as nx
 import numpy as np
 import pysam
 import rapidfuzz.distance
+import scipy
 import skbio
 import spoa
 
@@ -46,6 +49,13 @@ MY_ALIGNER.mismatch_score = -2
 MY_ALIGNER.open_gap_score = -2
 MY_ALIGNER.extend_gap_score = -2
 MY_ALIGNER.end_gap_score = -1
+
+# Module-level globals populated by the worker initializer. Workers access
+# read sequences and quality strings through these to avoid pickling the
+# whole dicts per task. On Linux, fork makes this near-free; on spawn-based
+# platforms, dicts are pickled once per worker at pool startup.
+WORKER_SEQS = None
+WORKER_QUALS = None
 
 
 def retrieve_reads_stats(bam_path, v=0):
@@ -79,8 +89,8 @@ def retrieve_reads_stats(bam_path, v=0):
                     elapsed = time.perf_counter() - t_zero
                     utils.send_text(
                         f'Processed {query_count} unempty bam records in '
-                        + f'{elapsed:.1f} s.',
-                        v, 1, 1
+                        + f'{elapsed:.3f} s.',
+                        v, 2, 2
                     )
 
             # One cannot retrieve alignment stats if no sequence is available
@@ -134,7 +144,7 @@ def retrieve_reads_stats(bam_path, v=0):
         elapsed = time.perf_counter() - t_zero
         utils.send_text(
             f'Processed {query_count} unempty bam records in '
-            + f'{elapsed:.1f} s.',
+            + f'{elapsed:.3f} s.',
             v, 1, 1
         )
             
@@ -145,13 +155,13 @@ def update_umis(old_umis, reads_stats):
     """Update UMIs with only reads in the provided statistics
 
     Arguments:
-    old_umis    (dict) - Dictionnary containing the UMIs as keys and and the
+    old_umis    (dict) - Dictionnary containing the UMIs as keys and the
                          ids of the reads associated with each UMI.
     reads_stats (dict) - Dictionnary containing the reads ids as keys and
                          alignment statistics of the reads.
     
     Return:
-    umis        (dict) - Dictionnary containing the UMIs as keys and and the
+    umis        (dict) - Dictionnary containing the UMIs as keys and the
                          ids of the reads associated with each UMI.
     """
     umis = {}
@@ -173,7 +183,7 @@ def split_connexe_coverage(umis, reads_stats, v=0):
     faster execution
 
     Arguments:
-    umis        (dict) - Dictionnary containing the UMIs as keys and and the
+    umis        (dict) - Dictionnary containing the UMIs as keys and the
                          ids of the reads associated with each UMI.
     reads_stats (dict) - Dictionnary containing the reads ids as keys and
                          alignment statistics of the reads.
@@ -210,7 +220,7 @@ def split_connexe_coverage(umis, reads_stats, v=0):
         elapsed = time.perf_counter() - t_zero
         utils.send_text(
             f'Split {n} raw UMIs in {by_ref_n} reference-aware UMIs in '
-            + f'{elapsed:.1f} s.',
+            + f'{elapsed:.3f} s.',
             v, 1, 1
         )
         t_zero = time.perf_counter()
@@ -261,7 +271,7 @@ def split_connexe_coverage(umis, reads_stats, v=0):
         elapsed = time.perf_counter() - t_zero
         utils.send_text(
             f'Split {by_ref_n} ref-aware UMIs in {by_cc_n} coverage-connected '
-            + f'UMIs in {elapsed:.1f} s.',
+            + f'UMIs in {elapsed:.3f} s.',
             v, 1, 1
         )
     
@@ -336,10 +346,10 @@ def compute_alignment_dist(sequences, method='Levenshtein', cpus=None, v=0):
 
     elif method == 'SmithWaterman':
 
-        # If cpus have been specified, parrellelize computation
+        # If cpus have been specified, parallelize computation
         if cpus is not None:
-            with multiprocessing.Pool(processes=cpus) as p:
-                scores = p.map(alignment_dist, pair_generator(sequences))
+            with multiprocessing.Pool(processes=cpus) as pool:
+                scores = pool.map(alignment_dist, pair_generator(sequences))
 
         else:
             scores = []
@@ -353,8 +363,8 @@ def compute_alignment_dist(sequences, method='Levenshtein', cpus=None, v=0):
         )
     if v > 0:
         elapsed = time.perf_counter() - t_zero
-        utils.send_text(f'Distances computed in {elapsed} s for {n} sequences',
-                        v, 2, 1)
+        utils.send_text(f'Distances computed in {elapsed:.3f} s for {n} '
+                        + 'sequences', v, 2, 1)
     
     # Populate 2D array
     if v > 0:
@@ -367,72 +377,106 @@ def compute_alignment_dist(sequences, method='Levenshtein', cpus=None, v=0):
     # dist_matrix = np.ma.masked_where(dist_matrix == -1, dist_matrix)
     if v > 0:
         elapsed = time.perf_counter() - t_zero
-        utils.send_text(f'Created distance matrix in {elapsed} s', v, 2, 1)
+        utils.send_text(f'Created distance matrix in {elapsed:.3f} s', v, 2, 1)
 
     return dist_matrix
 
 
-def get_overlap(read_list_pair):
+def build_umi_cov_events(stats, umis, umi):
+    """Builds a list of coverage event (inc / dec) using UMI reads information
+
+    Arguments:
+    stats      (dict) - Dictionnary containing the reads ids as keys and
+                        alignment statistics of the reads.
+    umis       (dict) - Dictionnary containing the UMIs as keys and the
+                        ids of the reads associated with each UMI.
+    umi         (str) - UMI "name".
+    
+    Return:
+    stats      (dict) - Dictionnary containing the reads ids as keys and
+                        alignment statistics of the reads.
+    size        (int) - Number of bases in that UMI reads.
+    """
+    # Retrieve reads information
+    reads_info = [
+        (
+            stats[read_id]['ref_start'],
+            stats[read_id]['aligned_len']
+        ) for read_id in umis[umi]
+    ]
+    # Build events list describing coverage profile for that UMI's reads
+    cov_events = []
+    size = 0
+    for start_pos, read_len in reads_info:
+        cov_events.append((start_pos, umi, 1))                  # read start
+        cov_events.append((start_pos + read_len - 1, umi, -1))  # read end
+        size += read_len
+    return cov_events, size
+
+
+def get_overlap(cov_events_pair):
     """Returns coverage overlap of two sets of reads
     Coverage overlap is defined as the ratio of the intersection of the two
     coverage profiles (for each list of reads) over the minimum amount of bases
     in both list of reads.
 
     Arguments:
-    pair (2-tuple of list) - Pair of list of reads. Each read is defined as
-                             (start, length) 2-tuple.
+    cov_events_pair (2-tuple) - Pair of (list of events, size), corresponding
+                                to a coverage increase or decrease for the
+                                events, and the number of bases associated with
+                                one UMI. One tuple for each UMI of the pair.
     
     Return:
-                   (float) - Overlap between the two read sets.
+                              (float) - Overlap between the two read sets.
     """
-    set_A, set_B = read_list_pair
-    # Define a list of events, corresponding to a coverage increase or decrease
-    # for either list A or list B
-    events = []
-
-    # Fill events by looping through each set's reads
-    for start_pos, read_len in set_A:
-        events.append((start_pos, 0, 1))        # start A
-        events.append((start_pos + read_len - 1, 0, -1))   # end A
-
-    for start_pos, read_len in set_B:
-        events.append((start_pos, 1, 1))        # start B
-        events.append((start_pos + read_len - 1, 1, -1))   # end B
-
+    (cov_events_A, size_A), (cov_events_B, size_B) = cov_events_pair
+    umi_A, umi_B = cov_events_A[0][1], cov_events_B[0][1]
+    # Merge the list of events
+    cov_events = cov_events_A + cov_events_B
     # Sort events to scan reference 5' -> 3'
-    events.sort()
+    cov_events.sort()
 
     # Loop through events and compute intersection size
-    covA = covB = 0
+    cov_A = cov_B = 0
     prev = None
     intersection = 0
-    for pos, set_id, delta in events:
+    for pos, umi, delta in cov_events:
         if prev is not None and pos > prev:
-            intersection += (pos - prev) * min(covA, covB)
+            intersection += (pos - prev) * min(cov_A, cov_B)
 
-        if set_id == 0:
-            covA += delta
+        if umi == umi_A:
+            cov_A += delta
         else:
-            covB += delta
+            cov_B += delta
 
         prev = pos
 
-    sizeA = sum([read_len for start_pos, read_len in set_A])
-    sizeB = sum([read_len for start_pos, read_len in set_B])
-
-    return 1 - (intersection / min(sizeA, sizeB))
+    return 1 - (intersection / min(size_A, size_B))
 
 
-def compute_overlap_dist(umi_names, umis, stats, cpus=None, v=0):
+def compute_overlap_dist(umi_names, umis, stats, align_mat=None,
+                         align_threshold=3, cpus=None, v=0):
     """Compute matrix of pairwise coverage-based distances from sets of reads
     Distances are computed using coverage overlap between two read sets.
+    If an alignment-distance matrix is provided, only pairs of UMIs that share
+    the same reference contig AND whose alignment distance is below
+    align_threshold are evaluated; other pairs get the max overlap distance
+    (1.0). This skips computing distances for pairs that could never end up
+    merged by the clustering step anyway.
 
     Arguments:
     umi_names (list of str) - List of UMI names (used to preserve UMIs order).
-    umis        (dict) - Dictionnary containing the UMIs as keys and and the
+    umis        (dict) - Dictionnary containing the UMIs as keys and the
                          ids of the reads associated with each UMI.
     stats       (dict) - Dictionnary containing the reads ids as keys and
                          alignment statistics of the reads.
+    align_mat (np.array) - Alignment distance matrix. If specified, only the
+                         pairs of UMIs closer than the align_threshold will be
+                         considered for overlap computing. Others will be set
+                         to overlap-distance 1. Defaults to None, i.e. all
+                         pairs will be evaluated.
+    align_threshold (float) - Threshold used together with align_mat. Defaults
+                         to 3.
     cpus         (str) - Number of cpus for parallelization (optional).
     v            (int) - Level of verbosity (default: 0 = muted)
     
@@ -440,83 +484,150 @@ def compute_overlap_dist(umi_names, umis, stats, cpus=None, v=0):
     dist_matrix (np.array) - Distance matrix.
     """
     n = len(umi_names)
-    # Build list of list of reads to provide pair generator with
-    reads_lists = [
-        [
-            (
-                stats[read_id]['ref_start'],
-                stats[read_id]['aligned_len']
-            ) for read_id in umis[umi]
-        ] for umi in umi_names
-    ]
-    
-    # Compute distance
+    # Compute coverage profiles for all UMI's reads set
     if v > 0:
         t_zero = time.perf_counter()
-    # If cpus have been specified, parrellelize computation
+    build_umi_cov_events_partial = functools.partial(
+        build_umi_cov_events,
+        stats,
+        umis
+    )
+    # If cpus have been specified, parallelize computation
     if cpus is not None:
-        with multiprocessing.Pool(processes=cpus) as p:
-            overlaps = p.map(get_overlap, pair_generator(reads_lists))
-
+        with multiprocessing.Pool(processes=cpus) as pool:
+            all_cov_events = pool.map(build_umi_cov_events_partial, umi_names)
     else:
-        overlaps = []
-        for reads_list_pair in pair_generator(reads_lists):
-            overlaps.append(get_overlap(reads_list_pair))
-
+        all_cov_events = []
+        for umi_name in umi_names:
+            all_cov_events.append(build_umi_cov_events_partial(umi_name))
     if v > 0:
         elapsed = time.perf_counter() - t_zero
-        utils.send_text(f'Distances computed in {elapsed} s for {n} read sets',
-                        v, 2, 1)
+        utils.send_text(f'Built coverage profiles in {elapsed:.3f} s for {n} '
+                        + 'read sets', v, 2, 1)
     
-    # Populate 2D array
+    # Build the candidate pair list. If align_mat is provided, restrict to
+    # pairs that could conceivably be merged later (same reference contig AND
+    # alignment distance below threshold). Otherwise, every pair is a
+    # candidate (legacy behaviour, useful for full-matrix statistics).
     if v > 0:
         t_zero = time.perf_counter()
-    dist_matrix = np.zeros([n, n], dtype=int)
-    for i in range(n):
-        for j in range(i+1, n):
-            dist_matrix[i, j] = overlaps[n*i+j-1-i*(i+3)//2]
-            dist_matrix[j, i] = overlaps[n*i+j-1-i*(i+3)//2]
+    umi_refs = [umi.split('_')[1] for umi in umi_names]
+    if align_mat is None:
+        candidate_pairs = [
+            (i, j) for i in range(n) for j in range(i + 1, n)
+            if umi_refs[i] == umi_refs[j]
+        ]
+    else:
+        candidate_pairs = [
+            (i, j) for i in range(n) for j in range(i + 1, n)
+            if umi_refs[i] == umi_refs[j]
+            and align_mat[i, j] <= align_threshold
+        ]
+    n_pairs = len(candidate_pairs)
+    n_total = n * (n - 1) // 2
+    if v > 0:
+        elapsed = time.perf_counter() - t_zero
+        pct = 100 * n_pairs / max(1, n_total)
+        utils.send_text(
+            f'Selected {n_pairs} candidate pairs out of {n_total} '
+            f'({pct:.2f}%) in {elapsed:.3f} s',
+            v, 2, 1
+        )
+
+    # Compute overlap distance for each candidate pair
+    if v > 0:
+        t_zero = time.perf_counter()
+    pair_inputs = [
+        (all_cov_events[i], all_cov_events[j]) for i, j in candidate_pairs
+    ]
+    # If cpus have been specified, parallelize computation
+    if cpus is not None:
+        with multiprocessing.Pool(processes=cpus) as pool:
+            overlaps = pool.map(get_overlap, pair_inputs)
+    else:
+        overlaps = [get_overlap(pair) for pair in pair_inputs]
+    if v > 0:
+        elapsed = time.perf_counter() - t_zero
+        utils.send_text(f'Distances computed in {elapsed:.3f} s for {n} read '
+                        + 'sets', v, 2, 1)
+    
+    # Populate 2D array. Pairs filtered out get the max overlap distance
+    # (1.0), so they will never pass the overlap gate during clustering.
+    if v > 0:
+        t_zero = time.perf_counter()
+    dist_matrix = np.ones([n, n], dtype=float)
+    np.fill_diagonal(dist_matrix, 0.0)
+    for (i, j), overlap in zip(candidate_pairs, overlaps):
+        dist_matrix[i, j] = overlap
+        dist_matrix[j, i] = overlap
     # dist_matrix = np.ma.masked_where(dist_matrix == -1, dist_matrix)
     if v > 0:
         elapsed = time.perf_counter() - t_zero
-        utils.send_text(f'Created distance matrix in {elapsed} s', v, 2, 1)
+        utils.send_text(f'Created distance matrix in {elapsed:.3f} s', v, 2, 1)
     
     return dist_matrix
 
 
-def plot_distance_matrix(dist_matrix, png_path, v=0):
+def plot_distance_matrix(dist_matrix, png_path, method='avg-linkage', v=0):
     """Plot input distance matrix as heatmap
 
     Arguments:
     dist_matrix (np.array) - Distance matrix.
     png_path         (str) - Path to heatmap showing distance matrix.
+    method           (str) - Method to perform reordering of the distance
+                             matrix indices for visualization purposes. Must be
+                             one of avg-linkage, neighbour-joining. The former
+                             is much faster but less exact than the latter.
     v                (int) - Level of verbosity (default: 0 = muted).
     """
+    utils.send_text('Initialize distance matrix', v, 4, 2)
     n = dist_matrix.shape[0]
-    # Perform Neighbor-joining on UMIs
-    if v > 0:
-        t_zero = time.perf_counter()
-    indices = [str(i) for i in range(n)]
-    skbio_dist_mat = skbio.DistanceMatrix(dist_matrix, indices)
-    distance_tree = skbio.tree.nj(skbio_dist_mat)
-    if v > 0:
-        elapsed = time.perf_counter() - t_zero
-        utils.send_text(f'Performed neighbour-joining in {elapsed} s',
-                        v, 2, 1)
 
-    # Extract clusters by distance threshold
-    # groups = []
-    # threshold = 5
-    # for node in distance_tree.non_tips():
-    #     tips = [t.name for t in node.tips()]
-    #     if node.length is not None and node.length <= threshold:
-    #         groups.append(tips)
+    if method == 'neighbour-joining':
+        # Perform Neighbor-joining on UMIs
+        if v > 0:
+            t_zero = time.perf_counter()
+        indices = [str(i) for i in range(n)]
+        skbio_dist_mat = skbio.DistanceMatrix(dist_matrix, indices)
 
-    # Reorder distance matrix to cluster similar UMIs
-    leaf_order = [int(tip.name) for tip in distance_tree.tips()]
+        utils.send_text('Perform neighbour-joining', v, 4, 2)
+        distance_tree = skbio.tree.nj(skbio_dist_mat)
+        if v > 0:
+            elapsed = time.perf_counter() - t_zero
+            utils.send_text(f'Performed neighbour-joining in {elapsed:.3f} s',
+                            v, 2, 1)
+
+        # Extract clusters by distance threshold
+        # groups = []
+        # threshold = 5
+        # for node in distance_tree.non_tips():
+        #     tips = [t.name for t in node.tips()]
+        #     if node.length is not None and node.length <= threshold:
+        #         groups.append(tips)
+
+        # Reorder distance matrix to cluster similar UMIs
+        utils.send_text('Re-order indices', v, 4, 2)
+        leaf_order = [int(tip.name) for tip in distance_tree.tips()]
+    
+    elif method == 'avg-linkage':
+        vectorized_distances = scipy.spatial.distance.squareform(
+            dist_matrix,
+            checks=False
+        )
+        linkage_matrix = scipy.cluster.hierarchy.linkage(
+            vectorized_distances,
+            method='average'
+        )
+        leaf_order = scipy.cluster.hierarchy.leaves_list(linkage_matrix)
+    
+    else:
+        raise ValueError('The specified clustering method is not allowed:',
+                         method)
+
     dist_matrix_reordered = dist_matrix[np.ix_(leaf_order, leaf_order)]
 
     # Plot heatmap
+    utils.send_text('Plot distance heatmap', v, 4, 2)
     plt.clf() # Clear existing figure
     fig = plt.figure(
         figsize=(20, 15)
@@ -550,13 +661,13 @@ def plot_distance_matrix(dist_matrix, png_path, v=0):
 
 
 def cluster_umis(umi_names, umis, alignment_mat, overlap_mat,
-                 alignment_threshold=3, overlap_threshold=0.7,
+                 alignment_threshold=3, overlap_threshold=0.75,
                  umi_stats_path=None, reads_stats=None, groups_path=None, v=0):
     """Cluster UMIs based on sequence and coverage proximity
 
     Arguments:
     umi_names  (list of str) - List of UMI names (used to preserve UMIs order).
-    umis               (str) - Dictionnary containing the UMIs as keys and and
+    umis               (str) - Dictionnary containing the UMIs as keys and
                                the ids of the reads associated with each UMI.
     alignment_mat (np.array) - Sequence-alignment based distance matrix.
     overlap_mat   (np.array) - Coverage-overlap based distance matrix.
@@ -598,7 +709,7 @@ def cluster_umis(umi_names, umis, alignment_mat, overlap_mat,
     if v > 0:
         elapsed = time.perf_counter() - t_zero
         utils.send_text(
-            f'Connected UMIs using distance in {elapsed:.1f} s.',
+            f'Connected UMIs using distance in {elapsed:.3f} s.',
             v, 1, 1
         )
     
@@ -706,155 +817,327 @@ def filter_GA(seq, qual, threshold=10):
     return seq, qual
 
 
-def deduplicate(umis, reads_stats, fastq_path, out_prefix, cpus=None, v=0):
+def init_consensus_worker(seqs, quals):
+    """Pool initializer: share sequence/quality dicts read-only with workers.
+    """
+    global WORKER_SEQS, WORKER_QUALS
+    WORKER_SEQS = seqs
+    WORKER_QUALS = quals
+
+
+def call_consensus_for_cluster(umi_and_ids, polish_iterations,
+                               polish_min_reads, log_prefix, threads=1):
+    """Build a consensus for one UMI cluster.
+    Runs SPOA, then optionally one or more rounds of minimap2 + racon polish.
+
+    Arguments:
+    umi_and_ids     (tuple) - (umi, read_ids): umi = Name of the UMI associated
+                              with the reads cluster used for consensus
+                              calling; read_ids =  List of ids of reads used
+                              for consensus calling.
+    polish_iterations (int) - Number of minimap2+racon polish iterations to run
+                              on top of the SPOA draft.
+    polish_min_reads  (int) - Clusters with strictly fewer reads than this skip
+                              polish entirely - the SPOA draft is returned
+                              as-is.
+    log_prefix        (str) - Prefix for output log files.
+    threads           (int) - Threads passed to minimap2 and racon.
+
+    Return:
+    umi           (str) - Name of the UMI associated with the reads cluster
+                          used for consensus calling.
+    consensus_seq (str) - Consensus sequence called. None only if SPOA failed;
+                          partial polish failures still return the best draft
+                          obtained so far.
+    error_msg     (str) - Error log message. None on full success.
+    """
+    umi, read_ids = umi_and_ids
+    seqs, quals = WORKER_SEQS, WORKER_QUALS
+
+    # SPOA draft from up to 100 reads (the rest of the cluster is only
+    # used in polishing if any)
+    if len(read_ids) <= 100:
+        seed_reads = read_ids
+    else:
+        seed_reads = random.sample(read_ids, 100)
+    sequences = [seqs[read_id] for read_id in seed_reads]
+    try:
+        consensus_seq, _msa = spoa.poa(sequences)
+    except Exception as e:
+        return (umi, None, f'SPOA error: {e}')
+    if not isinstance(consensus_seq, str):
+        return (umi, None, 'SPOA returned non-string consensus')
+
+    # Skip polish for small clusters - SPOA alone is good enough on a handful
+    # of ONT reads, and the minimap2+racon fork overhead dominates the actual
+    # work below this threshold
+    if polish_iterations == 0 or len(read_ids) < polish_min_reads:
+        return (umi, consensus_seq, None)
+
+    # Per-PID aligner logs avoid contention between workers; they get
+    # concatenated into the canonical log files in the parent at the end
+    pid = os.getpid()
+    minimap2_log = f'{log_prefix}_minimap2_log.{pid}.txt'
+    racon_log = f'{log_prefix}_racon_log.{pid}.txt'
+
+    error_msg = None
+    with tempfile.TemporaryDirectory() as tmp:
+        reads_fq = f'{tmp}/reads.fq'
+        draft_fa = f'{tmp}/draft.fa'
+        paf = f'{tmp}/aln.paf'
+        polished = f'{tmp}/consensus.fa'
+
+        # Reads don't change across polish iterations - write them once
+        with open(reads_fq, 'w') as tmp_fq:
+            for read_id in read_ids:
+                tmp_fq.write(
+                    f'@{read_id}\n{seqs[read_id]}\n+\n{quals[read_id]}\n'
+                )
+
+        for iteration in range(polish_iterations):
+            with open(draft_fa, 'w') as tmp_fa:
+                tmp_fa.write(f'>draft_ref\n{consensus_seq}\n')
+
+            # Align reads to draft
+            try:
+                with open(paf, 'w') as paf_out, \
+                     open(minimap2_log, 'a') as mm2_err:
+                    subprocess.run(
+                        ['minimap2', '-x', 'map-ont', '-t', str(threads),
+                         draft_fa, reads_fq],
+                        stdout=paf_out, stderr=mm2_err, check=True
+                    )
+            except Exception as e:
+                error_msg = f'minimap2 error at iter {iteration}: {e}'
+                break
+
+            # Polish alignment to generate consensus
+            try:
+                with open(polished, 'w') as pol_out, \
+                     open(racon_log, 'a') as rc_err:
+                    subprocess.run(
+                        ['racon', '-t', str(threads), reads_fq, paf, draft_fa],
+                        stdout=pol_out, stderr=rc_err, check=True
+                    )
+            except Exception as e:
+                error_msg = f'racon error at iter {iteration}: {e}'
+                break
+
+            # Retrieve polished consensus
+            with open(polished) as pol_in:
+                lines = pol_in.read().splitlines()
+                consensus_seq = ''.join(lines[1:])
+
+    return umi, consensus_seq, error_msg
+
+
+def deduplicate(umis, reads_stats, fastq_path, out_prefix, cpus=None,
+                polish_iter=1, polish_min=6, polish_big_min=200, v=0):
     """Deduplicate reads from UMI's clusters and write out fasta file
 
     Arguments:
-    umis      (dict) - Dictionnary containing the UMIs as keys and and the ids
+    umis       (dict) - Dictionnary containing the UMIs as keys and the ids
                        of the reads associated with each UMI.
-    stats     (dict) - Dictionnary containing the reads ids as keys and
+    stats      (dict) - Dictionnary containing the reads ids as keys and
                        alignment statistics of the reads.
-    fastq_path (str) - Path to the input fastq file with raw sequences.
-    out_prefix (str) - Prefix for output files.
-    cpus       (str) - Number of cpus for parallelization (optional).
-    v          (int) - Level of verbosity (default: 0 = muted).
+    fastq_path  (str) - Path to the input fastq file with raw sequences.
+    out_prefix  (str) - Prefix for output files.
+    cpus        (str) - Number of cpus for parallelization (optional).
+    polish_iter (int) - Number of minimap2+racon polish iterations to run on
+                        top of the SPOA draft (default: 1).
+    polish_min  (int) - Clusters with strictly fewer reads than this skip
+                        polish entirely - the SPOA draft is returned as-is
+                        (default: 6).
+    polish_big_min (int) - Cluster-size cutoff between "small" and "big"
+                           multi-read clusters (default: 200). Small clusters
+                           are polished in a parallel pool with 1 thread per
+                           worker; big clusters are polished serially with
+                           `cpus` threads each.
+    v           (int) - Level of verbosity (default: 0 = muted).
     """
-    # Gather reads full sequences and quality strings from fastq
+    # Gather reads full sequences and quality strings from fastq, in dedicated
+    # dicts so the per-worker memory footprint stays small (workers only need
+    # seqs/quals, not the alignment metadata in reads_stats)
+    seqs = {}
+    quals = {}
+    if v > 0:
+        t_zero = time.perf_counter()
     with pysam.FastxFile(fastq_path) as fastq_stream:
         for read in fastq_stream:
             # Only retain reads that have their ids potentially used in
             # clusters
-            if read.name in reads_stats.keys():
-                if reads_stats[read.name]['orientation'] != 'reverse':
-                    seq = read.sequence
-                    qual = read.quality
-                else:
-                    seq = utils.rev_comp(read.sequence)
-                    qual = read.quality[::-1]
-                # Trim poly-A
-                if reads_stats[read.name]['ref'] != 'unaligned':
-                    seq, qual = trim_polyA(seq, qual)
-                # Filter GA repeats
-                seq, qual = filter_GA(seq, qual)
-                # Register read sequence and quality
-                reads_stats[read.name]['seq'] = seq
-                reads_stats[read.name]['qual'] = qual
-
-    # Define thread variable
-    threads = str(cpus) if cpus is not None else '1'
-
-    # Loop through reads clusters to compute consensus
+            if read.name not in reads_stats:
+                continue
+            stats = reads_stats[read.name]
+            if stats['orientation'] != 'reverse':
+                seq = read.sequence
+                qual = read.quality
+            else:
+                seq = utils.rev_comp(read.sequence)
+                qual = read.quality[::-1]
+            # Trim poly-A
+            if stats['ref'] != 'unaligned':
+                seq, qual = trim_polyA(seq, qual)
+            # Filter GA repeats
+            seq, qual = filter_GA(seq, qual)
+            # Register read sequence and quality
+            seqs[read.name] = seq
+            quals[read.name] = qual
+    if v > 0:
+        elapsed = time.perf_counter() - t_zero
+        utils.send_text(
+            f'Retrieved reads properties from fastq in {elapsed:.3f} s.',
+            v, 1, 1
+        )
+    
+    # Compute trivial single-read consensuses up front (no IPC overhead) and
+    # build work items for every multi-read cluster for later multi-threaded
+    # consensus calling
     consensus = {}
+    work_items = []
+    for umi, read_ids in umis.items():
+        if len(read_ids) == 1:
+            consensus[umi] = seqs[read_ids[0]]
+        else:
+            work_items.append((umi, read_ids))
+            #     (umi, read_ids, polish_iterations, polish_min_reads,
+            #      out_prefix)
+            # )
+    
+    # Define partial function for the consensus calling function to only change
+    # arguments specific to one reads cluster
+    call_consensus_partial = functools.partial(
+        call_consensus_for_cluster,
+        polish_iterations=polish_iter,
+        polish_min_reads=polish_min,
+        log_prefix=out_prefix,
+    )
+
+    # Split multi-read clusters into "big" and "small". Big clusters are
+    # processed serially in the main process with full CPU budget per cluster
+    # because for a tail-dominated workload the single biggest cluster gates
+    # wall time, and racon scales better with threads than with worker count.
+    # Small clusters are processed in a worker pool with 1 thread each.
+    big_items = [item for item in work_items
+                 if len(item[1]) >= polish_big_min]
+    small_items = [item for item in work_items
+                   if len(item[1]) < polish_big_min]
+    big_items.sort(key=lambda item: len(item[1]), reverse=True)
+
     total = len(umis)
-    tenth = total // 10
+    n_workers = cpus if cpus is not None else 1
+    utils.send_text(
+        f'{total} UMIs: {len(consensus)} singletons, {len(small_items)} small '
+        + f'multi-read clusters (parallel, 1 thread each), {len(big_items)} '
+        + f'large clusters with >= {polish_big_min} reads (serial, {n_workers}'
+        + ' threads each).',
+        v, 1, 1
+    )
+
     error_counts = 0
     error_log = f'{out_prefix}_deduplication_error_log.txt'
-    for umi, read_ids in umis.items():
 
-        # Display progression
-        partial = len(consensus)
-        if partial % tenth == 0:
-            utils.send_text(f'Deduplicated {partial} out of {total} UMIs.',
-                            v, 1, 1)
+    # Define helper function to process outputs of consensus calling
+    def handle_result(idx, total_for_label, label, umi, cons, err):
+        nonlocal error_counts
+        if err is not None:
+            error_counts += 1
+            with open(error_log, 'a') as err_out:
+                err_out.write(
+                    '#####################################\n'
+                    + f'{umi}: {err}\n'
+                )
+        if cons is not None:
+            consensus[umi] = cons
+        report_step = max(1, total_for_label // 20)
+        if (idx + 1) % report_step == 0:
+            utils.send_text(
+                f'Processed {idx+1} / {total_for_label} {label} clusters.',
+                v, 2, 2
+            )
+    
+    # Big clusters: serial, all cores per cluster
+    if big_items:
+        if v > 0:
+            t_zero = time.perf_counter()
+        init_consensus_worker(seqs, quals)
+        # Define partial function for the consensus calling function to only
+        # change arguments specific to one reads cluster
+        big_partial = functools.partial(
+            call_consensus_for_cluster,
+            polish_iterations=polish_iter,
+            polish_min_reads=polish_min,
+            log_prefix=out_prefix,
+            threads=n_workers,
+        )
+        for i, item in enumerate(big_items):
+            umi, cons, err = big_partial(item)
+            handle_result(i, len(big_items), 'large', umi, cons, err)
+        if v > 0:
+            elapsed = time.perf_counter() - t_zero
+            utils.send_text(
+                f'Polished {len(big_items)} large clusters in '
+                + f'{elapsed:.3f} s.',
+                v, 1, 1
+            )
+    
+    # Small clusters: parallel pool, 1 thread each
+    if small_items:
+        if v > 0:
+            t_zero = time.perf_counter()
+        chunksize = max(1, len(small_items) // (4 * n_workers))
+        # Again, partial function with single thread
+        small_partial = functools.partial(
+            call_consensus_for_cluster,
+            polish_iterations=polish_iter,
+            polish_min_reads=polish_min,
+            log_prefix=out_prefix,
+            threads=1,
+        )
+        if cpus is not None and cpus > 1:
+            with multiprocessing.Pool(
+                cpus,
+                initializer=init_consensus_worker,
+                initargs=(seqs, quals)
+            ) as pool:
+                for i, (umi, cons, err) in enumerate(pool.imap_unordered(
+                    small_partial, small_items, chunksize=chunksize
+                )):
+                    handle_result(i, len(small_items), 'small',
+                                  umi, cons, err)
+        else:
+            init_consensus_worker(seqs, quals)
+            for i, item in enumerate(small_items):
+                umi, cons, err = small_partial(item)
+                handle_result(i, len(small_items), 'small', umi, cons, err)
+        if v > 0:
+            elapsed = time.perf_counter() - t_zero
+            utils.send_text(
+                f'Polished {len(small_items)} small clusters in '
+                + f'{elapsed:.3f} s.',
+                v, 1, 1
+            )
 
-        # If there is only one sequence in the cluster, job's done! :)
-        if len(read_ids) == 1:
-            consensus[umi] = reads_stats[read_ids[0]]['seq']
-            continue
-
-        # Compute draft alignment to then align reads to it
-        # (if there are too many reads, use a subset for the draft reference)
-        seed_reads = random.sample(read_ids, min(100, len(read_ids)))
-        sequences = [reads_stats[read_id]['seq'] for read_id in seed_reads]
-        draft_consensus, msa = spoa.poa(sequences)
-        # Ensure there is only one sequence in draft result
-        if not isinstance(draft_consensus, str):
-            raise ValueError('Something went wrong with pyspoa consensus '
-                             + f'building from {sequences}.')
-
-        # Produce consensus using a traditional minimap2/racon pipeline
-        # (iterate twice)
-        for iteration in range(2):
-
-            # Use temporary directory to store intermediate files
-            with tempfile.TemporaryDirectory() as tmp:
-
-                # Define file paths
-                reads_fq = f'{tmp}/reads.fq'
-                draft_fa = f'{tmp}/draft.fa'
-                paf = f'{tmp}/aln.paf'
-                polished = f'{tmp}/consensus.fa'
-
-                # TODO: Remove
-                # reads_fq = f'TEMP/reads.fq'
-                # draft_fa = f'TEMP/draft.fa'
-                # paf = f'TEMP/aln.paf'
-                # polished = f'TEMP/consensus.fa'
-
-
-                # Write reads to temporary fastq file
-                with open(reads_fq, 'w') as tmp_fq:
-                    for read_id in read_ids:
-                        seq = reads_stats[read_id]['seq']
-                        qual = reads_stats[read_id]['qual']
-                        res = tmp_fq.write(f'@{read_id}\n{seq}\n+\n{qual}\n')
-
-                # Write draft consensus to temporary fasta file
-                with open(draft_fa, 'w') as tmp_fa:
-                    res = tmp_fa.write(f'>draft_ref\n{draft_consensus}\n')
-
-                # Align reads to draft reference
-                try:
-                    subprocess.run(
-                        ['minimap2', '-x', 'map-ont', '-t', threads, draft_fa,
-                        reads_fq],
-                        stdout=open(paf, 'w'),
-                        stderr=open(f'{out_prefix}_minimap2_log.txt', 'a'),
-                        check=True
-                    )
-                except:
-                    erroneous_reads = str(read_ids)
-                    with open(error_log, 'a') as err:
-                        err.write(
-                            '#####################################\n'
-                            + f'{umi} had minimap2 error. Reads:\n'
-                            + f'{erroneous_reads}\n'
-                        )
-                    error_counts += 1
-                    continue
-
-                # Polish alignment to generate consensus
-                try:
-                    subprocess.run(
-                        ['racon', '-t', threads, reads_fq, paf, draft_fa],
-                        stdout=open(polished, 'w'),
-                        stderr=open(f'{out_prefix}_racon_log.txt', 'a'),
-                        check=True
-                    )
-                except:
-                    erroneous_reads = str(read_ids)
-                    with open(error_log, 'a') as err:
-                        err.write(
-                            '#####################################\n'
-                            + f'{umi} had racon error. Reads:\n'
-                            + f'{erroneous_reads}\n'
-                        )
-                    error_counts += 1
-                    continue
-
-                # Retrieve consensus sequence
-                with open(polished) as tmp_consensus_file:
-                    lines = tmp_consensus_file.read().splitlines()
-                    draft_consensus = ''.join(lines[1:])
-        
-        consensus[umi] = draft_consensus
+    if big_items or small_items:
+        # Concatenate per-PID aligner logs into the canonical log files,
+        # then clean up
+        for tool in ('minimap2', 'racon'):
+            main_log = f'{out_prefix}_{tool}_log.txt'
+            per_pid = sorted(glob.glob(f'{out_prefix}_{tool}_log.*.txt'))
+            if not per_pid:
+                continue
+            with open(main_log, 'a') as main_out:
+                for fname in per_pid:
+                    with open(fname) as f_in:
+                        main_out.write(f_in.read())
+                    os.remove(fname)
     
     # Write consensus sequences to fastq file
-    utils.send_text(f'Deduplicated {total} UMIs with {error_counts} errors.',
-                    v, 1, 1)
     utils.send_text(f'Writing consensus obtained to fasta file.', v, 1, 1)
     with open(f'{out_prefix}_dedup.fasta', 'w') as final_fasta:
         for umi, read_ids in umis.items():
+            if umi not in consensus:
+                continue  # SPOA failed on this cluster, nothing to write
             nb_reads = len(read_ids)
             sequence = consensus[umi]
             final_fasta.write(f'>{umi}-{nb_reads}\n{sequence}\n')
@@ -884,10 +1167,62 @@ def main():
                         + 'information.')
     parser.add_argument('-s', '--reads_stats', type=str, default=None,
                         help='Path to input json file containing reads '
-                        + 'statistics to skip the bam file parsing step.')
-    parser.add_argument('-m', '--dist_method', type=str, default='Levenshtein',
+                        + 'statistics to skip the bam file parsing step. '
+                        + 'Default: compute reads statistics from bam.')
+    parser.add_argument('-M', '--dist_method', type=str, default='Levenshtein',
                         help='Name of method to compute UMIs pairwise '
-                        + 'distances. Must be Levenshtein or SmithWaterman.')
+                        + 'distances. Must be Levenshtein or SmithWaterman. '
+                        + 'Default: Levenshtein.')
+    parser.add_argument('-at', '--alignment_threshold', type=int, default=3,
+                        help='Two clusters of reads associated with two '
+                        'distinct UMI sequences must have their UMIs distant '
+                        'from at most this threshold to be merged. Using '
+                        'Levenshtein distance, a substitution costs 2 and a '
+                        'translation costs 2. Default value is 3, meaning that'
+                        ' two clusters must have their UMIs differ from at '
+                        'most 1 translation or 1 substitution to be able to '
+                        'merge together. Keep in mind that overlap between the'
+                        " two cluster's reads coverage profiles must be "
+                        'sufficient for two clusters to be merged, and that '
+                        'because clusters get merged from cluster to cluster, '
+                        'two clusters having their UMIs differing from more '
+                        'than this threshold can still end up merged '
+                        'together.')
+    parser.add_argument('-ot', '--overlap_threshold', type=float, default=0.75,
+                        help='Two clusters of reads associated with two '
+                        'distinct UMI sequences must see the overlap between '
+                        'their two coverage profiles below this threshold to '
+                        'be merged. Default value is 0.75, meaning that the '
+                        'intersection between the two coverage profiles must '
+                        'be greater than or equal to 3 fourths of the smallest'
+                        ' of the two coverage silhouettes. Keep in mind that '
+                        "the sequence similarity between the two cluster's "
+                        'UMIs must be sufficient for two clusters to be '
+                        'merged, and that because clusters get merged from '
+                        'cluster to cluster, two clusters not overlapping '
+                        'enough can still end up merged together.')
+    parser.add_argument('--full_overlap_matrix', action='store_true',
+                        help='Compute the full pairwise overlap distance '
+                        'matrix, including pairs that the clustering step '
+                        'would never merge anyway (different reference '
+                        'contigs, or UMI sequences too distant). Much slower '
+                        'but useful when downstream statistics need the '
+                        'whole overlap distance distribution. Default: False '
+                        '(only candidate pairs are evaluated, the rest are '
+                        'set to overlap distance 1.0).')
+    parser.add_argument('-i', '--polish_iterations', type=int, default=1,
+                        help='Number of minimap2+racon polish iterations to '
+                        'run on top of the SPOA draft consensus. Set to 0 to '
+                        'skip polish entirely and return the SPOA draft, '
+                        'which is much faster but slightly lower quality. '
+                        + 'Default: 1.')
+    parser.add_argument('-m', '--polish_min_reads', type=int, default=6,
+                        help='Clusters with strictly fewer reads than this '
+                        + 'skip the minimap2+racon polish step entirely - the '
+                        + 'SPOA draft is returned as-is. SPOA alone is good '
+                        + 'enough on a handful of ONT reads, and avoiding the '
+                        'fork overhead of minimap2/racon on tiny clusters '
+                        'is a major speedup. Default: 6.')
     parser.add_argument('-c', '--cores', type=int, default=None,
                         help='Number of CPUs available. If specified, distance'
                         + ' computation will be parralelized only if '
@@ -928,7 +1263,7 @@ def main():
         utils.save_json(f'{output}_reads_stats.json', reads_stats)
 
     # Update UMIs to filter out reads that aren't in the statistics
-    utils.send_text(f'Filtering out =unmapped reads from UMIs', v, 1, 0)
+    utils.send_text(f'Filtering out unmapped reads from UMIs', v, 1, 0)
     umis = update_umis(umis, reads_stats)
     
     # Divide UMI-associated read groups that have distinct connexe components
@@ -949,7 +1284,7 @@ def main():
     res = plot_distance_matrix(
         alignment_dist_matrix,
         f'{output}_alignment_heatmap.png',
-        v
+        v=v
     )
 
     # Build UMI reference coverage overlap-based distance matrix (and plot it)
@@ -958,13 +1293,15 @@ def main():
         umi_names=connex_umis_list,
         umis=umis,
         stats=reads_stats,
+        align_mat=None if args.full_overlap_matrix else alignment_dist_matrix,
+        align_threshold=args.alignment_threshold,
         cpus=args.cores,
         v=v
     )
     res = plot_distance_matrix(
         overlap_dist_matrix,
         f'{output}_overlap_heatmap.png',
-        v
+        v=v
     )
 
     # Cluster UMIs
@@ -974,6 +1311,8 @@ def main():
         umis=umis,
         alignment_mat=alignment_dist_matrix,
         overlap_mat=overlap_dist_matrix,
+        alignment_threshold=args.alignment_threshold,
+        overlap_threshold=args.overlap_threshold,
         umi_stats_path=f'{output}_umis_stats.tsv',
         reads_stats=reads_stats,
         groups_path=f'{output}_groups.tsv',
@@ -989,7 +1328,9 @@ def main():
         args.input_fastq,
         output,
         args.cores,
-        v
+        polish_iter=args.polish_iterations,
+        polish_min=args.polish_min_reads,
+        v=v
     )
 
     return 0

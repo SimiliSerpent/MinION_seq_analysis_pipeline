@@ -5,13 +5,13 @@
 # The sequencing experiment has to comprise barcodes.
 
 # Define the following variables to target the right sequencing data
-PROT_GROUP_ID="26_04_02_08_FBF64370_2" # name given to the exp. in MinKNOW
-SAMPLE_ID="FBF64370" # name given to the sample in MinKNOW
-START_TIME="20260402_1508" # sequencing starting time
+PROT_GROUP_ID="26_04_20_09_FBF75335" # name given to the exp. in MinKNOW
+SAMPLE_ID="FBF75335" # name given to the sample in MinKNOW
+START_TIME="20260420_1019" # sequencing starting time
 MINION_ID="MN19813" # MinION ID
-FLOWCELL_ID="FBF64370" # flowcell ID
-SHORT_PROT_GROUP_ID="617e1205" # first 8 characters of the protocol_run_id
-EXP_NAME="test" # name given to this analysis
+FLOWCELL_ID="FBF75335" # flowcell ID
+SHORT_PROT_GROUP_ID="7044ce5a" # first 8 characters of the protocol_run_id
+EXP_NAME="26042009_DSUP1_1" # name given to this analysis
 
 # Check for the required environment variables.
 # These can be defined in your shell profile.

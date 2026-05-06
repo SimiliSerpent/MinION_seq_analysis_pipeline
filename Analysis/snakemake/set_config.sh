@@ -9,7 +9,7 @@
 be defined and point towards the MinION analysis repository.}"
 echo "CAPASVIR_ANALYSIS is set to: $CAPASVIR_ANALYSIS"
 
-export EXP_ID="23101600_DSUP0_0"
+export EXP_ID="26042009_DSUP1_1"
 export NTHREADS=32
 export SPECIES="SARSCoV2" # human | mouse | SARSCoV2 (coma-separated)
 export BARCODES="TWIST-LRLP-SHv2E" # UNBARCODED | ONT-EXP-PBC001 | TWIST-LRLP-SHv2E
