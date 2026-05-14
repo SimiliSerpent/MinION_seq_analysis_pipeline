@@ -65,6 +65,7 @@ def cluster_umis(umi_names, umis, alignment_mat, overlap_mat,
     # if they are aligned to the same reference contig (or both unaligned).
     # Store the distances as edge attributes for further statistics computing.
     umi_refs = {umi: umi.split('_')[1] for umi in umi_names}
+    max_overlap_distance = 1 - overlap_threshold
     for i in range(n):
         for j in range(i + 1, n):
             if umi_refs[umi_names[i]] != umi_refs[umi_names[j]]:
@@ -72,7 +73,7 @@ def cluster_umis(umi_names, umis, alignment_mat, overlap_mat,
             a_dist = alignment_mat[i, j]
             o_dist = overlap_mat[i, j]
             if a_dist <= alignment_threshold:
-                if o_dist <= (1 - overlap_threshold):
+                if o_dist < max_overlap_distance:
                     umis_graph.add_edge(
                         umi_names[i], umi_names[j],
                         alignment_distance=int(a_dist),

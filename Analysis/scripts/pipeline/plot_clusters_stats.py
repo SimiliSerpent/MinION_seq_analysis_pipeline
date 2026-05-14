@@ -69,8 +69,9 @@ def compute_unique_umi_reads(sub):
     sub  (networkx graph) - Connected (sub-)graph.
     
     Return:
-    umi_reads  (dict) - Dict mapping each unique raw UMI sequence to the
-                        total number of reads bearing it within the cluster.
+        umi_reads  (dict) - Dict mapping each unique raw UMI sequence to the
+                            total number of reads bearing it within the
+                            cluster.
     """
     umi_reads = {}
     for node in sub:
@@ -88,7 +89,7 @@ def plot_unique_umis_histogram(umi_reads, ax, *, title_font=12,
     so very wide distributions stay legible.
  
     Arguments:
-    umi_reads  (dict) - Dict mapping each unique raw UMI sequence to the
+    umi_reads   (dict) - Dict mapping each unique raw UMI sequence to the
                         total number of reads bearing it.
     ax      (plt.Axes) - Matplotlib subplot.
     title_font (float) - Size of title.
