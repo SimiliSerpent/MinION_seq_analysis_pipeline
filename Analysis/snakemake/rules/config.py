@@ -17,6 +17,8 @@ import pandas as pd
 
 
 BARCODE_TYPES = ['UNBARCODED', 'ONT-EXP-PBC001', 'TWIST-LRLP-SHv2E']
+UMI_POS = ['S', 'E', '3', '5']
+UMI_SPLI_METHODS = ['leiden', 'density_peaks']
 
 
 # Load utils module using abs path
@@ -31,7 +33,7 @@ sys.modules['utils'] = utils
 spec.loader.exec_module(utils)
 
 
-### COMPUTE SOME NEEDED VALUES
+### RETRIEVE / COMPUTE SOME NEEDED VALUES
 
 # Get list of target species
 species_list = os.environ['SPECIES'].split(',')
@@ -61,6 +63,22 @@ sample_names_path = utils.find_path(data_path, f'{exp_id}.barcodes')[0]
 with open(sample_names_path, 'r') as file:
     line = file.readline()
 samples_str = '"' + line.strip() + '"'
+
+# Get UMIs deduplication information
+dedup_umis = (os.environ['DEDUP_UMIS'].lower() == 'true')
+umi_pattern = os.environ['UMI_PATTERN']
+umi_length = len(umi_pattern) - 1
+umi_method = os.environ['UMI_SPLIT_METHOD']
+if dedup_umis:
+    if not umi_pattern[0] in UMI_POS:
+        raise ValueError(
+            f'Unallowed UMI position: {umi_pattern}'
+        )
+    if not umi_method in UMI_SPLI_METHODS:
+        raise ValueError(
+            f'Unallowed UMI splitting method: {umi_method}'
+        )
+
 
 ### LIST THE OUTPUT FILES TARGETED BY THE WORKFLOW
 
@@ -105,6 +123,22 @@ out_files += [
 out_files += [
     f'{analysis_path}/size_vs_quality/{exp_id}_sample_heatmap.png'
 ] # evolution of read size vs. quality for each species reads (samples)
+# out_files += [
+#     f'{data_path}/umi_deduplication/{name}/{name}_13_dedup_sorted.bam' \
+#     for name in barcode_names
+# ] # deduplicated reads, mapped and sorted
+# out_files += [
+#     f'{data_path}/umi_deduplication/{name}/{name}_10_colored_with_UMIs.bam' \
+#     for name in barcode_names
+# ] # mapped reads colored by original molecules
+# out_files += [
+#     f'{analysis_path}/umi_stats/{name}/top_clusters.png' \
+#     for name in barcode_names
+# ] # top UMIs clusters
+# out_files += [
+#     f'{analysis_path}/umi_stats/{name}/cluster_stats.tsv' \
+#     for name in barcode_names
+# ] # UMIs clusters statistics
 
 ### SAVE CONFIGURATION SETTINGS
 
@@ -124,3 +158,7 @@ with open(f'{analysis_path}/config.txt', 'w') as config_log_file:
     config_log_file.write('Analysis_date\t' + '/'.join([D, M, Y]) + '\n')
     config_log_file.write('Species\t' + str(species_list) + '\n')
     config_log_file.write(f'Barcodes\t{barcode_type}\n')
+    config_log_file.write(f'Deduplicating_UMIs\t{str(dedup_umis)}\n')
+    if dedup_umis:
+        config_log_file.write(f'UMI_pattern\t{umi_pattern}\n')
+        config_log_file.write(f'UMI_split_method\t{umi_method}\n')

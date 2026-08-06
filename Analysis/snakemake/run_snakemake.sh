@@ -8,13 +8,16 @@
 #MSUB -e ../results/${EXP_ID}/logs/snakemake.%I.err	# Error log file name (%I is the job ID)
 #MSUB -E '--mem=300G --qos=default'
 
+module load micromamba
+micromamba activate ../micromamba_envs/pysam-skbio/
 module load fastqc
 #module load gcc/12.2.0
 module load gcc
 module load minimap2
+module load racon
 # module load porechop
-module load python
 module load samtools
+module load seqkit
 module load snakemake
 
 snakemake \

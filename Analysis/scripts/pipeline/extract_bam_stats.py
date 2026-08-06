@@ -17,7 +17,7 @@ import utils
 
 
 # Set to True if comparing with umi-tools to ensure identical bam input
-TEST_COMPARE_UMITOOLS = True
+TEST_COMPARE_UMITOOLS = False
 
 # CIGAR operations used for CIGAR updating
 M, I, D, N, S, EQ, X = 0, 1, 2, 3, 4, 7, 8

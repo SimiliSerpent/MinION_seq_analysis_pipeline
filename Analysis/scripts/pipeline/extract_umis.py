@@ -244,6 +244,9 @@ def main():
                         + "if looking for UMI pattern at 5' or 3' end), "
                         + '_raw_umis.tsv (tsv file with raw UMIs and their '
                         + 'associated reads ids), _raw_umis.json')
+    parser.add_argument('-ob', '--output_bam', type=str, default=None,
+                        help='Prefix for output bam files with UMIs trimmed. '
+                        'Replaces {output_prefix}_UMI_trimmed.bam if used.')
     parser.add_argument('-v', '--verbose', type=int, default=0,
                         help='Level of verbosity (default: 0 = muted)')
 
@@ -259,13 +262,19 @@ def main():
     output_dir = os.path.split(output)[0]
     if len(output_dir) > 0 and not os.path.isdir(output_dir):
         os.mkdir(output_dir)
+    out_bam_path = f'{output}_UMI_trimmed.bam'
+    if args.output_bam is not None:
+        out_bam_path = args.output_bam
+        bam_out_dir = os.path.split(out_bam_path)[0]
+        if len(bam_out_dir) > 0 and not os.path.isdir(bam_out_dir):
+            os.mkdir(bam_out_dir)
         
     # Retrieve UMIs from reads, along with reads statistics
     utils.send_text(f'Retrieving raw UMIs from {args.input_bam}', v, 1, 0)
     umis = retrieve_umis(
         args.input_bam,
         args.pattern,
-        f'{output}_UMI_trimmed.bam', 
+        out_bam_path, 
         f'{output}_raw_umis.tsv',
         v
     )

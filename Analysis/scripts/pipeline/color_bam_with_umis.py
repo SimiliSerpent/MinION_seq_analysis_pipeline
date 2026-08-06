@@ -15,11 +15,10 @@ import utils
 
 
 # Set to True if comparing with umi-tools to ensure identical bam input
-TEST_COMPARE_UMITOOLS = True
+TEST_COMPARE_UMITOOLS = False
 
 
-def tag_bam_with_clusters(in_bam_path, out_bam_path, clustered_umis,
-                          reads_stats, v=0):
+def tag_bam_with_clusters(in_bam_path, out_bam_path, clustered_umis, v=0):
     """Colors reads with respect to their clustering.
     Write a copy of the input BAM where each primary read carries:
       - YC: hex color shared by all reads of the same cluster
@@ -32,8 +31,6 @@ def tag_bam_with_clusters(in_bam_path, out_bam_path, clustered_umis,
     out_bam_path    (str) - Path to output BAM file.
     clustered_umis (dict) - Dictionnary containing the UMIs as keys and the
                             ids of the reads associated with each UMI.
-    reads_stats    (dict) - Dictionnary containing the reads ids as keys and
-                             alignment statistics of the reads.
     v               (int) - Level of verbosity (default: 0 = muted)
     """
     # read_id -> representative UMI
@@ -89,9 +86,6 @@ def main():
                         help='Path to the output bam file where records have a'
                         ' UMI cluster tag allowing colored cluster '
                         'visualization in IGV.')
-    parser.add_argument('-s', '--reads_stats', type=str, required=True,
-                        help='Path to input json file containing reads '
-                        'alignment statistics.')
     parser.add_argument('-u', '--clustered_umis', type=str, required=True,
                         help='Path to input json file containing clustered '
                         'UMIs information.')
@@ -105,10 +99,6 @@ def main():
     output_dir = os.path.split(args.output)[0]
     if len(output_dir) > 0 and not os.path.isdir(output_dir):
         os.mkdir(output_dir)
-
-    # Load reads statistics
-    utils.send_text(f'Loading reads statistics', v, 1, 0)
-    reads_stats = utils.load_json(args.reads_stats)
     
     # Load clustered UMIs
     utils.send_text(f'Loading clustered UMIs', v, 1, 0)
@@ -120,7 +110,6 @@ def main():
         args.input_bam,
         args.output,
         clustered_umis,
-        reads_stats,
         v=v
     )
 

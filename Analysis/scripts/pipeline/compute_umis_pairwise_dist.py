@@ -341,6 +341,15 @@ def plot_distance_matrix(dist_matrix, png_path, method='avg-linkage', v=0):
     utils.send_text('Initialize distance matrix', v, 2, 1)
     n = dist_matrix.shape[0]
 
+    # Skip plotting for matrix of size 1 by 1
+    if n < 2:
+        utils.send_text(
+            f'plot_distance_matrix: skipping {png_path} (n={n} < 2, '
+            + 'nothing to cluster).',
+            v, 1, 1
+        )
+        return 0
+
     if method == 'neighbour-joining':
         # Perform Neighbor-joining on UMIs
         if v > 0:

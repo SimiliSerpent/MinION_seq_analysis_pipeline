@@ -7,8 +7,9 @@ wildcard_constraints:
     alignment='[A-Za-z0-9|_]+'
 
 
-rule all:
-    input: expand ('{out_file}', out_file=out_files)
+###############################################################
+# DEMULTIPLEXING
+###############################################################
 
 # Perform demuxing
 # WARNING: demuxing with porechop is known as flawed, avoid using at all cost
@@ -83,6 +84,11 @@ elif barcode_type == 'ONT-EXP-PBC001':
     #         '-o {output} '
     #         '>> {analysis_path}/logs/porechop_logs.txt'
 
+
+###############################################################
+# TRIMMING
+###############################################################
+
 # Trim ONT ligation adapters from long reads
 rule porechopping_sequencing_adapter:
     input: f'{data_path}/demultiplexed/{{barcode}}.fastq'
@@ -94,15 +100,15 @@ rule porechopping_sequencing_adapter:
         'mkdir -p {analysis_path}/logs/cleaning && '
         'if [[ -s "{input}" ]]; then '
         'python3 -u ../scripts/Porechops/Porechop_modified/porechop-runner.py '
-    	'--verbosity 1 '
-    	'--thread {threads} '
-    	'--end_size 100 '
-    	'--min_trim_size 4 '
-    	'--extra_end_trim 0 '
+        '--verbosity 1 '
+        '--thread {threads} '
+        '--end_size 100 '
+        '--min_trim_size 4 '
+        '--extra_end_trim 0 '
         '--min_split_read_size 200 '
         '-a ONT_ligation '
-    	'-i {input} '
-    	'-o {output.fastq} '
+        '-i {input} '
+        '-o {output.fastq} '
         '> {output.log}; '
         'else '
         'touch {output.fastq} && touch {output.log}; '
@@ -243,15 +249,15 @@ rule porechopping_TSO:
     shell:
         'if [[ -s "{input}" ]]; then '
         '../scripts/Porechops/Porechop_modified/porechop-runner.py '
-    	'--verbosity 1 '
-    	'--thread {threads} '
-    	'--end_size 150 '
-    	'--min_trim_size 4 '
-    	'--extra_end_trim 0 '
-    	'--no_split '
+        '--verbosity 1 '
+        '--thread {threads} '
+        '--end_size 150 '
+        '--min_trim_size 4 '
+        '--extra_end_trim 0 '
+        '--no_split '
         '-a Takara_TSO '
-    	'-i {input} '
-    	'-o {output.fastq} '
+        '-i {input} '
+        '-o {output.fastq} '
         '> {output.log}; '
         'else '
         'touch {output.fastq} && touch {output.log}; '
@@ -268,9 +274,9 @@ rule trimming_polyA:
     shell:
         'mkdir -p $(dirname {output.png}) && '
         'python3 -u ../scripts/pipeline/trimm_polyA.py '
-    	'-v 1 '
-    	'-i {input} '
-    	'-o {output.fastq} '
+        '-v 1 '
+        '-i {input} '
+        '-o {output.fastq} '
         '-p {output.png} '
         '-s {output.json}'
 
@@ -285,9 +291,9 @@ rule filter_GA:
     shell:
         'mkdir -p $(dirname {output.png}) && '
         'python3 -u ../scripts/pipeline/filter_GA.py '
-    	'-v 1 '
-    	'-i {input} '
-    	'-o {output.fastq} '
+        '-v 1 '
+        '-i {input} '
+        '-o {output.fastq} '
         '-p {output.png} '
         '-s {output.json}'
 
@@ -357,6 +363,11 @@ rule plot_samples_cleaning_stats:
         '-s {data_path} '
         '-o {output}'
 
+
+###############################################################
+# COMPUTING SIMPLE STATS
+###############################################################
+
 # Compute nucleotides frequencies
 rule computing_nuc_freq:
     input: f'{data_path}/{{path_to_barcode}}.fastq'
@@ -392,6 +403,11 @@ rule computing_fastqc:
     shell:
         'mkdir -p $(dirname {output.html}) && '
         'fastqc -o $(dirname {output.html}) -t {nthreads} {input}'
+
+
+###############################################################
+# MAPPING
+###############################################################
 
 # Filtering references using specified regions of interest
 rule filtering_reference:
@@ -660,3 +676,350 @@ rule plotting_heatmaps:
         '-p {analysis_path}/read_cleaning/pickles '
         '-o {output.samples} '
         '-s {data_path}'
+
+
+###############################################################
+# UMI DEDUPLICATION
+###############################################################
+
+# Filter out reads without a TSO trimmed (totally or partially).
+# (other reads are not deemed sufficiently normal for UMI search)
+rule filter_TSO_trimmed:
+    input:
+        pre_tso_trim = f'{data_path}/trimmed_fastq/{{barcode}}_porechopped_{last_trimming_before_TSO}.fastq',
+        post_tso_trim = f'{data_path}/trimmed_fastq/{{barcode}}_porechopped_4_tso.fastq'
+    output: f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_00_tso-trimmed.fastq',
+    log: f'{analysis_path}/logs/umi_deduplication/{{barcode}}_umi_dedup_log.txt'
+    threads: 10
+    shell:
+        'mkdir -p {data_path}/umi_deduplication/{wildcards.barcode} && '
+        'mkdir -p $(dirname {log}) && '
+        'echo ">>>>> FILTERING READS WITH TSO TRIMMED <<<<<" > {log} && '
+        'python3 -u ../scripts/pipeline/pick_touched_reads.py '
+        '-i {input.pre_tso_trim} {input.post_tso_trim} '
+        '-m {output} '
+        '-v 3 '
+        '>> {log}'
+
+# Filter long GA repeats in reads with TSO trimmed
+rule filter_GA_in_TSO_trimmed:
+    input: f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_00_tso-trimmed.fastq'
+    output:
+        fastq = f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_01_GA-filtered.fastq',
+        histo = f'{analysis_path}/umi_stats/{{barcode}}/{{barcode}}_GA_filt_histo.png',
+        stats = f'{analysis_path}/umi_stats/{{barcode}}/{{barcode}}_GA_filt_stats.json'
+    log: f'{analysis_path}/logs/umi_deduplication/{{barcode}}_umi_dedup_log.txt'
+    threads: 10
+    shell:
+        'echo ">>>>> FILTERING GA REPEATS <<<<<" >> {log} && '
+        'python3 -u ../scripts/pipeline/filter_GA.py '
+        '-i {input} '
+        '-o {output.fastq} '
+        '-p {output.histo} '
+        '-s {output.stats} '
+        '-v 3 '
+        '>> {log}'
+    
+# Remove reads shorter than UMI length
+rule remove_short_reads:
+    input: f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_01_GA-filtered.fastq'
+    output: f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_02_longer-than-UMI.fastq'
+    threads: 10
+    shell:
+        'seqkit seq -m {umi_length} {input} > {output}'
+
+# Map reads to reference
+rule mapping_TSO_trimmed:
+    input:
+        ref = f'{project_dir}/Data/references/snakeref/{reference}',
+        fq = f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_02_longer-than-UMI.fastq'
+    output: f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_03_mapped.sam'
+    threads: nthreads
+    shell:
+        'minimap2 -ax map-ont -t {nthreads} {input.ref} {input.fq} > {output}'
+    
+# Sort alignment
+rule sorting_TSO_trimmed:
+    input: f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_03_mapped.sam'
+    output: f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_04_sorted.bam'
+    threads: nthreads
+    shell:
+        'samtools sort --threads {nthreads} {input} -o {output}'
+
+# Filter primary alignment
+# TODO: Reconsider using only primary aligned BAM records
+rule filter_primary_aligned:
+    input: f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_04_sorted.bam'
+    output: f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_05_primary.bam'
+    threads: nthreads
+    shell:
+        'samtools view --threads {nthreads} -b -F 0x900 {input} > {output}'
+
+# Extract raw UMIs
+checkpoint extract_raw_umis:
+    input: f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_05_primary.bam'
+    output:
+        bam = f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_06_no-umis.bam',
+        raw_umis = f'{analysis_path}/umi_stats/{{barcode}}/extracted_raw_umis.json',
+        raw_umis_stats = f'{analysis_path}/umi_stats/{{barcode}}/extracted_raw_umis.tsv'
+    log: f'{analysis_path}/logs/umi_deduplication/{{barcode}}_umi_dedup_log.txt'
+    threads: 10
+    shell:
+        'mkdir -p {analysis_path}/umi_stats/{wildcards.barcode} && '
+        'echo ">>>>> EXTRACT RAW UMIS <<<<<" >> {log} && '
+        'python3 -u ../scripts/pipeline/extract_umis.py '
+        '-b {input} '
+        '-p {umi_pattern} '
+        '-o {analysis_path}/umi_stats/{wildcards.barcode}/extracted '
+        '-ob {output.bam} '
+        '-v 3 '
+        '>> {log}'
+
+# Make fastq of UMIs-extracted reads
+# (use checkpoint here to prevent later errors caused by sample with no reads
+# mapping to the reference after TSO-trimming)
+rule make_UMIs_less_fastq:
+    input: f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_06_no-umis.bam'
+    output: f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_07_no-umis.fastq'
+    threads: 10
+    shell:
+        'samtools fastq --threads 10 {input} > {output}'
+
+# Define helper function to modify expected files list accordingly
+def umi_survivors(wildcards):
+    barcodes_mapping_ref = []
+    for name in barcode_names:
+        bam = checkpoints.extract_raw_umis.get(barcode=name).output[0]
+        if os.path.getsize(bam) > 0 and \
+           int(subprocess.run(['samtools', 'view', '-c', '-F', '0x900', bam],
+                              capture_output=True, text=True).stdout or 0) > 0:
+            barcodes_mapping_ref.append(name)
+    return barcodes_mapping_ref
+
+# Map reads to reference
+rule mapping_UMIs_less_reads:
+    input:
+        ref = f'{project_dir}/Data/references/snakeref/{reference}',
+        fq = f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_07_no-umis.fastq'
+    output: f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_08_mapped.sam'
+    threads: nthreads
+    shell:
+        'minimap2 -ax map-ont -t {nthreads} {input.ref} {input.fq} > {output}'
+
+# Sort alignment
+rule sorting_UMIs_less:
+    input: f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_08_mapped.sam'
+    output: f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_09_no-UMIs.bam'
+    threads: nthreads
+    shell:
+        'samtools sort --threads {nthreads} {input} -o {output}'
+    
+# Gather reads statistics from BAM
+rule get_UMIs_less_reads_stats:
+    input: f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_09_no-UMIs.bam'
+    output: f'{analysis_path}/umi_stats/{{barcode}}/reads_stats.json'
+    log: f'{analysis_path}/logs/umi_deduplication/{{barcode}}_umi_dedup_log.txt'
+    threads: 10
+    shell:
+        'echo ">>>>> GET ALIGNMENTS STATS <<<<<" >> {log} && '
+        'python3 -u ../scripts/pipeline/extract_bam_stats.py '
+        '-b {input} '
+        '-o {output} '
+        '-v 3 '
+        '>> {log}'
+
+# Split raw UMIs into connected read sets
+rule split_raw_umis:
+    input:
+        raw_umis = f'{analysis_path}/umi_stats/{{barcode}}/extracted_raw_umis.json',
+        stats = f'{analysis_path}/umi_stats/{{barcode}}/reads_stats.json'
+    output: f'{analysis_path}/umi_stats/{{barcode}}/cc_umis.json'
+    log: f'{analysis_path}/logs/umi_deduplication/{{barcode}}_umi_dedup_log.txt'
+    threads: 10
+    shell:
+        'echo ">>>>> SPLITTING RAW UMIS <<<<<" >> {log} && '
+        'python3 -u ../scripts/pipeline/split_raw_umis.py '
+        '-r {input.raw_umis} '
+        '-o {output} '
+        '-s {input.stats} '
+        '-v 3 '
+        '>> {log}'
+
+# Compute alignment and overlap distances between UMIs
+rule compute_pairwise_dist:
+    input:
+        cc_umis = f'{analysis_path}/umi_stats/{{barcode}}/cc_umis.json',
+        stats = f'{analysis_path}/umi_stats/{{barcode}}/reads_stats.json'
+    output:
+        align_dist_mat = f'{analysis_path}/umi_stats/{{barcode}}/umis_pairwise_dist_mat_alignment.npz',
+        overlap_dist_mat = f'{analysis_path}/umi_stats/{{barcode}}/umis_pairwise_dist_mat_overlap.npz'
+    log: f'{analysis_path}/logs/umi_deduplication/{{barcode}}_umi_dedup_log.txt'
+    threads: nthreads
+    shell:
+        'echo ">>>>> COMPUTE PAIRWISE DISTANCES <<<<<" >> {log} && '
+        'python3 -u ../scripts/pipeline/compute_umis_pairwise_dist.py '
+        '-u {input.cc_umis} '
+        '-o {analysis_path}/umi_stats/{wildcards.barcode}/umis_pairwise '
+        '-s {input.stats} '
+        '-c {nthreads} '
+        '-v 3 '
+        '>> {log}'
+
+# Build raw-connected-UMIs graph
+rule make_UMIs_graph:
+    input:
+        cc_umis = f'{analysis_path}/umi_stats/{{barcode}}/cc_umis.json',
+        stats = f'{analysis_path}/umi_stats/{{barcode}}/reads_stats.json',
+        align_dist_mat = f'{analysis_path}/umi_stats/{{barcode}}/umis_pairwise_dist_mat_alignment.npz',
+        overlap_dist_mat = f'{analysis_path}/umi_stats/{{barcode}}/umis_pairwise_dist_mat_overlap.npz'
+    output: f'{analysis_path}/umi_stats/{{barcode}}/clustering_UMIs_graph.pkl'
+    log: f'{analysis_path}/logs/umi_deduplication/{{barcode}}_umi_dedup_log.txt'
+    threads: 10
+    shell:
+        'echo ">>>>> MAKE UMIS GRAPH <<<<<" >> {log} && '
+        'python3 -u ../scripts/pipeline/cluster_umis.py '
+        '-u {input.cc_umis} '
+        '-o {analysis_path}/umi_stats/{wildcards.barcode}/clustering '
+        '-am {input.align_dist_mat} '
+        '-om {input.overlap_dist_mat} '
+        '-s {input.stats} '
+        '-v 3 '
+        '>> {log}'
+
+# Compute graph statistics
+rule get_graph_stats:
+    input:
+        cc_umis = f'{analysis_path}/umi_stats/{{barcode}}/cc_umis.json',
+        stats = f'{analysis_path}/umi_stats/{{barcode}}/reads_stats.json',
+        graph = f'{analysis_path}/umi_stats/{{barcode}}/clustering_UMIs_graph.pkl'
+    output: f'{analysis_path}/umi_stats/{{barcode}}/cluster_stats.tsv'
+    log: f'{analysis_path}/logs/umi_deduplication/{{barcode}}_umi_dedup_log.txt'
+    threads: 10
+    shell:
+        'echo ">>>>> COMPUTE GRAPH STATS <<<<<" >> {log} && '
+        'python3 -u ../scripts/pipeline/compute_cluster_stats.py '
+        '-u {input.cc_umis} '
+        '-o {output} '
+        '-g {input.graph} '
+        '-s {input.stats} '
+        '-v 3 '
+        '>> {log}'
+    
+# Plot top UMIs clusters
+rule plot_top_clusters:
+    input: f'{analysis_path}/umi_stats/{{barcode}}/clustering_UMIs_graph.pkl'
+    output: f'{analysis_path}/umi_stats/{{barcode}}/top_clusters.png'
+    log: f'{analysis_path}/logs/umi_deduplication/{{barcode}}_umi_dedup_log.txt'
+    threads: 10
+    shell:
+        'echo ">>>>> PLOTTING TOP CLUSTERS <<<<<" >> {log} && '
+        'python3 -u ../scripts/pipeline/plot_clusters.py '
+        '-d {analysis_path}/umi_stats/{wildcards.barcode}/top_indiv_clusters '
+        '-o {output} '
+        '-g {input} '
+        '-v 3 '
+        '>> {log}'
+
+# Split over-merged UMIs connected clusters
+rule split_UMIs_clusters:
+    input:
+        graph = f'{analysis_path}/umi_stats/{{barcode}}/clustering_UMIs_graph.pkl',
+        cc_umis = f'{analysis_path}/umi_stats/{{barcode}}/cc_umis.json',
+        stats = f'{analysis_path}/umi_stats/{{barcode}}/reads_stats.json',
+        fq = f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_07_no-umis.fastq'
+    output: f'{analysis_path}/umi_stats/{{barcode}}/{umi_method}_split_clustered_umis.json'
+    log: f'{analysis_path}/logs/umi_deduplication/{{barcode}}_umi_dedup_log.txt'
+    threads: 10
+    shell:
+        'echo ">>>>> SPLITTING CLUSTERS <<<<<" >> {log} && '
+        'python3 -u ../scripts/pipeline/split_clusters.py '
+        '-u {input.cc_umis} '
+        '-o {analysis_path}/umi_stats/{wildcards.barcode}/{umi_method}_split '
+        '-g {input.graph} '
+        '-s {input.stats} '
+        '-f {input.fq} '
+        '-m {umi_method} '
+        '-n 10 '
+        '-v 3 '
+        '>> {log}'
+
+# Color alignments with assigned UMIs / molecules
+rule color_BAM:
+    input:
+        bam = f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_09_no-UMIs.bam',
+        umis = f'{analysis_path}/umi_stats/{{barcode}}/{umi_method}_split_clustered_umis.json'
+    output: f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_10_{umi_method}_colored_with_UMIs.bam'
+    log: f'{analysis_path}/logs/umi_deduplication/{{barcode}}_umi_dedup_log.txt'
+    threads: 10
+    shell:
+        'echo ">>>>> COLORING BAM RECORDS <<<<<" >> {log} && '
+        'python3 -u ../scripts/pipeline/color_bam_with_umis.py '
+        '-u {input.umis} '
+        '-b {input.bam} '
+        '-o {output} '
+        '-v 3 '
+        '>> {log}'
+
+# Deduplicate reads assigned to the same original molecule
+rule deduplicate_reads:
+    input:
+        umis = f'{analysis_path}/umi_stats/{{barcode}}/{umi_method}_split_clustered_umis.json',
+        stats = f'{analysis_path}/umi_stats/{{barcode}}/reads_stats.json',
+        fq = f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_07_no-umis.fastq'
+    output: f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_11_{umi_method}_deduplicated.fasta'
+    log: f'{analysis_path}/logs/umi_deduplication/{{barcode}}_umi_dedup_log.txt'
+    threads: nthreads
+    shell:
+        'echo ">>>>> DEDUPLICATING READS <<<<<" >> {log} && '
+        'python3 -u ../scripts/pipeline/deduplicate_umis.py '
+        '-u {input.umis} '
+        '-o {analysis_path}/umi_stats/{wildcards.barcode}/deduplicated '
+        '-s {input.stats} '
+        '-f {input.fq} '
+        '-c {nthreads} '
+        '-v 3 '
+        '>> {log} && '
+        'mv {analysis_path}/umi_stats/{wildcards.barcode}/deduplicated_dedup.fasta '
+        '{output}'
+
+# Map deduplicated reads to reference
+rule mapping_dedup_reads:
+    input:
+        ref = f'{project_dir}/Data/references/snakeref/{reference}',
+        fa = f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_11_{umi_method}_deduplicated.fasta'
+    output: f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_12_{umi_method}_dedup_mapped.sam'
+    threads: nthreads
+    shell:
+        'minimap2 -ax map-ont -t {nthreads} {input.ref} {input.fa} > {output}'
+
+# Sort deduplicated alignment
+rule sorting_dedup:
+    input: f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_12_{umi_method}_dedup_mapped.sam'
+    output: f'{data_path}/umi_deduplication/{{barcode}}/{{barcode}}_13_{umi_method}_dedup_sorted.bam'
+    threads: nthreads
+    shell:
+        'samtools sort --threads {nthreads} {input} -o {output} && '
+        'samtools index --threads {nthreads} {output}'
+
+def all_targets(wildcards):
+    # static targets computed at parse time (config's out_files,
+    # minus the UMI-tail blocks — see below)
+    targets = list(out_files)
+
+    # dynamic UMI-tail targets, gated by the checkpoint
+    umi_trimmed_bc_mapping_ref = umi_survivors(wildcards)
+    for b in umi_trimmed_bc_mapping_ref:
+        targets += [
+            f'{data_path}/umi_deduplication/{b}/{b}_13_{umi_method}_dedup_sorted.bam',
+            f'{data_path}/umi_deduplication/{b}/{b}_10_{umi_method}_colored_with_UMIs.bam',
+            f'{analysis_path}/umi_stats/{b}/top_clusters.png',
+            f'{analysis_path}/umi_stats/{b}/cluster_stats.tsv',
+        ]
+    return targets
+
+rule all:
+    input: all_targets # Use function to terminate without error even if some
+    # samples do not have UMI-trimmed reads mapping the reference.
+    # For previous behavior, switch to the following:
+    # input: expand ('{out_file}', out_file=out_files)
+    default_target: True

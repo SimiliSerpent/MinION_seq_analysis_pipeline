@@ -206,8 +206,12 @@ def run_louvain(sub, alignment_threshold=3, overlap_threshold=0.75,
     # Build a weighted copy so we don't mutate the caller's graph
     weighted = nx.Graph()
     sorted_nodes = sorted(sub.nodes)
-    weighted.add_nodes_from(sorted_nodes(data=True))
-    for u, v_, data in sub.edges(data=True):
+    # Add nodes in deterministic order, preserving attributes
+    for n in sorted_nodes:
+        weighted.add_node(n, **sub.nodes[n])
+    # Add edges in deterministic order too — sub.edges' iteration follows
+    # sub's adjacency, not `weighted`'s, so we have to sort the iterable
+    for u, v_, data in sorted(sub.edges(data=True), key=lambda e: (e[0], e[1])):
         base = edge_similarity(data, alignment_threshold, overlap_threshold)
         boost = node_weight_boost(
             sub.nodes[u]['n_reads'],
@@ -351,8 +355,7 @@ def run_density_peaks(sub, log_prominence=1.0, v=0):
     # is always retained, even when the user picks an aggressive threshold,
     # so that the function always returns at least one community.
     survivors = {p for p, prom in prominence.items() if prom >= log_prominence}
-    global_max = max(peak_birth, key=peak_birth.get)
-    survivors.add(global_max)
+    survivors.update(p for p in peak_birth if p not in absorbed_into)
 
     def find_surviving(peak):
         # Walk up the absorbed_into chain until we hit a surviving peak.
